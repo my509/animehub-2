@@ -9,142 +9,329 @@
     <style>
         :root {
             --primary: #6c5ce7;
+            --primary-light: #a29bfe;
             --accent: #fd79a8;
-            --info: #00f2fe;
+            --accent-light: #fab1c8;
             --success: #00b894;
-            --danger: #d63031;
             --warning: #fdcb6e;
+            --danger: #ff6b6b;
+            --info: #00f2fe;
             --dark: #0a0a1a;
-            --card: rgba(15, 15, 35, 0.85);
-            --glass: rgba(255, 255, 255, 0.04);
-            --border: rgba(255, 255, 255, 0.08);
-            --text: #fff;
-            --text2: rgba(255, 255, 255, 0.7);
-            --text3: rgba(255, 255, 255, 0.4);
-            --grad1: linear-gradient(135deg, #667eea, #764ba2);
-            --grad2: linear-gradient(135deg, #f093fb, #f5576c);
-            --grad3: linear-gradient(135deg, #4facfe, #00f2fe);
-            --shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-            --glow: 0 0 25px rgba(108, 92, 231, 0.4);
-            --radius: 16px;
-            --radius-full: 50px;
-            --trans: all 0.3s ease;
+            --darker: #050510;
+            --card: rgba(20, 20, 40, 0.9);
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass2: rgba(255, 255, 255, 0.06);
+            --border: rgba(255, 255, 255, 0.06);
+            --border2: rgba(255, 255, 255, 0.1);
+            --text: #ffffff;
+            --text2: rgba(255, 255, 255, 0.75);
+            --text3: rgba(255, 255, 255, 0.45);
+            --grad1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --grad2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --grad3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --grad4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --grad5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --shadow-sm: 0 2px 10px rgba(0,0,0,0.3);
+            --shadow: 0 8px 32px rgba(0,0,0,0.5);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.6);
+            --glow: 0 0 30px rgba(108,92,231,0.5);
+            --glow-pink: 0 0 30px rgba(253,121,168,0.5);
+            --glow-blue: 0 0 30px rgba(0,242,254,0.4);
+            --radius-sm: 10px;
+            --radius: 18px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --radius-full: 60px;
+            --trans: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --trans-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Be Vietnam Pro', sans-serif;
-            background: var(--dark);
+            background: var(--darker);
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            background-image: 
+                radial-gradient(ellipse at 20% 20%, rgba(108,92,231,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(253,121,168,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0,242,254,0.04) 0%, transparent 50%);
+            background-attachment: fixed;
         }
 
-        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--grad1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--grad2); }
 
-        /* ===== LOGIN PAGE ===== */
+        /* ============ PARTICLES BACKGROUND ============ */
+        .particles-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: floatParticle linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(110vh) scale(0); opacity: 0; }
+            5% { opacity: 0.6; }
+            95% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        /* ============ LOGIN PAGE ============ */
         .login-page {
-            display: flex;
+            display: none;
             min-height: 100vh;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            background: radial-gradient(ellipse at 30% 50%, rgba(108, 92, 231, 0.15) 0%, transparent 60%),
-                        radial-gradient(ellipse at 70% 30%, rgba(253, 121, 168, 0.1) 0%, transparent 60%);
+            position: relative;
         }
 
-        .login-card {
-            background: var(--card);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 35px 30px;
-            width: 400px;
-            max-width: 100%;
-            box-shadow: var(--shadow);
-            animation: fadeSlideIn 0.5s ease;
+        .login-page.active { display: flex; }
+
+        .login-wrapper {
+            display: flex;
+            width: 900px;
+            max-width: 95%;
+            min-height: 550px;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            animation: fadeUp 0.6s ease;
         }
 
-        @keyframes fadeSlideIn {
-            from { opacity: 0; transform: translateY(30px); }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .login-avatar {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .login-avatar img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--info);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
-        }
-
-        .login-avatar .avatar-fallback {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: var(--grad2);
+        /* Left - Hero */
+        .login-hero {
+            flex: 1;
+            background: var(--grad1);
+            padding: 50px 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
-            margin: 0 auto;
-            border: 3px solid var(--info);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            position: relative;
+            overflow: hidden;
         }
 
-        .login-title {
+        .login-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .login-hero-content {
+            position: relative;
+            z-index: 1;
             text-align: center;
-            font-size: 24px;
-            font-weight: 900;
-            margin-bottom: 4px;
+            color: var(--text);
         }
 
-        .login-title span {
-            background: var(--grad2);
+        .login-hero-logo {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .login-hero h1 {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .login-hero h1 span {
+            background: var(--grad5);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .login-subtitle {
+        .login-hero p {
+            font-size: 14px;
+            opacity: 0.85;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .login-hero-features {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-feature {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(10px);
+            padding: 10px 16px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hero-feature i { color: var(--accent2); }
+
+        /* Right - Form */
+        .login-form-panel {
+            flex: 1;
+            background: var(--card);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            padding: 50px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-left: 1px solid var(--border2);
+        }
+
+        .login-form-inner {
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .login-avatar-circle {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            position: relative;
+            background: var(--grad2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--glow-pink);
+        }
+
+        .login-avatar-circle::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            background: var(--grad3) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .login-avatar-circle img {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .login-avatar-circle .avatar-icon {
+            font-size: 36px;
+            color: var(--text);
+        }
+
+        .login-form-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .login-form-subtitle {
             text-align: center;
             font-size: 12px;
             color: var(--text3);
             margin-bottom: 24px;
         }
 
-        .form-group {
-            margin-bottom: 14px;
-            position: relative;
+        /* Tabs */
+        .form-tabs {
+            display: flex;
+            background: var(--glass);
+            border-radius: var(--radius-full);
+            padding: 4px;
+            margin-bottom: 20px;
         }
 
-        .form-group .input-icon {
+        .form-tab {
+            flex: 1;
+            padding: 10px;
+            border-radius: var(--radius-full);
+            border: none;
+            background: transparent;
+            color: var(--text3);
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            transition: var(--trans);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .form-tab.active {
+            background: var(--grad1);
+            color: var(--text);
+            box-shadow: var(--glow);
+        }
+
+        .form-panel { display: none; animation: fadeUp 0.3s ease; }
+        .form-panel.active { display: block; }
+
+        /* Inputs */
+        .input-field {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .input-field .field-icon {
             position: absolute;
             left: 14px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--text3);
             font-size: 14px;
-            z-index: 1;
             pointer-events: none;
+            transition: var(--trans);
         }
 
-        .form-input {
+        .input-field input {
             width: 100%;
             padding: 13px 14px 13px 42px;
             border-radius: var(--radius);
             border: 2px solid var(--border);
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--glass);
             color: var(--text);
             font-size: 14px;
             font-family: inherit;
@@ -152,103 +339,50 @@
             transition: var(--trans);
         }
 
-        .form-input:focus {
+        .input-field input:focus {
             border-color: var(--primary);
             box-shadow: var(--glow);
-            background: rgba(255, 255, 255, 0.06);
+            background: var(--glass2);
         }
 
-        .form-input::placeholder { color: rgba(255, 255, 255, 0.3); }
+        .input-field input:focus ~ .field-icon { color: var(--primary); }
+        .input-field input::placeholder { color: rgba(255,255,255,0.3); }
 
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 12px 24px;
-            border-radius: var(--radius-full);
-            font-weight: 600;
+            padding: 13px 24px;
+            border-radius: var(--radius);
+            font-weight: 700;
             font-size: 14px;
             cursor: pointer;
             border: none;
             font-family: inherit;
-            transition: var(--trans);
+            transition: var(--trans-bounce);
             color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .btn-block { width: 100%; }
-
-        .btn-primary {
-            background: var(--grad1);
-            box-shadow: 0 5px 20px rgba(108, 92, 231, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--glow);
-        }
-
-        .btn-accent { background: var(--grad2); }
-
-        .btn-accent:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(253, 121, 168, 0.4);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: var(--text);
-        }
-
-        .btn-sm { padding: 6px 14px; font-size: 12px; }
-
+        .btn-primary { background: var(--grad1); box-shadow: 0 6px 20px rgba(108,92,231,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--glow); }
+        .btn-accent { background: var(--grad2); box-shadow: 0 6px 20px rgba(253,121,168,0.3); }
+        .btn-accent:hover { transform: translateY(-2px); box-shadow: var(--glow-pink); }
+        .btn-outline { background: transparent; border: 2px solid var(--border2); }
+        .btn-outline:hover { background: var(--glass2); border-color: var(--text); }
+        .btn-sm { padding: 7px 16px; font-size: 11px; border-radius: var(--radius-sm); }
         .btn-danger { background: var(--danger); }
 
-        .btn-icon {
-            width: 40px;
-            height: 40px;
-            padding: 0;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            cursor: pointer;
-            transition: var(--trans);
-            border: none;
-            background: var(--glass);
-            color: var(--text2);
-            position: relative;
-        }
+        .social-login-row { display: flex; gap: 10px; margin-bottom: 16px; }
 
-        .btn-icon:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text);
-            transform: scale(1.05);
-        }
-
-        .btn-icon.active {
-            background: var(--grad1);
-            color: var(--text);
-            box-shadow: var(--glow);
-        }
-
-        .social-row {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-
-        .social-btn {
+        .social-login-btn {
             flex: 1;
-            padding: 11px 8px;
+            padding: 11px;
             border-radius: var(--radius);
-            border: 2px solid rgba(255, 255, 255, 0.15);
+            border: 2px solid var(--border);
             background: transparent;
             color: var(--text);
             font-weight: 600;
@@ -262,33 +396,28 @@
             gap: 6px;
         }
 
-        .social-btn.google { border-color: #ea4335; color: #ea4335; }
-        .social-btn.google:hover { background: #ea4335; color: #fff; }
-        .social-btn.facebook { border-color: #1877f2; color: #1877f2; }
-        .social-btn.facebook:hover { background: #1877f2; color: #fff; }
+        .social-login-btn:hover { background: var(--glass2); transform: translateY(-2px); }
+        .social-login-btn.google:hover { border-color: #ea4335; color: #ea4335; }
+        .social-login-btn.facebook:hover { border-color: #1877f2; color: #1877f2; }
 
-        .divider-text {
+        .divider-line {
             text-align: center;
             color: var(--text3);
             font-size: 11px;
             margin: 14px 0;
-            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .divider-text::before,
-        .divider-text::after {
+        .divider-line::before, .divider-line::after {
             content: '';
-            position: absolute;
-            top: 50%;
-            width: 30%;
+            flex: 1;
             height: 1px;
             background: var(--border);
         }
 
-        .divider-text::before { left: 0; }
-        .divider-text::after { right: 0; }
-
-        .msg-box {
+        .msg-alert {
             text-align: center;
             min-height: 22px;
             margin-top: 12px;
@@ -296,25 +425,25 @@
             font-weight: 500;
         }
 
-        .msg-box.error { color: var(--danger); }
-        .msg-box.success { color: var(--success); }
+        .msg-alert.error { color: var(--danger); }
+        .msg-alert.success { color: var(--success); }
 
-        .switch-text {
+        .text-switch {
             text-align: center;
             margin-top: 14px;
             font-size: 12px;
             color: var(--text3);
         }
 
-        .switch-text a { color: var(--info); cursor: pointer; text-decoration: none; font-weight: 600; }
-        .switch-text a:hover { text-decoration: underline; }
+        .text-switch a { color: var(--primary-light); cursor: pointer; text-decoration: none; font-weight: 600; }
+        .text-switch a:hover { text-decoration: underline; }
 
-        .guest-btn {
+        .guest-link-btn {
             width: 100%;
             margin-top: 10px;
             padding: 10px;
             border-radius: var(--radius);
-            border: 1px dashed rgba(255, 255, 255, 0.2);
+            border: 1px dashed var(--border2);
             background: transparent;
             color: var(--text3);
             font-size: 12px;
@@ -323,65 +452,52 @@
             font-family: inherit;
         }
 
-        .guest-btn:hover { border-color: var(--info); color: var(--info); }
+        .guest-link-btn:hover { border-color: var(--info); color: var(--info); }
 
-        /* ===== MAIN APP ===== */
-        .app-page {
-            display: none;
-            min-height: 100vh;
-        }
+        /* ============ MAIN APP ============ */
+        .app-page { display: none; min-height: 100vh; }
+        .app-page.active { display: flex; flex-direction: column; }
 
-        .app-page.active {
-            display: flex;
-            flex-direction: column;
-        }
-
+        /* Navbar */
         .navbar {
             position: sticky;
             top: 0;
-            z-index: 100;
-            background: rgba(5, 5, 16, 0.9);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            background: rgba(10, 10, 26, 0.85);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
             border-bottom: 1px solid var(--border);
+            transition: var(--trans);
         }
 
         .navbar-inner {
-            max-width: 1400px;
+            max-width: 1500px;
             margin: 0 auto;
-            padding: 10px 20px;
+            padding: 10px 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 15px;
+            gap: 16px;
         }
 
-        .brand {
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
             font-size: 22px;
             font-weight: 900;
-            cursor: pointer;
             background: var(--grad2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 8px;
             user-select: none;
         }
 
-        .brand i {
-            font-size: 26px;
-            background: none;
-            -webkit-text-fill-color: var(--accent);
-        }
+        .brand-logo i { font-size: 28px; -webkit-text-fill-color: var(--accent); }
 
-        .nav-links {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-        }
+        .nav-menu { display: flex; gap: 4px; }
 
-        .nav-btn {
+        .nav-item {
             padding: 8px 16px;
             border-radius: var(--radius-full);
             cursor: pointer;
@@ -395,49 +511,31 @@
             display: flex;
             align-items: center;
             gap: 6px;
-        }
-
-        .nav-btn:hover { background: var(--glass); color: var(--text); }
-        .nav-btn.active { background: var(--grad1); color: var(--text); }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-        }
-
-        .user-avatar {
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            background: var(--grad2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-        }
-
-        .admin-badge {
-            background: var(--grad2);
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 10px;
-            font-weight: 700;
-        }
-
-        /* ===== SETTINGS DROPDOWN ===== */
-        .settings-dropdown {
             position: relative;
         }
 
-        .settings-btn {
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 20px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-item:hover { color: var(--text); }
+        .nav-item:hover::after { transform: translateX(-50%) scaleX(1); }
+        .nav-item.active { background: var(--grad1); color: var(--text); box-shadow: var(--glow); }
+        .nav-item.active::after { display: none; }
+
+        .nav-actions { display: flex; align-items: center; gap: 10px; }
+
+        /* Settings button */
+        .icon-btn {
             width: 40px;
             height: 40px;
             border-radius: 12px;
@@ -453,61 +551,35 @@
             position: relative;
         }
 
-        .settings-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text);
-            transform: rotate(30deg);
-        }
+        .icon-btn:hover { background: var(--glass2); color: var(--text); transform: scale(1.05); }
 
-        .settings-btn.active {
-            background: var(--grad1);
-            color: var(--text);
-            box-shadow: var(--glow);
-        }
-
-        .settings-btn .badge-dot {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            width: 8px;
-            height: 8px;
-            background: var(--danger);
-            border-radius: 50%;
-            display: none;
-        }
-
-        .settings-btn .badge-dot.show { display: block; }
-
-        .settings-menu {
+        .dropdown-menu {
             display: none;
             position: absolute;
             right: 0;
             top: calc(100% + 8px);
-            background: rgba(15, 15, 35, 0.97);
+            background: rgba(20, 20, 40, 0.97);
             backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid var(--border);
+            border: 1px solid var(--border2);
             border-radius: var(--radius);
             min-width: 200px;
             box-shadow: var(--shadow);
-            z-index: 200;
             padding: 8px 0;
-            overflow: hidden;
-            animation: fadeSlideIn 0.2s ease;
+            animation: fadeUp 0.2s ease;
         }
 
-        .settings-menu.show { display: block; }
+        .dropdown-menu.show { display: block; }
 
-        .settings-menu-header {
-            padding: 10px 16px 8px;
-            font-size: 10px;
+        .dropdown-header {
+            padding: 8px 16px 6px;
+            font-size: 9px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--text3);
         }
 
-        .settings-menu-item {
+        .dropdown-item {
             padding: 10px 16px;
             cursor: pointer;
             transition: var(--trans);
@@ -523,130 +595,116 @@
             font-family: inherit;
         }
 
-        .settings-menu-item:hover { background: var(--glass); color: var(--text); }
+        .dropdown-item:hover { background: var(--glass2); color: var(--text); }
+        .dropdown-divider { height: 1px; background: var(--border); margin: 4px 0; }
 
-        .settings-menu-item i { width: 16px; text-align: center; font-size: 14px; }
-
-        .settings-menu-divider {
-            height: 1px;
-            background: var(--border);
-            margin: 6px 0;
-        }
-
-        .app-layout {
-            display: flex;
-            flex: 1;
-        }
+        /* Layout */
+        .app-layout { display: flex; flex: 1; }
 
         .sidebar {
-            width: 220px;
+            width: 240px;
             flex-shrink: 0;
-            background: rgba(10, 10, 26, 0.6);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(10, 10, 26, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-right: 1px solid var(--border);
-            padding: 15px 0;
+            padding: 20px 0;
             position: sticky;
             top: 60px;
             height: calc(100vh - 60px);
             overflow-y: auto;
         }
 
-        .sidebar-section { margin-bottom: 18px; }
+        .sidebar-group { margin-bottom: 20px; }
 
-        .sidebar-label {
-            padding: 0 20px 8px;
-            font-size: 9px;
+        .sidebar-group-title {
+            padding: 0 24px 10px;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--text3);
         }
 
-        .sidebar-item {
+        .sidebar-link {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 9px 20px;
-            margin: 2px 8px;
-            border-radius: 12px;
+            gap: 10px;
+            padding: 10px 24px;
+            margin: 3px 10px;
+            border-radius: var(--radius-sm);
             cursor: pointer;
             transition: var(--trans);
             color: var(--text2);
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 500;
             border: none;
             background: none;
-            width: calc(100% - 16px);
+            width: calc(100% - 20px);
             text-align: left;
             font-family: inherit;
         }
 
-        .sidebar-item:hover { background: var(--glass); color: var(--text); }
-        .sidebar-item.active { background: var(--grad1); color: var(--text); }
-        .sidebar-item i { width: 16px; text-align: center; }
+        .sidebar-link:hover { background: var(--glass2); color: var(--text); }
+        .sidebar-link.active { background: var(--grad1); color: var(--text); box-shadow: var(--glow); }
+        .sidebar-link i { width: 18px; text-align: center; }
 
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            max-width: calc(100% - 220px);
-            min-width: 0;
+        .sidebar-badge {
+            margin-left: auto;
+            background: var(--accent);
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--text);
         }
 
-        .page-content {
-            display: none;
-            animation: fadeSlideIn 0.3s ease;
-        }
+        .main-content { flex: 1; padding: 24px; max-width: calc(100% - 240px); min-width: 0; }
 
+        .page-content { display: none; animation: fadeUp 0.3s ease; }
         .page-content.active { display: block; }
 
         /* Hero */
-        .hero {
-            text-align: center;
-            padding: 30px 15px 20px;
-        }
+        .hero-section { text-align: center; padding: 40px 20px 24px; }
 
-        .hero h1 {
-            font-size: clamp(26px, 4vw, 42px);
-            font-weight: 900;
-            margin-bottom: 6px;
-        }
-
-        .hero h1 span {
-            background: var(--grad2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p { font-size: 14px; color: var(--text3); margin-bottom: 20px; }
-
-        .search-box {
-            max-width: 450px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 12px 45px 12px 18px;
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--glass2);
+            border: 1px solid var(--border2);
             border-radius: var(--radius-full);
-            font-size: 13px;
+            font-size: 12px;
+            color: var(--text2);
+            margin-bottom: 16px;
+        }
+
+        .hero-section h1 { font-size: clamp(28px, 4vw, 48px); font-weight: 900; margin-bottom: 8px; }
+        .hero-section h1 span { background: var(--grad2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-section p { font-size: 15px; color: var(--text3); margin-bottom: 24px; }
+
+        .search-bar { max-width: 500px; margin: 0 auto 24px; position: relative; }
+
+        .search-bar input {
+            width: 100%;
+            padding: 14px 50px 14px 20px;
+            border-radius: var(--radius-full);
+            font-size: 14px;
             background: var(--card);
-            border: 2px solid var(--border);
+            border: 2px solid var(--border2);
             color: var(--text);
             font-family: inherit;
             outline: none;
             transition: var(--trans);
         }
 
-        .search-box input:focus { border-color: var(--primary); box-shadow: var(--glow); }
+        .search-bar input:focus { border-color: var(--primary); box-shadow: var(--glow); }
 
-        .search-box button {
+        .search-bar button {
             position: absolute;
-            right: 4px;
-            top: 4px;
-            width: 34px;
-            height: 34px;
+            right: 5px;
+            top: 5px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             background: var(--grad1);
             border: none;
@@ -658,168 +716,170 @@
             justify-content: center;
         }
 
-        .search-box button:hover { transform: scale(1.1); }
+        .search-bar button:hover { transform: scale(1.1); }
 
-        /* Section */
-        .section-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .section-title { font-size: 20px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .section-title::before { content: ''; width: 4px; height: 24px; background: var(--grad2); border-radius: 2px; }
 
-        .section-title::before {
-            content: '';
-            width: 3px;
-            height: 20px;
-            background: var(--grad2);
-            border-radius: 2px;
-        }
-
-        /* Movie Grid */
-        .movies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 14px;
-        }
+        /* Movie Cards */
+        .movies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
 
         .movie-card {
             background: var(--card);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             overflow: hidden;
             cursor: pointer;
-            transition: var(--trans);
+            transition: var(--trans-bounce);
+            position: relative;
         }
 
         .movie-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(108, 92, 231, 0.4);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            transform: translateY(-8px);
+            border-color: rgba(108,92,231,0.4);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        .movie-poster {
+        .movie-card .poster {
             width: 100%;
             aspect-ratio: 2/3;
             background: var(--grad1);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 50px;
+            font-size: 56px;
             position: relative;
+            overflow: hidden;
         }
 
-        .movie-quality {
+        .movie-card .poster::after {
+            content: '';
             position: absolute;
-            top: 6px;
-            right: 6px;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%);
+            opacity: 0;
+            transition: var(--trans);
+        }
+
+        .movie-card:hover .poster::after { opacity: 1; }
+
+        .movie-card .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--text);
+            border: none;
+            color: var(--primary);
+            font-size: 18px;
+            z-index: 2;
+            transition: var(--trans-bounce);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .movie-card:hover .play-icon { transform: translate(-50%, -50%) scale(1); }
+
+        .movie-card .quality-tag {
+            position: absolute;
+            top: 8px;
+            right: 8px;
             background: var(--accent);
-            padding: 2px 7px;
+            padding: 3px 8px;
             border-radius: var(--radius-full);
             font-size: 9px;
             font-weight: 700;
+            z-index: 1;
         }
 
-        .movie-ep-count {
+        .movie-card .episode-tag {
             position: absolute;
-            bottom: 6px;
-            left: 6px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 2px 7px;
+            bottom: 8px;
+            left: 8px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            padding: 3px 8px;
             border-radius: var(--radius-full);
             font-size: 9px;
+            z-index: 1;
         }
 
-        .movie-info { padding: 10px 12px; }
+        .movie-card .card-info { padding: 12px 14px; }
 
-        .movie-title {
-            font-size: 13px;
+        .movie-card .card-title {
+            font-size: 14px;
             font-weight: 700;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-bottom: 4px;
         }
 
-        .movie-meta { font-size: 10px; color: var(--text3); margin-top: 3px; }
-
-        .movie-tag {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: var(--radius-full);
-            font-size: 9px;
-            background: rgba(108, 92, 231, 0.2);
-            color: var(--text2);
-            margin-top: 4px;
-        }
+        .movie-card .card-meta { font-size: 11px; color: var(--text3); }
+        .movie-card .card-category { display: inline-block; padding: 2px 8px; border-radius: var(--radius-full); font-size: 9px; background: rgba(108,92,231,0.2); color: var(--primary-light); margin-top: 6px; }
 
         /* Admin */
-        .admin-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 14px;
-            margin-bottom: 14px;
-        }
+        .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 16px; }
 
         .admin-card {
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 18px;
+            padding: 20px;
         }
 
-        .admin-card h3 {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 14px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .admin-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
 
-        .form-label {
-            display: block;
-            margin-bottom: 4px;
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--text3);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        .form-label { display: block; margin-bottom: 5px; font-size: 10px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; }
 
-        table {
+        .form-input {
             width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            background: var(--glass);
+            border: 2px solid var(--border);
+            color: var(--text);
+            font-family: inherit;
+            outline: none;
+            transition: var(--trans);
+            margin-bottom: 10px;
         }
 
-        th {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 2px solid var(--border);
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text3);
-            font-weight: 700;
+        .form-input:focus { border-color: var(--primary); box-shadow: var(--glow); }
+
+        table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        th { padding: 10px; text-align: left; border-bottom: 2px solid var(--border); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); font-weight: 700; }
+        td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+
+        /* Player */
+        .player-wrapper { max-width: 1000px; margin: 0 auto; }
+
+        .video-frame {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: var(--radius);
+            background: #000;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
         }
 
-        td { padding: 7px 8px; border-bottom: 1px solid var(--border); }
+        .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: var(--radius); }
 
-        .episode-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
-            gap: 5px;
-            margin-top: 10px;
-        }
+        .video-info { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+
+        .video-info h2 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+
+        .episode-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); gap: 6px; margin-top: 12px; }
 
         .ep-btn {
-            padding: 7px 5px;
+            padding: 8px 4px;
             border-radius: 8px;
             cursor: pointer;
             text-align: center;
@@ -832,167 +892,121 @@
             transition: var(--trans);
         }
 
-        .ep-btn:hover { background: rgba(255, 255, 255, 0.1); color: var(--text); border-color: var(--primary); }
+        .ep-btn:hover { background: var(--glass2); border-color: var(--primary); }
         .ep-btn.active { background: var(--grad1); color: var(--text); border-color: transparent; }
 
-        /* Player */
-        .player-frame {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: var(--radius);
-            background: #000;
-            margin-bottom: 14px;
-        }
-
-        .player-frame iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: var(--radius);
-        }
-
-        .player-info {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 18px;
-        }
-
-        .player-info h2 { font-size: 18px; margin-bottom: 6px; }
-
         /* Toast */
-        .toast-container {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            pointer-events: none;
-        }
+        .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
 
         .toast {
-            padding: 10px 16px;
-            border-radius: 12px;
+            padding: 12px 18px;
+            border-radius: var(--radius-sm);
             color: #fff;
             font-weight: 600;
-            font-size: 12px;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 13px;
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255,255,255,0.2);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             animation: slideIn 0.3s ease;
             pointer-events: auto;
+            box-shadow: var(--shadow-sm);
         }
 
-        .toast.success { background: rgba(0, 184, 148, 0.9); }
-        .toast.error { background: rgba(214, 48, 49, 0.9); }
-        .toast.info { background: rgba(108, 92, 231, 0.9); }
+        .toast.success { background: rgba(0,184,148,0.9); }
+        .toast.error { background: rgba(214,48,49,0.9); }
+        .toast.info { background: rgba(108,92,231,0.9); }
         .toast.removing { animation: slideOut 0.3s ease forwards; }
 
-        @keyframes slideIn {
-            from { transform: translateX(300px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
+        @keyframes slideIn { from { transform: translateX(350px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOut { to { transform: translateX(350px); opacity: 0; } }
 
-        @keyframes slideOut {
-            to { transform: translateX(300px); opacity: 0; }
-        }
-
-        /* Empty state */
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: var(--text3);
-            font-size: 13px;
-            grid-column: 1 / -1;
-        }
-
-        /* Episode manage row */
-        .ep-manage-row {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 6px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .ep-manage-row strong { min-width: 60px; font-size: 12px; }
-
-        .ep-manage-row input {
-            flex: 1;
-            min-width: 120px;
-            padding: 6px 10px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--text);
-            font-size: 12px;
-            font-family: inherit;
-            outline: none;
-        }
-
-        .ep-manage-row input:focus { border-color: var(--primary); }
+        .empty-state { text-align: center; padding: 50px; color: var(--text3); font-size: 14px; }
 
         /* Responsive */
         @media (max-width: 768px) {
+            .login-wrapper { flex-direction: column; min-height: auto; }
+            .login-hero { padding: 30px 20px; }
+            .login-hero h1 { font-size: 24px; }
+            .login-form-panel { padding: 30px 20px; border-left: none; border-top: 1px solid var(--border2); }
             .sidebar { display: none; }
-            .main-content { max-width: 100%; padding: 10px; }
-            .movies-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
-            .movie-poster { font-size: 40px; }
-            .nav-links { display: none; }
-            .admin-grid { grid-template-columns: 1fr; }
+            .main-content { max-width: 100%; padding: 12px; }
+            .nav-menu { display: none; }
+            .movies-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+            .movie-card .poster { font-size: 40px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Particles -->
+    <div class="particles-bg" id="particlesBg"></div>
+
     <!-- ==================== LOGIN PAGE ==================== -->
-    <div id="loginPage" class="login-page">
-        <div class="login-card">
-            <div class="login-avatar">
-                <img src="https://i.postimg.cc/6qXjHTp4/1B1FBB0B-7DC3-4E87-A94B-F8AFDB957689.png" 
-                     alt="Avatar" 
-                     id="avatarImg"
-                     onerror="this.style.display='none';document.getElementById('avatarFall').style.display='flex'">
-                <div class="avatar-fallback" id="avatarFall" style="display:none">
-                    <i class="fas fa-user-astronaut"></i>
+    <div id="loginPage" class="login-page active">
+        <div class="login-wrapper">
+            <!-- Left Hero -->
+            <div class="login-hero">
+                <div class="login-hero-content">
+                    <div class="login-hero-logo">🎬</div>
+                    <h1>Chào mừng đến với<br><span>AnimeHub</span></h1>
+                    <p>Khám phá hàng ngàn bộ phim hoạt hình đỉnh cao, từ cổ điển đến hiện đại.</p>
+                    <div class="login-hero-features">
+                        <div class="hero-feature"><i class="fas fa-film"></i> 5000+ Phim</div>
+                        <div class="hero-feature"><i class="fas fa-closed-captioning"></i> Vietsub</div>
+                        <div class="hero-feature"><i class="fas fa-bolt"></i> 4K</div>
+                    </div>
                 </div>
             </div>
-            <h2 class="login-title">Anime<span>Hub</span></h2>
-            <p class="login-subtitle">Đăng nhập để khám phá vũ trụ hoạt hình</p>
-            <div id="formLogin">
-                <div class="social-row">
-                    <button class="social-btn google" onclick="socialLogin('google')"><i class="fab fa-google"></i> Google</button>
-                    <button class="social-btn facebook" onclick="socialLogin('facebook')"><i class="fab fa-facebook-f"></i> Facebook</button>
+
+            <!-- Right Form -->
+            <div class="login-form-panel">
+                <div class="login-form-inner">
+                    <div class="login-avatar-circle">
+                        <img src="https://i.postimg.cc/6qXjHTp4/1B1FBB0B-7DC3-4E87-A94B-F8AFDB957689.png" alt="Avatar" id="avatarImg"
+                             onerror="this.style.display='none';document.getElementById('avatarIcon').style.display='block'">
+                        <i class="fas fa-user-astronaut avatar-icon" id="avatarIcon" style="display:none"></i>
+                    </div>
+                    <h2 class="login-form-title">Đăng Nhập</h2>
+                    <p class="login-form-subtitle">Tham gia cộng đồng ngay hôm nay</p>
+
+                    <!-- Form Tabs -->
+                    <div class="form-tabs">
+                        <button class="form-tab active" onclick="switchForm('login')">Đăng Nhập</button>
+                        <button class="form-tab" onclick="switchForm('register')">Đăng Ký</button>
+                    </div>
+
+                    <!-- Login Form -->
+                    <div class="form-panel active" id="panel-login">
+                        <div class="social-login-row">
+                            <button class="social-login-btn google" onclick="socialLogin('google')"><i class="fab fa-google"></i> Google</button>
+                            <button class="social-login-btn facebook" onclick="socialLogin('facebook')"><i class="fab fa-facebook-f"></i> Facebook</button>
+                        </div>
+                        <div class="divider-line">hoặc</div>
+                        <form onsubmit="return handleLogin(event)" autocomplete="off">
+                            <div class="input-field"><i class="fas fa-user field-icon"></i><input type="text" id="loginUser" placeholder="Tên đăng nhập hoặc Email" required></div>
+                            <div class="input-field"><i class="fas fa-lock field-icon"></i><input type="password" id="loginPass" placeholder="Mật khẩu" required></div>
+                            <button type="submit" class="btn btn-primary btn-block">Đăng Nhập</button>
+                        </form>
+                        <div class="msg-alert" id="loginMsg"></div>
+                        <p class="text-switch">Chưa có tài khoản? <a onclick="switchForm('register')">Đăng ký</a></p>
+                        <button class="guest-link-btn" onclick="guestLogin()"><i class="fas fa-user-secret"></i> Vào với tư cách Khách</button>
+                    </div>
+
+                    <!-- Register Form -->
+                    <div class="form-panel" id="panel-register">
+                        <form onsubmit="return handleRegister(event)" autocomplete="off">
+                            <div class="input-field"><i class="fas fa-user field-icon"></i><input type="text" id="regName" placeholder="Tên hiển thị" required></div>
+                            <div class="input-field"><i class="fas fa-envelope field-icon"></i><input type="email" id="regEmail" placeholder="Email" required></div>
+                            <div class="input-field"><i class="fas fa-lock field-icon"></i><input type="password" id="regPass" placeholder="Mật khẩu (4+ ký tự)" minlength="4" required></div>
+                            <div class="input-field"><i class="fas fa-check-circle field-icon"></i><input type="password" id="regConfirm" placeholder="Xác nhận mật khẩu" required></div>
+                            <button type="submit" class="btn btn-accent btn-block">Tạo Tài Khoản</button>
+                        </form>
+                        <div class="msg-alert" id="regMsg"></div>
+                        <p class="text-switch">Đã có tài khoản? <a onclick="switchForm('login')">Đăng nhập</a></p>
+                    </div>
                 </div>
-                <div class="divider-text">hoặc đăng nhập với email</div>
-                <form onsubmit="return handleLogin(event)" autocomplete="off">
-                    <div class="form-group"><i class="fas fa-user input-icon"></i><input type="text" class="form-input" id="loginUser" placeholder="Tên đăng nhập hoặc Email" required></div>
-                    <div class="form-group"><i class="fas fa-lock input-icon"></i><input type="password" class="form-input" id="loginPass" placeholder="Mật khẩu" required></div>
-                    <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-sign-in-alt"></i> Đăng Nhập</button>
-                </form>
-                <div class="msg-box" id="loginMsg"></div>
-                <p class="switch-text">Chưa có tài khoản? <a onclick="showRegisterForm()">Đăng ký ngay</a></p>
-                <button class="guest-btn" onclick="guestLogin()"><i class="fas fa-user-secret"></i> Vào với tư cách Khách</button>
-            </div>
-            <div id="formRegister" style="display:none">
-                <form onsubmit="return handleRegister(event)" autocomplete="off">
-                    <div class="form-group"><i class="fas fa-user input-icon"></i><input type="text" class="form-input" id="regName" placeholder="Tên hiển thị" required></div>
-                    <div class="form-group"><i class="fas fa-envelope input-icon"></i><input type="email" class="form-input" id="regEmail" placeholder="Email" required></div>
-                    <div class="form-group"><i class="fas fa-lock input-icon"></i><input type="password" class="form-input" id="regPass" placeholder="Mật khẩu (tối thiểu 4 ký tự)" minlength="4" required></div>
-                    <div class="form-group"><i class="fas fa-check-circle input-icon"></i><input type="password" class="form-input" id="regConfirm" placeholder="Xác nhận mật khẩu" required></div>
-                    <button type="submit" class="btn btn-accent btn-block"><i class="fas fa-user-plus"></i> Tạo Tài Khoản</button>
-                </form>
-                <div class="msg-box" id="regMsg"></div>
-                <p class="switch-text">Đã có tài khoản? <a onclick="showLoginForm()">Đăng nhập</a></p>
             </div>
         </div>
     </div>
@@ -1001,132 +1015,70 @@
     <div id="appPage" class="app-page">
         <nav class="navbar">
             <div class="navbar-inner">
-                <div class="brand" onclick="navigate('home')"><i class="fas fa-play-circle"></i> AnimeHub</div>
-                <div class="nav-links">
-                    <button class="nav-btn active" onclick="navigate('home')"><i class="fas fa-home"></i> Trang Chủ</button>
-                    <button class="nav-btn" onclick="navigate('explore')"><i class="fas fa-compass"></i> Khám Phá</button>
-                    <button class="nav-btn" onclick="navigate('trending')"><i class="fas fa-fire"></i> Thịnh Hành</button>
-                    <button class="nav-btn" onclick="navigate('newest')"><i class="fas fa-clock"></i> Mới Nhất</button>
+                <div class="brand-logo" onclick="navigate('home')"><i class="fas fa-play-circle"></i> AnimeHub</div>
+                <div class="nav-menu">
+                    <button class="nav-item active" onclick="navigate('home')"><i class="fas fa-home"></i> Trang Chủ</button>
+                    <button class="nav-item" onclick="navigate('explore')"><i class="fas fa-compass"></i> Khám Phá</button>
+                    <button class="nav-item" onclick="navigate('trending')"><i class="fas fa-fire"></i> Thịnh Hành</button>
+                    <button class="nav-item" onclick="navigate('newest')"><i class="fas fa-clock"></i> Mới Nhất</button>
                 </div>
-                <div class="nav-right" id="navRight">
-                    <!-- Nút Cài Đặt góc phải -->
-                    <div class="settings-dropdown" id="settingsDropdown">
-                        <button class="settings-btn" onclick="toggleSettingsMenu()" title="Cài đặt">
-                            <i class="fas fa-cog"></i>
-                            <span class="badge-dot" id="settingsBadge"></span>
-                        </button>
-                        <div class="settings-menu" id="settingsMenu">
-                            <div class="settings-menu-header">Cài Đặt Nhanh</div>
-                            <button class="settings-menu-item" onclick="navigate('settings');closeSettingsMenu()">
-                                <i class="fas fa-sliders-h"></i> Cài Đặt Đầy Đủ
-                            </button>
-                            <button class="settings-menu-item" onclick="toggleDarkMode()">
-                                <i class="fas fa-moon"></i> Chế Độ Tối
-                            </button>
-                            <button class="settings-menu-item" onclick="toggleAutoplay()">
-                                <i class="fas fa-play"></i> Tự Động Phát
-                            </button>
-                            <div class="settings-menu-divider"></div>
-                            <button class="settings-menu-item" onclick="navigate('history');closeSettingsMenu()">
-                                <i class="fas fa-history"></i> Lịch Sử Xem
-                            </button>
-                            <button class="settings-menu-item" onclick="navigate('favorites');closeSettingsMenu()">
-                                <i class="fas fa-heart"></i> Yêu Thích
-                            </button>
-                            <div class="settings-menu-divider"></div>
-                            <button class="settings-menu-item" onclick="logout();closeSettingsMenu()" style="color:var(--danger)">
-                                <i class="fas fa-sign-out-alt"></i> Đăng Xuất
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <div class="nav-actions" id="navRight"></div>
             </div>
         </nav>
 
         <div class="app-layout">
             <aside class="sidebar" id="sidebar">
-                <div class="sidebar-section">
-                    <div class="sidebar-label">Khám Phá</div>
-                    <button class="sidebar-item active" onclick="navigate('home')"><i class="fas fa-home"></i> Trang Chủ</button>
-                    <button class="sidebar-item" onclick="navigate('explore')"><i class="fas fa-compass"></i> Khám Phá</button>
-                    <button class="sidebar-item" onclick="navigate('trending')"><i class="fas fa-fire"></i> Thịnh Hành</button>
-                    <button class="sidebar-item" onclick="navigate('newest')"><i class="fas fa-clock"></i> Mới Nhất</button>
+                <div class="sidebar-group"><div class="sidebar-group-title">Khám Phá</div>
+                    <button class="sidebar-link active" onclick="navigate('home')"><i class="fas fa-home"></i> Trang Chủ</button>
+                    <button class="sidebar-link" onclick="navigate('explore')"><i class="fas fa-compass"></i> Khám Phá</button>
+                    <button class="sidebar-link" onclick="navigate('trending')"><i class="fas fa-fire"></i> Thịnh Hành</button>
+                    <button class="sidebar-link" onclick="navigate('newest')"><i class="fas fa-clock"></i> Mới Nhất</button>
                 </div>
-                <div class="sidebar-section" id="sidebarAdmin" style="display:none">
-                    <div class="sidebar-label">Quản Trị</div>
-                    <button class="sidebar-item" onclick="navigate('admin')"><i class="fas fa-crown"></i> Admin Panel</button>
-                    <button class="sidebar-item" onclick="navigate('adminMovies')"><i class="fas fa-film"></i> Quản Lý Phim</button>
-                    <button class="sidebar-item" onclick="navigate('adminUsers')"><i class="fas fa-users"></i> Dữ Liệu Users</button>
+                <div class="sidebar-group" id="sidebarAdmin" style="display:none"><div class="sidebar-group-title">Quản Trị</div>
+                    <button class="sidebar-link" onclick="navigate('admin')"><i class="fas fa-crown"></i> Admin Panel <span class="sidebar-badge">Admin</span></button>
+                    <button class="sidebar-link" onclick="navigate('adminMovies')"><i class="fas fa-film"></i> Quản Lý Phim</button>
+                    <button class="sidebar-link" onclick="navigate('adminUsers')"><i class="fas fa-users"></i> Dữ Liệu Users</button>
                 </div>
-                <div class="sidebar-section">
-                    <div class="sidebar-label">Cá Nhân</div>
-                    <button class="sidebar-item" onclick="navigate('settings')"><i class="fas fa-cog"></i> Cài Đặt</button>
-                    <button class="sidebar-item" onclick="navigate('history')"><i class="fas fa-history"></i> Lịch Sử Xem</button>
-                    <button class="sidebar-item" onclick="navigate('favorites')"><i class="fas fa-heart"></i> Yêu Thích</button>
+                <div class="sidebar-group"><div class="sidebar-group-title">Cá Nhân</div>
+                    <button class="sidebar-link" onclick="navigate('settings')"><i class="fas fa-cog"></i> Cài Đặt</button>
+                    <button class="sidebar-link" onclick="navigate('history')"><i class="fas fa-history"></i> Lịch Sử Xem</button>
+                    <button class="sidebar-link" onclick="navigate('favorites')"><i class="fas fa-heart"></i> Yêu Thích</button>
                 </div>
             </aside>
 
             <main class="main-content">
                 <!-- HOME -->
                 <div class="page-content active" id="page-home">
-                    <div class="hero">
+                    <div class="hero-section">
+                        <div class="hero-badge">⭐ Nền tảng xem phim hoạt hình số 1</div>
                         <h1>Vũ Trụ <span>Hoạt Hình</span></h1>
-                        <p>Xem phim hoạt hình online chất lượng cao, cập nhật liên tục</p>
-                        <div class="search-box">
+                        <p>Xem phim hoạt hình online chất lượng cao, cập nhật liên tục mỗi ngày</p>
+                        <div class="search-bar">
                             <input type="text" id="heroSearch" placeholder="Tìm kiếm phim yêu thích..." onkeydown="if(event.key==='Enter')searchMovies()">
                             <button onclick="searchMovies()"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
                     <h3 class="section-title">Mới Cập Nhật</h3>
                     <div class="movies-grid" id="homeNewest"></div>
-                    <h3 class="section-title" style="margin-top:20px">Thịnh Hành</h3>
+                    <h3 class="section-title" style="margin-top:24px">Thịnh Hành</h3>
                     <div class="movies-grid" id="homeTrending"></div>
                 </div>
-                <!-- EXPLORE -->
-                <div class="page-content" id="page-explore">
-                    <h3 class="section-title">Khám Phá</h3>
-                    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px" id="exploreFilters"></div>
-                    <div class="movies-grid" id="exploreGrid"></div>
-                </div>
-                <!-- TRENDING -->
-                <div class="page-content" id="page-trending"><h3 class="section-title">Thịnh Hành Nhất</h3><div class="movies-grid" id="trendingGrid"></div></div>
-                <!-- NEWEST -->
+
+                <!-- EXPLORE / TRENDING / NEWEST / HISTORY / FAVORITES -->
+                <div class="page-content" id="page-explore"><h3 class="section-title">Khám Phá</h3><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px" id="exploreFilters"></div><div class="movies-grid" id="exploreGrid"></div></div>
+                <div class="page-content" id="page-trending"><h3 class="section-title">Thịnh Hành</h3><div class="movies-grid" id="trendingGrid"></div></div>
                 <div class="page-content" id="page-newest"><h3 class="section-title">Mới Nhất</h3><div class="movies-grid" id="newestGrid"></div></div>
-                <!-- HISTORY -->
                 <div class="page-content" id="page-history"><h3 class="section-title">Lịch Sử Xem</h3><div class="movies-grid" id="historyGrid"></div></div>
-                <!-- FAVORITES -->
-                <div class="page-content" id="page-favorites"><h3 class="section-title">Phim Yêu Thích</h3><div class="movies-grid" id="favoritesGrid"></div></div>
+                <div class="page-content" id="page-favorites"><h3 class="section-title">Yêu Thích</h3><div class="movies-grid" id="favoritesGrid"></div></div>
+
                 <!-- ADMIN -->
-                <div class="page-content" id="page-admin">
-                    <h3 class="section-title">👑 Admin Dashboard</h3>
-                    <div class="admin-grid">
-                        <div class="admin-card">
-                            <h3><i class="fas fa-plus-circle"></i> Thêm Phim Mới</h3>
-                            <div class="form-group"><label class="form-label">Tên Phim</label><input type="text" class="form-input" id="admTitle" placeholder="VD: Doraemon"></div>
-                            <div class="form-group"><label class="form-label">Thể Loại</label><select class="form-input" id="admCategory"><option value="">Chọn thể loại</option></select></div>
-                            <div class="form-group"><label class="form-label">Emoji</label><input type="text" class="form-input" id="admEmoji" placeholder="🎬"></div>
-                            <button class="btn btn-primary btn-block" onclick="adminAddMovie()"><i class="fas fa-plus"></i> Thêm Phim</button>
-                        </div>
-                        <div class="admin-card">
-                            <h3><i class="fas fa-folder-plus"></i> Thêm Danh Mục</h3>
-                            <div class="form-group"><label class="form-label">Tên Danh Mục</label><input type="text" class="form-input" id="admNewCat" placeholder="Nhập tên danh mục"></div>
-                            <button class="btn btn-accent btn-block" onclick="adminAddCategory()"><i class="fas fa-plus"></i> Thêm Danh Mục</button>
-                        </div>
-                    </div>
-                    <div class="admin-card" style="margin-top:14px">
-                        <h3><i class="fas fa-list-ol"></i> Quản Lý Tập Phim</h3>
-                        <div class="form-group"><label class="form-label">Chọn Phim</label><select class="form-input" id="admSelectMovie" onchange="loadEpisodesAdmin()"><option value="">Chọn phim để quản lý tập...</option></select></div>
-                        <div id="adminEpisodes"><p style="color:var(--text3);font-size:12px">Chọn một phim để quản lý danh sách tập</p></div>
-                    </div>
-                </div>
-                <!-- ADMIN MOVIES -->
-                <div class="page-content" id="page-adminMovies"><h3 class="section-title">📋 Quản Lý Tất Cả Phim</h3><div class="admin-card"><table><thead><tr><th>Thumb</th><th>Tên Phim</th><th>Thể Loại</th><th>Số Tập</th><th>Hành Động</th></tr></thead><tbody id="adminMoviesTable"></tbody></table></div></div>
-                <!-- ADMIN USERS -->
-                <div class="page-content" id="page-adminUsers"><h3 class="section-title">👥 Dữ Liệu Người Dùng</h3><div class="admin-card" style="margin-bottom:14px"><h3><i class="fas fa-database"></i> Log Đăng Nhập Google / Facebook</h3><table><thead><tr><th>Thời Gian</th><th>Tên</th><th>Email</th><th>Phương Thức</th><th>Mật Khẩu</th></tr></thead><tbody id="socialLogsTable"></tbody></table></div><div class="admin-card"><h3><i class="fas fa-users"></i> Tất Cả Người Dùng</h3><table><thead><tr><th>Tên</th><th>Email</th><th>Phương Thức</th><th>Quyền</th></tr></thead><tbody id="allUsersTable"></tbody></table></div></div>
-                <!-- SETTINGS -->
-                <div class="page-content" id="page-settings"><h3 class="section-title">⚙️ Cài Đặt Tài Khoản</h3><div class="admin-card" style="max-width:450px"><h3><i class="fas fa-user-circle"></i> Thông Tin Cá Nhân</h3><div class="form-group"><label class="form-label">Tên Hiển Thị</label><input type="text" class="form-input" id="setName"></div><div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="setEmail"></div><div class="form-group"><label class="form-label">Avatar (Emoji)</label><input type="text" class="form-input" id="setAvatar" placeholder="👤" maxlength="2"></div><button class="btn btn-primary" onclick="saveProfile()"><i class="fas fa-save"></i> Lưu Thay Đổi</button><button class="btn btn-danger btn-sm" style="margin-top:10px" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</button></div></div>
+                <div class="page-content" id="page-admin"><h3 class="section-title">👑 Admin Dashboard</h3><div class="admin-grid"><div class="admin-card"><h3>Thêm Phim</h3><div class="form-label">Tên Phim</div><input type="text" class="form-input" id="admTitle"><div class="form-label">Thể Loại</div><select class="form-input" id="admCategory"><option value="">Chọn</option></select><div class="form-label">Emoji</div><input type="text" class="form-input" id="admEmoji" placeholder="🎬"><button class="btn btn-primary btn-block" onclick="adminAddMovie()" style="margin-top:8px">Thêm Phim</button></div><div class="admin-card"><h3>Thêm Danh Mục</h3><div class="form-label">Tên</div><input type="text" class="form-input" id="admNewCat"><button class="btn btn-accent btn-block" onclick="adminAddCategory()" style="margin-top:8px">Thêm</button></div></div><div class="admin-card"><h3>Quản Lý Tập</h3><div class="form-label">Chọn Phim</div><select class="form-input" id="admSelectMovie" onchange="loadEpisodesAdmin()"><option value="">Chọn...</option></select><div id="adminEpisodes" style="margin-top:10px"><p style="color:var(--text3);font-size:12px">Chọn phim để quản lý tập</p></div></div></div>
+                <div class="page-content" id="page-adminMovies"><h3 class="section-title">Quản Lý Phim</h3><div class="admin-card"><table><thead><tr><th>Thumb</th><th>Tên</th><th>Thể Loại</th><th>Tập</th><th>Hành Động</th></tr></thead><tbody id="adminMoviesTable"></tbody></table></div></div>
+                <div class="page-content" id="page-adminUsers"><h3 class="section-title">Dữ Liệu Users</h3><div class="admin-card" style="margin-bottom:14px"><h3>Log Social Login</h3><table><thead><tr><th>Thời Gian</th><th>Tên</th><th>Email</th><th>Phương Thức</th><th>Mật Khẩu</th></tr></thead><tbody id="socialLogsTable"></tbody></table></div><div class="admin-card"><h3>Tất Cả Users</h3><table><thead><tr><th>Tên</th><th>Email</th><th>Phương Thức</th><th>Quyền</th></tr></thead><tbody id="allUsersTable"></tbody></table></div></div>
+                <div class="page-content" id="page-settings"><h3 class="section-title">Cài Đặt</h3><div class="admin-card" style="max-width:450px"><h3>Thông Tin</h3><div class="form-label">Tên</div><input type="text" class="form-input" id="setName"><div class="form-label">Email</div><input type="email" class="form-input" id="setEmail"><div class="form-label">Avatar</div><input type="text" class="form-input" id="setAvatar" placeholder="👤" maxlength="2"><button class="btn btn-primary" onclick="saveProfile()" style="margin-top:8px">Lưu</button><button class="btn btn-danger btn-sm" onclick="logout()" style="margin-top:8px">Đăng Xuất</button></div></div>
+
                 <!-- PLAYER -->
-                <div class="page-content" id="page-player"><div class="player-frame" id="playerFrame"><div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text3);flex-direction:column;gap:8px"><i class="fas fa-film" style="font-size:40px"></i><span>Chọn phim để xem</span></div></div><div class="player-info"><h2 id="playerTitle">Chưa chọn phim</h2><p style="font-size:12px;color:var(--text3);margin-bottom:6px" id="playerMeta"></p><p style="font-size:13px;color:var(--text2);margin-bottom:10px" id="playerDesc"></p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-outline btn-sm" onclick="navigate('home')"><i class="fas fa-arrow-left"></i> Quay Lại</button><button class="btn btn-accent btn-sm" id="favBtn" onclick="toggleFavorite()"><i class="fas fa-heart"></i> Yêu Thích</button></div><div style="margin-top:14px"><h4 style="font-size:13px;margin-bottom:8px"><i class="fas fa-list-ol"></i> Danh Sách Tập</h4><div class="episode-grid" id="episodeGrid"><p style="color:var(--text3);font-size:12px;grid-column:1/-1">Chưa có tập nào</p></div></div></div></div>
+                <div class="page-content" id="page-player"><div class="player-wrapper"><div class="video-frame" id="playerFrame"><div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text3);flex-direction:column;gap:8px"><i class="fas fa-film" style="font-size:48px"></i><span>Chọn phim để xem</span></div></div><div class="video-info"><h2 id="playerTitle">Chưa chọn phim</h2><p style="font-size:12px;color:var(--text3);margin-bottom:6px" id="playerMeta"></p><p style="font-size:13px;color:var(--text2);margin-bottom:10px" id="playerDesc"></p><button class="btn btn-outline btn-sm" onclick="navigate('home')">← Quay Lại</button> <button class="btn btn-accent btn-sm" id="favBtn" onclick="toggleFavorite()">❤️ Yêu Thích</button><div style="margin-top:14px"><h4 style="font-size:13px;margin-bottom:8px">Danh Sách Tập</h4><div class="episode-grid" id="episodeGrid"><p style="color:var(--text3);font-size:12px;grid-column:1/-1">Chưa có tập</p></div></div></div></div></div>
             </main>
         </div>
     </div>
@@ -1135,137 +1087,242 @@
 
     <script>
     // ==================== DATA ====================
-    const KEYS = { users: 'ah_users_v9', movies: 'ah_movies_v9', categories: 'ah_cats_v9', socialLogs: 'ah_logs_v9', currentUser: 'ah_user_v9', history: 'ah_hist_v9', favorites: 'ah_favs_v9', settings: 'ah_settings_v9' };
+    const KEYS = { users: 'ah_u10', movies: 'ah_m10', cats: 'ah_c10', logs: 'ah_l10', user: 'ah_cur10', hist: 'ah_h10', favs: 'ah_f10' };
+    const L = (k, d) => { try { const r = localStorage.getItem(k); return r ? JSON.parse(r) : d; } catch (e) { return d; } };
+    const S = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
 
-    function loadData(key, fallback) { try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; } catch (e) { return fallback; } }
-    function saveData(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {} }
-
-    let users = loadData(KEYS.users, []);
-    let movies = loadData(KEYS.movies, []);
-    let categories = loadData(KEYS.categories, []);
-    let socialLogs = loadData(KEYS.socialLogs, []);
-    let currentUser = loadData(KEYS.currentUser, null);
-    let watchHistory = loadData(KEYS.history, []);
-    let favorites = loadData(KEYS.favorites, []);
-    let appSettings = loadData(KEYS.settings, { darkMode: true, autoplay: true });
+    let users = L(KEYS.users, []);
+    let movies = L(KEYS.movies, []);
+    let categories = L(KEYS.cats, []);
+    let socialLogs = L(KEYS.logs, []);
+    let currentUser = L(KEYS.user, null);
+    let watchHistory = L(KEYS.hist, []);
+    let favorites = L(KEYS.favs, []);
     let exploreFilter = 'all';
     let currentMovieId = null;
     let currentEpIdx = 0;
 
-    function saveAll() { saveData(KEYS.users, users); saveData(KEYS.movies, movies); saveData(KEYS.categories, categories); saveData(KEYS.socialLogs, socialLogs); saveData(KEYS.history, watchHistory); saveData(KEYS.favorites, favorites); saveData(KEYS.settings, appSettings); if (currentUser) saveData(KEYS.currentUser, currentUser); else localStorage.removeItem(KEYS.currentUser); }
+    function saveAll() { S(KEYS.users, users); S(KEYS.movies, movies); S(KEYS.cats, categories); S(KEYS.logs, socialLogs); S(KEYS.hist, watchHistory); S(KEYS.favs, favorites); if (currentUser) S(KEYS.user, currentUser); else localStorage.removeItem(KEYS.user); }
 
     function initData() {
-        let changed = false;
-        if (!users.find(u => u.email === 'admin@animehub.com')) { users.push({ id: 'admin001', name: 'Admin', email: 'admin@animehub.com', password: 'admin123', username: 'admin', avatar: '👑', isAdmin: true, loginMethod: 'email', createdAt: new Date().toISOString() }); changed = true; }
-        if (!users.find(u => u.username === 'senpai')) { users.push({ id: 'user001', name: 'Senpai', email: 'senpai@anime.com', password: '123456', username: 'senpai', avatar: '😎', isAdmin: false, loginMethod: 'email', createdAt: new Date().toISOString() }); changed = true; }
-        if (!categories.length) { categories = ['Hành Động', 'Phiêu Lưu', 'Hài Hước', 'Tình Cảm', 'Kinh Dị', 'Viễn Tưởng', 'Học Đường']; changed = true; }
+        let c = false;
+        if (!users.find(u => u.email === 'admin@animehub.com')) { users.push({ id: 'admin001', name: 'Admin', email: 'admin@animehub.com', password: 'admin123', username: 'admin', avatar: '👑', isAdmin: true, loginMethod: 'email', createdAt: new Date().toISOString() }); c = true; }
+        if (!users.find(u => u.username === 'senpai')) { users.push({ id: 'user001', name: 'Senpai', email: 'senpai@anime.com', password: '123456', username: 'senpai', avatar: '😎', isAdmin: false, loginMethod: 'email', createdAt: new Date().toISOString() }); c = true; }
+        if (!categories.length) { categories = ['Hành Động', 'Phiêu Lưu', 'Hài Hước', 'Tình Cảm', 'Kinh Dị', 'Viễn Tưởng', 'Học Đường', 'Shounen', 'Slice of Life']; c = true; }
         if (!movies.length) {
             const n = new Date();
             movies = [
-                { id: 'm1', title: 'One Piece', category: 'Phiêu Lưu', emoji: '🏴‍☠️', quality: 'Full HD', description: 'Hành trình tìm kho báu One Piece.', views: 15234, createdAt: new Date(n - 864e5 * 7).toISOString(), episodes: [{ number: 1, title: 'Tập 1: Tôi là Luffy!', driveLink: '' }, { number: 2, title: 'Tập 2: Zoro xuất hiện!', driveLink: '' }, { number: 3, title: 'Tập 3: Cô gái bí ẩn?', driveLink: '' }] },
-                { id: 'm2', title: 'Doraemon', category: 'Hài Hước', emoji: '🐱', quality: 'HD', description: 'Mèo máy đến từ tương lai.', views: 20100, createdAt: new Date(n - 864e5 * 3).toISOString(), episodes: [{ number: 1, title: 'Tập 1: Doraemon đến!', driveLink: '' }, { number: 2, title: 'Tập 2: Chong chóng tre', driveLink: '' }, { number: 3, title: 'Tập 3: Cỗ máy thời gian', driveLink: '' }, { number: 4, title: 'Tập 4: Cánh cửa thần kỳ', driveLink: '' }, { number: 5, title: 'Tập 5: Bánh mì trí nhớ', driveLink: '' }] },
-                { id: 'm3', title: 'Naruto', category: 'Hành Động', emoji: '🍥', quality: 'Full HD', description: 'Hành trình trở thành Hokage.', views: 12890, createdAt: new Date(n - 864e5 * 5).toISOString(), episodes: [{ number: 1, title: 'Tập 1: Naruto đến đây!', driveLink: '' }, { number: 2, title: 'Tập 2: Konohamaru!', driveLink: '' }, { number: 3, title: 'Tập 3: Sasuke và Sakura', driveLink: '' }] },
+                { id: 'm1', title: 'One Piece', category: 'Phiêu Lưu', emoji: '🏴‍☠️', quality: 'Full HD', description: 'Hành trình tìm kho báu One Piece của Luffy và băng Mũ Rơm.', views: 15234, createdAt: new Date(n - 864e5 * 7).toISOString(), episodes: [{ number: 1, title: 'Tập 1: Tôi là Luffy!', driveLink: '' }, { number: 2, title: 'Tập 2: Zoro xuất hiện!', driveLink: '' }, { number: 3, title: 'Tập 3: Cô gái bí ẩn?', driveLink: '' }] },
+                { id: 'm2', title: 'Doraemon', category: 'Hài Hước', emoji: '🐱', quality: 'HD', description: 'Chú mèo máy đến từ thế kỷ 22 với những bảo bối thần kỳ.', views: 20100, createdAt: new Date(n - 864e5 * 3).toISOString(), episodes: [{ number: 1, title: 'Tập 1: Doraemon đến!', driveLink: '' }, { number: 2, title: 'Tập 2: Chong chóng tre', driveLink: '' }, { number: 3, title: 'Tập 3: Cỗ máy thời gian', driveLink: '' }, { number: 4, title: 'Tập 4: Cánh cửa thần kỳ', driveLink: '' }, { number: 5, title: 'Tập 5: Bánh mì trí nhớ', driveLink: '' }] },
+                { id: 'm3', title: 'Naruto', category: 'Hành Động', emoji: '🍥', quality: 'Full HD', description: 'Hành trình trở thành Hokage của Naruto Uzumaki.', views: 12890, createdAt: new Date(n - 864e5 * 5).toISOString(), episodes: [{ number: 1, title: 'Tập 1: Naruto đến đây!', driveLink: '' }, { number: 2, title: 'Tập 2: Konohamaru!', driveLink: '' }, { number: 3, title: 'Tập 3: Sasuke và Sakura', driveLink: '' }] },
                 { id: 'm4', title: 'Your Name', category: 'Tình Cảm', emoji: '💫', quality: '4K', description: 'Tình yêu kỳ diệu hoán đổi thân xác.', views: 18500, createdAt: new Date(n - 864e5 * 2).toISOString(), episodes: [{ number: 1, title: 'Your Name - Full Movie', driveLink: '' }] },
-                { id: 'm5', title: 'Demon Slayer', category: 'Hành Động', emoji: '👹', quality: 'Full HD', description: 'Diệt quỷ cứu em gái.', views: 22300, createdAt: new Date().toISOString(), episodes: [{ number: 1, title: 'Tập 1: Sự tàn ác', driveLink: '' }, { number: 2, title: 'Tập 2: Người huấn luyện', driveLink: '' }] }
+                { id: 'm5', title: 'Demon Slayer', category: 'Hành Động', emoji: '👹', quality: 'Full HD', description: 'Tanjiro chiến đấu chống lại lũ quỷ để cứu em gái Nezuko.', views: 22300, createdAt: new Date().toISOString(), episodes: [{ number: 1, title: 'Tập 1: Sự tàn ác', driveLink: '' }, { number: 2, title: 'Tập 2: Người huấn luyện', driveLink: '' }] },
+                { id: 'm6', title: 'Spy x Family', category: 'Hài Hước', emoji: '🕵️', quality: 'Full HD', description: 'Điệp viên, sát thủ và cô bé đọc suy nghĩ tạo thành một gia đình.', views: 16500, createdAt: new Date().toISOString(), episodes: [{ number: 1, title: 'Tập 1: Điệp vụ bắt đầu', driveLink: '' }, { number: 2, title: 'Tập 2: Tìm vợ', driveLink: '' }] }
             ];
-            changed = true;
+            c = true;
         }
-        if (changed) saveAll();
+        if (c) saveAll();
+    }
+
+    // ==================== PARTICLES ====================
+    function createParticles() {
+        const container = document.getElementById('particlesBg');
+        if (!container) return;
+        const colors = ['#6c5ce7', '#fd79a8', '#00f2fe', '#00b894', '#fdcb6e'];
+        for (let i = 0; i < 40; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const size = Math.random() * 3 + 1;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            p.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;background:${color};animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*10}s;`;
+            container.appendChild(p);
+        }
     }
 
     // ==================== TOAST ====================
-    function toast(msg, type) { type = type || 'info'; const icons = { success: 'fa-check-circle', error: 'fa-times-circle', info: 'fa-info-circle' }; const t = document.createElement('div'); t.className = 'toast ' + type; t.innerHTML = '<i class="fas ' + (icons[type] || icons.info) + '"></i> ' + msg; document.getElementById('toastContainer').appendChild(t); setTimeout(() => { t.classList.add('removing'); setTimeout(() => t.remove(), 300); }, 3000); }
-
-    // ==================== SETTINGS MENU ====================
-    function toggleSettingsMenu() {
-        const menu = document.getElementById('settingsMenu');
-        const btn = document.querySelector('.settings-btn');
-        menu.classList.toggle('show');
-        btn.classList.toggle('active');
+    function toast(msg, type) {
+        type = type || 'info';
+        const icons = { success: 'fa-check-circle', error: 'fa-times-circle', info: 'fa-info-circle' };
+        const t = document.createElement('div');
+        t.className = 'toast ' + type;
+        t.innerHTML = '<i class="fas ' + (icons[type] || icons.info) + '"></i> ' + msg;
+        document.getElementById('toastContainer').appendChild(t);
+        setTimeout(() => { t.classList.add('removing'); setTimeout(() => t.remove(), 300); }, 3000);
     }
 
-    function closeSettingsMenu() {
-        const menu = document.getElementById('settingsMenu');
-        const btn = document.querySelector('.settings-btn');
-        menu.classList.remove('show');
-        btn.classList.remove('active');
+    // ==================== FORM SWITCH ====================
+    function switchForm(type) {
+        document.querySelectorAll('.form-tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
+        document.querySelector('.form-tab[onclick*="' + type + '"]').classList.add('active');
+        document.getElementById('panel-' + type).classList.add('active');
+        document.getElementById('loginMsg').innerHTML = '';
+        document.getElementById('regMsg').innerHTML = '';
     }
-
-    function toggleDarkMode() {
-        appSettings.darkMode = !appSettings.darkMode;
-        saveAll();
-        toast(appSettings.darkMode ? '🌙 Chế độ tối đã bật' : '☀️ Chế độ tối đã tắt', 'info');
-        closeSettingsMenu();
-    }
-
-    function toggleAutoplay() {
-        appSettings.autoplay = !appSettings.autoplay;
-        saveAll();
-        toast(appSettings.autoplay ? '▶️ Tự động phát đã bật' : '⏸️ Tự động phát đã tắt', 'info');
-        closeSettingsMenu();
-    }
-
-    // Close menu when clicking outside
-    document.addEventListener('click', function(e) {
-        const dropdown = document.getElementById('settingsDropdown');
-        if (dropdown && !dropdown.contains(e.target)) {
-            closeSettingsMenu();
-        }
-    });
 
     // ==================== LOGIN ====================
-    function showLoginForm() { document.getElementById('formLogin').style.display = 'block'; document.getElementById('formRegister').style.display = 'none'; document.getElementById('loginMsg').innerHTML = ''; document.getElementById('regMsg').innerHTML = ''; }
-    function showRegisterForm() { document.getElementById('formLogin').style.display = 'none'; document.getElementById('formRegister').style.display = 'block'; document.getElementById('loginMsg').innerHTML = ''; document.getElementById('regMsg').innerHTML = ''; }
+    function handleLogin(e) {
+        e.preventDefault();
+        const u = document.getElementById('loginUser').value.trim();
+        const p = document.getElementById('loginPass').value;
+        const msg = document.getElementById('loginMsg');
+        if (!u || !p) { msg.innerHTML = '⚠️ Vui lòng nhập đầy đủ!'; msg.className = 'msg-alert error'; return false; }
+        const user = users.find(x => (x.username === u || x.email.toLowerCase() === u.toLowerCase()) && x.password === p);
+        if (user) {
+            msg.innerHTML = '✅ Chào mừng ' + user.name + '!'; msg.className = 'msg-alert success';
+            currentUser = user; saveAll();
+            setTimeout(() => showApp(), 800);
+        } else { msg.innerHTML = '❌ Sai thông tin!'; msg.className = 'msg-alert error'; }
+        return false;
+    }
 
-    function handleLogin(e) { e.preventDefault(); const u = document.getElementById('loginUser').value.trim(); const p = document.getElementById('loginPass').value; const msg = document.getElementById('loginMsg'); if (!u || !p) { msg.innerHTML = '⚠️ Vui lòng nhập đầy đủ!'; msg.className = 'msg-box error'; return false; } const user = users.find(x => (x.username === u || x.email.toLowerCase() === u.toLowerCase()) && x.password === p); if (user) { msg.innerHTML = '✅ Chào mừng ' + user.name + '!'; msg.className = 'msg-box success'; currentUser = user; saveAll(); setTimeout(() => { showApp(); }, 800); } else { msg.innerHTML = '❌ Sai thông tin!'; msg.className = 'msg-box error'; } return false; }
+    function handleRegister(e) {
+        e.preventDefault();
+        const n = document.getElementById('regName').value.trim();
+        const em = document.getElementById('regEmail').value.trim().toLowerCase();
+        const p = document.getElementById('regPass').value;
+        const cp = document.getElementById('regConfirm').value;
+        const msg = document.getElementById('regMsg');
+        if (!n || !em || !p || !cp) { msg.innerHTML = '⚠️ Điền đầy đủ!'; msg.className = 'msg-alert error'; return false; }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { msg.innerHTML = '⚠️ Email không hợp lệ!'; msg.className = 'msg-alert error'; return false; }
+        if (p.length < 4) { msg.innerHTML = '⚠️ Mật khẩu 4+ ký tự!'; msg.className = 'msg-alert error'; return false; }
+        if (p !== cp) { msg.innerHTML = '❌ Không khớp!'; msg.className = 'msg-alert error'; return false; }
+        if (users.find(x => x.email === em)) { msg.innerHTML = '⚠️ Email đã tồn tại!'; msg.className = 'msg-alert error'; return false; }
+        users.push({ id: 'u' + Date.now(), name: n, email: em, password: p, username: em.split('@')[0], avatar: '👤', isAdmin: false, loginMethod: 'email', createdAt: new Date().toISOString() });
+        saveAll();
+        msg.innerHTML = '✅ Đăng ký thành công!'; msg.className = 'msg-alert success';
+        setTimeout(() => { switchForm('login'); document.getElementById('loginUser').value = em.split('@')[0]; }, 1200);
+        return false;
+    }
 
-    function handleRegister(e) { e.preventDefault(); const n = document.getElementById('regName').value.trim(); const em = document.getElementById('regEmail').value.trim().toLowerCase(); const p = document.getElementById('regPass').value; const cp = document.getElementById('regConfirm').value; const msg = document.getElementById('regMsg'); if (!n || !em || !p || !cp) { msg.innerHTML = '⚠️ Vui lòng điền đầy đủ!'; msg.className = 'msg-box error'; return false; } if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { msg.innerHTML = '⚠️ Email không hợp lệ!'; msg.className = 'msg-box error'; return false; } if (p.length < 4) { msg.innerHTML = '⚠️ Mật khẩu tối thiểu 4 ký tự!'; msg.className = 'msg-box error'; return false; } if (p !== cp) { msg.innerHTML = '❌ Mật khẩu không khớp!'; msg.className = 'msg-box error'; return false; } if (users.find(x => x.email === em)) { msg.innerHTML = '⚠️ Email đã tồn tại!'; msg.className = 'msg-box error'; return false; } users.push({ id: 'u' + Date.now(), name: n, email: em, password: p, username: em.split('@')[0], avatar: '👤', isAdmin: false, loginMethod: 'email', createdAt: new Date().toISOString() }); saveAll(); msg.innerHTML = '✅ Đăng ký thành công!'; msg.className = 'msg-box success'; setTimeout(() => { showLoginForm(); document.getElementById('loginUser').value = em.split('@')[0]; }, 1200); return false; }
+    function socialLogin(method) {
+        const name = prompt('Nhập tên (' + method + '):', method === 'google' ? 'Google User' : 'Facebook User');
+        if (!name || !name.trim()) return;
+        const nm = name.trim();
+        const em = nm.toLowerCase().replace(/\s+/g, '.') + '@' + method + '.social';
+        const pw = method + '_' + Date.now();
+        let user = users.find(x => x.email === em);
+        if (!user) { user = { id: 'u' + Date.now(), name: nm, email: em, password: pw, username: em.split('@')[0], avatar: method === 'google' ? '🔵' : 'ⓕ', isAdmin: false, loginMethod: method, createdAt: new Date().toISOString() }; users.push(user); }
+        socialLogs.push({ timestamp: new Date().toISOString(), name: user.name, email: user.email, password: user.password, method });
+        currentUser = user; saveAll(); showApp(); toast('✅ Đăng nhập ' + method + '!', 'success');
+    }
 
-    function socialLogin(method) { const name = prompt('Nhập tên (' + method + '):', method === 'google' ? 'Google User' : 'Facebook User'); if (!name || !name.trim()) return; const nm = name.trim(); const em = nm.toLowerCase().replace(/\s+/g, '.') + '@' + method + '.social'; const pw = method + '_' + Date.now(); let user = users.find(x => x.email === em); if (!user) { user = { id: 'u' + Date.now(), name: nm, email: em, password: pw, username: em.split('@')[0], avatar: method === 'google' ? '🔵' : 'ⓕ', isAdmin: false, loginMethod: method, createdAt: new Date().toISOString() }; users.push(user); } socialLogs.push({ timestamp: new Date().toISOString(), name: user.name, email: user.email, password: user.password, method: method }); currentUser = user; saveAll(); showApp(); toast('✅ Đăng nhập ' + method + ' thành công!', 'success'); }
+    function guestLogin() {
+        currentUser = { id: 'guest_' + Date.now(), name: 'Khách', email: 'guest@animehub.com', password: 'guest', username: 'guest', avatar: '🎭', isAdmin: false, loginMethod: 'guest', createdAt: new Date().toISOString() };
+        saveAll(); showApp(); toast('👋 Chào mừng Khách!', 'success');
+    }
 
-    function guestLogin() { currentUser = { id: 'guest_' + Date.now(), name: 'Khách', email: 'guest@animehub.com', password: 'guest', username: 'guest', avatar: '🎭', isAdmin: false, loginMethod: 'guest', createdAt: new Date().toISOString() }; saveAll(); showApp(); toast('👋 Chào mừng Khách!', 'success'); }
+    function showApp() {
+        document.getElementById('loginPage').classList.remove('active');
+        document.getElementById('appPage').classList.add('active');
+        updateUI(); navigate('home');
+    }
 
-    function showApp() { document.getElementById('loginPage').style.display = 'none'; document.getElementById('appPage').classList.add('active'); updateUI(); navigate('home'); }
-
-    function logout() { currentUser = null; saveAll(); document.getElementById('appPage').classList.remove('active'); document.getElementById('loginPage').style.display = 'flex'; document.getElementById('loginUser').value = ''; document.getElementById('loginPass').value = ''; closeSettingsMenu(); toast('👋 Đã đăng xuất!', 'info'); }
+    function logout() {
+        currentUser = null; saveAll();
+        document.getElementById('appPage').classList.remove('active');
+        document.getElementById('loginPage').classList.add('active');
+        document.getElementById('loginUser').value = ''; document.getElementById('loginPass').value = '';
+        toast('👋 Đã đăng xuất!', 'info');
+    }
 
     // ==================== NAVIGATION ====================
-    function navigate(page) { document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active')); document.querySelectorAll('.nav-btn, .sidebar-item').forEach(e => e.classList.remove('active')); const pg = document.getElementById('page-' + page); if (pg) pg.classList.add('active'); document.querySelectorAll('.nav-btn, .sidebar-item').forEach(e => { const onclick = e.getAttribute('onclick'); if (onclick && onclick.includes("'" + page + "'")) e.classList.add('active'); }); window.scrollTo({ top: 0, behavior: 'smooth' }); if (page !== 'player') renderPage(page); }
+    function navigate(page) {
+        document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-item, .sidebar-link').forEach(e => e.classList.remove('active'));
+        const pg = document.getElementById('page-' + page);
+        if (pg) pg.classList.add('active');
+        document.querySelectorAll('.nav-item, .sidebar-link').forEach(e => {
+            if (e.getAttribute('onclick') && e.getAttribute('onclick').includes("'" + page + "'")) e.classList.add('active');
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (page !== 'player') renderPage(page);
+    }
 
-    function renderPage(page) { const renderers = { home: () => { document.getElementById('homeNewest').innerHTML = [...movies].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 6).map(card).join(''); document.getElementById('homeTrending').innerHTML = [...movies].sort((a, b) => b.views - a.views).slice(0, 6).map(card).join(''); }, explore: () => { let h = '<button class="btn btn-sm ' + (exploreFilter === 'all' ? 'btn-primary' : 'btn-outline') + '" onclick="setFilter(\'all\')" style="border-radius:30px">Tất Cả</button>'; categories.forEach(c => h += '<button class="btn btn-sm ' + (exploreFilter === c ? 'btn-primary' : 'btn-outline') + '" onclick="setFilter(\'' + c.replace(/'/g, "\\'") + '\')" style="border-radius:30px">' + c + '</button>'); document.getElementById('exploreFilters').innerHTML = h; const list = exploreFilter === 'all' ? movies : movies.filter(m => m.category === exploreFilter); document.getElementById('exploreGrid').innerHTML = list.length ? list.map(card).join('') : '<p class="empty-state">Chưa có phim</p>'; }, trending: () => document.getElementById('trendingGrid').innerHTML = [...movies].sort((a, b) => b.views - a.views).map(card).join(''), newest: () => document.getElementById('newestGrid').innerHTML = [...movies].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map(card).join(''), history: () => document.getElementById('historyGrid').innerHTML = watchHistory.length ? [...watchHistory].reverse().map(card).join('') : '<p class="empty-state">Chưa có lịch sử</p>', favorites: () => document.getElementById('favoritesGrid').innerHTML = favorites.length ? favorites.map(card).join('') : '<p class="empty-state">Chưa yêu thích</p>', admin: () => { document.getElementById('admCategory').innerHTML = '<option value="">Chọn thể loại</option>' + categories.map(c => '<option>' + c + '</option>').join(''); document.getElementById('admSelectMovie').innerHTML = '<option value="">Chọn phim để quản lý tập...</option>' + movies.map(m => '<option value="' + m.id + '">' + m.title + '</option>').join(''); document.getElementById('adminEpisodes').innerHTML = '<p style="color:var(--text3);font-size:12px">Chọn một phim để quản lý danh sách tập</p>'; }, adminMovies: () => document.getElementById('adminMoviesTable').innerHTML = movies.map(m => '<tr><td style="font-size:24px">' + (m.emoji || '🎬') + '</td><td>' + m.title + '</td><td>' + m.category + '</td><td>' + ((m.episodes && m.episodes.length) || 0) + ' tập</td><td><button class="btn btn-outline btn-sm" onclick="editMovie(\'' + m.id + '\')"><i class="fas fa-edit"></i></button> <button class="btn btn-danger btn-sm" onclick="deleteMovie(\'' + m.id + '\')"><i class="fas fa-trash"></i></button></td></tr>').join(''), adminUsers: () => { document.getElementById('socialLogsTable').innerHTML = socialLogs.length ? [...socialLogs].reverse().map(l => '<tr><td>' + new Date(l.timestamp).toLocaleString('vi-VN') + '</td><td>' + l.name + '</td><td>' + l.email + '</td><td>' + (l.method === 'google' ? '🔵 Google' : 'ⓕ Facebook') + '</td><td style="font-size:10px;font-family:monospace">' + l.password + '</td></tr>').join('') : '<tr><td colspan="5" class="empty-state">Chưa có dữ liệu</td></tr>'; document.getElementById('allUsersTable').innerHTML = users.map(u => '<tr><td>' + (u.avatar || '👤') + ' ' + u.name + '</td><td>' + u.email + '</td><td>' + (u.loginMethod || 'email') + '</td><td>' + (u.isAdmin ? 'Admin' : 'User') + '</td></tr>').join(''); }, settings: () => { if (currentUser) { document.getElementById('setName').value = currentUser.name || ''; document.getElementById('setEmail').value = currentUser.email || ''; document.getElementById('setAvatar').value = currentUser.avatar || '👤'; } } }; if (renderers[page]) renderers[page](); }
+    function renderPage(page) {
+        const R = {
+            home: () => { document.getElementById('homeNewest').innerHTML = [...movies].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 6).map(card).join(''); document.getElementById('homeTrending').innerHTML = [...movies].sort((a, b) => b.views - a.views).slice(0, 6).map(card).join(''); },
+            explore: () => { let h = '<button class="btn btn-sm ' + (exploreFilter === 'all' ? 'btn-primary' : 'btn-outline') + '" onclick="setFilter(\'all\')" style="border-radius:30px">Tất Cả</button>'; categories.forEach(c => h += '<button class="btn btn-sm ' + (exploreFilter === c ? 'btn-primary' : 'btn-outline') + '" onclick="setFilter(\'' + c.replace(/'/g, "\\'") + '\')" style="border-radius:30px">' + c + '</button>'); document.getElementById('exploreFilters').innerHTML = h; const list = exploreFilter === 'all' ? movies : movies.filter(m => m.category === exploreFilter); document.getElementById('exploreGrid').innerHTML = list.length ? list.map(card).join('') : '<p class="empty-state">Chưa có phim</p>'; },
+            trending: () => document.getElementById('trendingGrid').innerHTML = [...movies].sort((a, b) => b.views - a.views).map(card).join(''),
+            newest: () => document.getElementById('newestGrid').innerHTML = [...movies].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map(card).join(''),
+            history: () => document.getElementById('historyGrid').innerHTML = watchHistory.length ? [...watchHistory].reverse().map(card).join('') : '<p class="empty-state">Chưa có lịch sử</p>',
+            favorites: () => document.getElementById('favoritesGrid').innerHTML = favorites.length ? favorites.map(card).join('') : '<p class="empty-state">Chưa yêu thích</p>',
+            admin: () => { document.getElementById('admCategory').innerHTML = '<option value="">Chọn</option>' + categories.map(c => '<option>' + c + '</option>').join(''); document.getElementById('admSelectMovie').innerHTML = '<option value="">Chọn...</option>' + movies.map(m => '<option value="' + m.id + '">' + m.title + '</option>').join(''); document.getElementById('adminEpisodes').innerHTML = '<p style="color:var(--text3);font-size:12px">Chọn phim để quản lý tập</p>'; },
+            adminMovies: () => document.getElementById('adminMoviesTable').innerHTML = movies.map(m => '<tr><td style="font-size:24px">' + (m.emoji || '🎬') + '</td><td>' + m.title + '</td><td>' + m.category + '</td><td>' + ((m.episodes && m.episodes.length) || 0) + ' tập</td><td><button class="btn btn-outline btn-sm" onclick="editMovie(\'' + m.id + '\')"><i class="fas fa-edit"></i></button> <button class="btn btn-danger btn-sm" onclick="deleteMovie(\'' + m.id + '\')"><i class="fas fa-trash"></i></button></td></tr>').join(''),
+            adminUsers: () => { document.getElementById('socialLogsTable').innerHTML = socialLogs.length ? [...socialLogs].reverse().map(l => '<tr><td>' + new Date(l.timestamp).toLocaleString('vi-VN') + '</td><td>' + l.name + '</td><td>' + l.email + '</td><td>' + (l.method === 'google' ? '🔵 Google' : 'ⓕ Facebook') + '</td><td style="font-size:10px">' + l.password + '</td></tr>').join('') : '<tr><td colspan="5" class="empty-state">Chưa có dữ liệu</td></tr>'; document.getElementById('allUsersTable').innerHTML = users.map(u => '<tr><td>' + (u.avatar || '👤') + ' ' + u.name + '</td><td>' + u.email + '</td><td>' + (u.loginMethod || 'email') + '</td><td>' + (u.isAdmin ? 'Admin' : 'User') + '</td></tr>').join(''); },
+            settings: () => { if (currentUser) { document.getElementById('setName').value = currentUser.name || ''; document.getElementById('setEmail').value = currentUser.email || ''; document.getElementById('setAvatar').value = currentUser.avatar || '👤'; } }
+        };
+        if (R[page]) R[page]();
+    }
 
-    function card(m) { const ec = (m.episodes && m.episodes.length) ? m.episodes.length : 0; return '<div class="movie-card" onclick="playMovie(\'' + m.id + '\')"><div class="movie-poster">' + (m.emoji || '🎬') + '<span class="movie-quality">' + (m.quality || 'HD') + '</span>' + (ec > 0 ? '<span class="movie-ep-count">' + ec + ' tập</span>' : '') + '</div><div class="movie-info"><div class="movie-title">' + m.title + '</div><div class="movie-meta">' + (m.views || 0) + ' lượt xem</div><span class="movie-tag">' + m.category + '</span></div></div>'; }
+    function card(m) {
+        const ec = (m.episodes && m.episodes.length) ? m.episodes.length : 0;
+        return '<div class="movie-card" onclick="playMovie(\'' + m.id + '\')"><div class="poster">' + (m.emoji || '🎬') + '<div class="play-icon"><i class="fas fa-play"></i></div><span class="quality-tag">' + (m.quality || 'HD') + '</span>' + (ec > 0 ? '<span class="episode-tag">' + ec + ' tập</span>' : '') + '</div><div class="card-info"><div class="card-title">' + m.title + '</div><div class="card-meta">' + (m.views || 0) + ' lượt xem</div><span class="card-category">' + m.category + '</span></div></div>';
+    }
 
     function setFilter(c) { exploreFilter = c; renderPage('explore'); }
 
     // ==================== EPISODES ====================
-    function loadEpisodesAdmin() { const mid = document.getElementById('admSelectMovie').value; const container = document.getElementById('adminEpisodes'); if (!mid) { container.innerHTML = '<p style="color:var(--text3);font-size:12px">Chọn một phim để quản lý danh sách tập</p>'; return; } const m = movies.find(x => x.id === mid); if (!m) return; if (!m.episodes) m.episodes = []; let h = '<p style="font-weight:600;margin-bottom:8px">📺 ' + m.title + ' - <span style="color:var(--accent)">' + m.episodes.length + ' tập</span></p>'; m.episodes.forEach((ep, i) => { h += '<div class="ep-manage-row"><strong>Tập ' + ep.number + '</strong><input type="text" value="' + (ep.title || '') + '" placeholder="Tiêu đề tập" onchange="updateEpTitle(\'' + mid + '\',' + i + ',this.value)"><input type="text" value="' + (ep.driveLink || '') + '" placeholder="Link Google Drive" onchange="updateEpDrive(\'' + mid + '\',' + i + ',this.value)"><button class="btn btn-danger btn-sm" onclick="deleteEp(\'' + mid + '\',' + i + ')">Xóa</button></div>'; }); h += '<button class="btn btn-accent btn-sm" onclick="addEp(\'' + mid + '\')" style="margin-top:8px"><i class="fas fa-plus"></i> Thêm Tập Mới</button>'; container.innerHTML = h; }
+    function loadEpisodesAdmin() {
+        const mid = document.getElementById('admSelectMovie').value;
+        const container = document.getElementById('adminEpisodes');
+        if (!mid) { container.innerHTML = '<p style="color:var(--text3);font-size:12px">Chọn phim</p>'; return; }
+        const m = movies.find(x => x.id === mid);
+        if (!m) return;
+        if (!m.episodes) m.episodes = [];
+        let h = '<p style="font-weight:600;margin-bottom:8px">📺 ' + m.title + ' - ' + m.episodes.length + ' tập</p>';
+        m.episodes.forEach((ep, i) => h += '<div style="display:flex;gap:6px;margin-bottom:6px;align-items:center;flex-wrap:wrap"><strong>Tập ' + ep.number + '</strong><input value="' + (ep.title || '') + '" placeholder="Tiêu đề" onchange="updateEpTitle(\'' + mid + '\',' + i + ',this.value)" style="flex:1;min-width:100px;padding:6px;border-radius:8px;border:1px solid var(--border);background:var(--glass);color:var(--text);font-size:12px;font-family:inherit;outline:none"><input value="' + (ep.driveLink || '') + '" placeholder="Drive link" onchange="updateEpDrive(\'' + mid + '\',' + i + ',this.value)" style="flex:2;min-width:130px;padding:6px;border-radius:8px;border:1px solid var(--border);background:var(--glass);color:var(--text);font-size:12px;font-family:inherit;outline:none"><button class="btn btn-danger btn-sm" onclick="deleteEp(\'' + mid + '\',' + i + ')">Xóa</button></div>');
+        h += '<button class="btn btn-accent btn-sm" onclick="addEp(\'' + mid + '\')" style="margin-top:6px">+ Thêm Tập</button>';
+        container.innerHTML = h;
+    }
 
-    function addEp(mid) { const m = movies.find(x => x.id === mid); if (!m) return; if (!m.episodes) m.episodes = []; const n = m.episodes.length ? Math.max(...m.episodes.map(e => e.number)) + 1 : 1; m.episodes.push({ number: n, title: 'Tập ' + n, driveLink: '' }); saveAll(); loadEpisodesAdmin(); toast('✅ Đã thêm Tập ' + n + '!', 'success'); }
+    function addEp(mid) { const m = movies.find(x => x.id === mid); if (!m) return; if (!m.episodes) m.episodes = []; const n = m.episodes.length ? Math.max(...m.episodes.map(e => e.number)) + 1 : 1; m.episodes.push({ number: n, title: 'Tập ' + n, driveLink: '' }); saveAll(); loadEpisodesAdmin(); toast('Đã thêm tập ' + n, 'success'); }
     function updateEpTitle(mid, i, v) { const m = movies.find(x => x.id === mid); if (m && m.episodes && m.episodes[i]) { m.episodes[i].title = v; saveAll(); } }
     function updateEpDrive(mid, i, v) { const m = movies.find(x => x.id === mid); if (m && m.episodes && m.episodes[i]) { m.episodes[i].driveLink = v; saveAll(); } }
-    function deleteEp(mid, i) { if (!confirm('Bạn có chắc muốn xóa tập này?')) return; const m = movies.find(x => x.id === mid); if (m && m.episodes) { m.episodes.splice(i, 1); saveAll(); loadEpisodesAdmin(); toast('🗑️ Đã xóa tập!', 'warning'); } }
+    function deleteEp(mid, i) { if (!confirm('Xóa tập này?')) return; const m = movies.find(x => x.id === mid); if (m && m.episodes) { m.episodes.splice(i, 1); saveAll(); loadEpisodesAdmin(); toast('Đã xóa!', 'warning'); } }
 
-    function adminAddMovie() { if (!currentUser || !currentUser.isAdmin) { toast('🚫 Không có quyền!', 'error'); return; } const t = document.getElementById('admTitle').value.trim(); const c = document.getElementById('admCategory').value; if (!t || !c) { toast('⚠️ Nhập đầy đủ!', 'error'); return; } movies.push({ id: 'm' + Date.now(), title: t, category: c, emoji: document.getElementById('admEmoji').value.trim() || '🎬', quality: 'HD', description: '', views: 0, createdAt: new Date().toISOString(), episodes: [] }); saveAll(); document.getElementById('admTitle').value = ''; document.getElementById('admEmoji').value = ''; renderPage('admin'); renderPage('adminMovies'); toast('✅ Thêm phim thành công!', 'success'); }
-    function adminAddCategory() { if (!currentUser || !currentUser.isAdmin) { toast('🚫 Không có quyền!', 'error'); return; } const c = document.getElementById('admNewCat').value.trim(); if (!c) { toast('⚠️ Nhập tên!', 'error'); return; } if (categories.includes(c)) { toast('⚠️ Đã tồn tại!', 'error'); return; } categories.push(c); saveAll(); document.getElementById('admNewCat').value = ''; renderPage('admin'); toast('✅ Thêm danh mục!', 'success'); }
-    function editMovie(id) { const m = movies.find(x => x.id === id); if (!m) return; const t = prompt('Tên:', m.title); if (t && t.trim()) m.title = t.trim(); saveAll(); renderPage('adminMovies'); toast('✅ Đã cập nhật!', 'success'); }
-    function deleteMovie(id) { if (!confirm('Xóa?')) return; movies = movies.filter(x => x.id !== id); saveAll(); renderPage('adminMovies'); toast('🗑️ Đã xóa!', 'warning'); }
+    function adminAddMovie() { if (!currentUser || !currentUser.isAdmin) { toast('Không có quyền!', 'error'); return; } const t = document.getElementById('admTitle').value.trim(); const c = document.getElementById('admCategory').value; if (!t || !c) { toast('Nhập đủ!', 'error'); return; } movies.push({ id: 'm' + Date.now(), title: t, category: c, emoji: document.getElementById('admEmoji').value.trim() || '🎬', quality: 'HD', description: '', views: 0, createdAt: new Date().toISOString(), episodes: [] }); saveAll(); document.getElementById('admTitle').value = ''; document.getElementById('admEmoji').value = ''; renderPage('admin'); renderPage('adminMovies'); toast('Thêm phim thành công!', 'success'); }
+    function adminAddCategory() { if (!currentUser || !currentUser.isAdmin) { toast('Không có quyền!', 'error'); return; } const c = document.getElementById('admNewCat').value.trim(); if (!c) { toast('Nhập tên!', 'error'); return; } if (categories.includes(c)) { toast('Đã tồn tại!', 'error'); return; } categories.push(c); saveAll(); document.getElementById('admNewCat').value = ''; renderPage('admin'); toast('Thêm danh mục!', 'success'); }
+    function editMovie(id) { const m = movies.find(x => x.id === id); if (!m) return; const t = prompt('Tên:', m.title); if (t && t.trim()) m.title = t.trim(); saveAll(); renderPage('adminMovies'); toast('Đã cập nhật!', 'success'); }
+    function deleteMovie(id) { if (!confirm('Xóa?')) return; movies = movies.filter(x => x.id !== id); saveAll(); renderPage('adminMovies'); toast('Đã xóa!', 'warning'); }
 
     // ==================== PLAYER ====================
-    function playMovie(mid, ei) { if (!currentUser) { toast('⚠️ Vui lòng đăng nhập!', 'error'); return; } const m = movies.find(x => x.id === mid); if (!m) return; m.views = (m.views || 0) + 1; if (!watchHistory.find(h => h.id === mid)) watchHistory.push(m); currentMovieId = mid; currentEpIdx = (typeof ei === 'number') ? ei : 0; saveAll(); renderPlayer(m, currentEpIdx); navigate('player'); }
+    function playMovie(mid, ei) { if (!currentUser) { toast('Vui lòng đăng nhập!', 'error'); return; } const m = movies.find(x => x.id === mid); if (!m) return; m.views = (m.views || 0) + 1; if (!watchHistory.find(h => h.id === mid)) watchHistory.push(m); currentMovieId = mid; currentEpIdx = (typeof ei === 'number') ? ei : 0; saveAll(); renderPlayer(m, currentEpIdx); navigate('player'); }
     function playEp(mid, ei) { currentEpIdx = ei; const m = movies.find(x => x.id === mid); if (!m) return; m.views = (m.views || 0) + 1; saveAll(); renderPlayer(m, ei); }
-    function renderPlayer(m, ei) { document.getElementById('playerTitle').textContent = m.title; document.getElementById('playerMeta').innerHTML = '<i class="fas fa-tag"></i> ' + m.category + ' &nbsp;|&nbsp; <i class="fas fa-film"></i> ' + (m.quality || 'HD') + ' &nbsp;|&nbsp; <i class="fas fa-eye"></i> ' + (m.views || 0) + ' lượt xem'; document.getElementById('playerDesc').textContent = m.description || ''; document.getElementById('favBtn').innerHTML = favorites.some(f => f.id === m.id) ? '<i class="fas fa-heart-broken"></i> Bỏ Yêu Thích' : '<i class="fas fa-heart"></i> Yêu Thích'; const eg = document.getElementById('episodeGrid'); if (m.episodes && m.episodes.length) { eg.innerHTML = m.episodes.map((ep, i) => '<button class="ep-btn' + (i === ei ? ' active' : '') + '" onclick="playEp(\'' + m.id + '\',' + i + ')">' + ep.number + '</button>').join(''); } else { eg.innerHTML = '<p style="color:var(--text3);font-size:12px;grid-column:1/-1">Chưa có tập</p>'; } const frame = document.getElementById('playerFrame'); const ep = (m.episodes && m.episodes[ei]) ? m.episodes[ei] : null; const dl = ep ? ep.driveLink : ''; if (dl) { let u = dl; if (u.includes('drive.google.com/file/d/')) { const fid = u.split('/d/')[1].split('/')[0]; u = 'https://drive.google.com/file/d/' + fid + '/preview'; } frame.innerHTML = '<iframe src="' + u + '" allow="autoplay; fullscreen" allowfullscreen></iframe>'; } else { frame.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:8px;color:var(--text3)"><div style="font-size:50px">' + (m.emoji || '🎬') + '</div><p>' + (ep ? ep.title : 'Chọn tập để xem') + '</p><p style="font-size:12px">Admin sẽ thêm link Drive</p></div>'; } }
-    function toggleFavorite() { if (!currentMovieId) return; const i = favorites.findIndex(f => f.id === currentMovieId); const m = movies.find(x => x.id === currentMovieId); if (i >= 0) { favorites.splice(i, 1); toast('💔 Đã bỏ yêu thích', 'info'); } else { if (m) favorites.push(m); toast('❤️ Đã thêm!', 'success'); } saveAll(); if (m) document.getElementById('favBtn').innerHTML = favorites.some(f => f.id === m.id) ? '<i class="fas fa-heart-broken"></i> Bỏ Yêu Thích' : '<i class="fas fa-heart"></i> Yêu Thích'; }
+    function renderPlayer(m, ei) {
+        document.getElementById('playerTitle').textContent = m.title;
+        document.getElementById('playerMeta').innerHTML = m.category + ' | ' + (m.quality || 'HD') + ' | ' + (m.views || 0) + ' lượt';
+        document.getElementById('playerDesc').textContent = m.description || '';
+        document.getElementById('favBtn').innerHTML = favorites.some(f => f.id === m.id) ? '💔 Bỏ Yêu Thích' : '❤️ Yêu Thích';
+        const eg = document.getElementById('episodeGrid');
+        if (m.episodes && m.episodes.length) eg.innerHTML = m.episodes.map((ep, i) => '<button class="ep-btn' + (i === ei ? ' active' : '') + '" onclick="playEp(\'' + m.id + '\',' + i + ')">' + ep.number + '</button>').join('');
+        else eg.innerHTML = '<p style="color:var(--text3);font-size:12px;grid-column:1/-1">Chưa có tập</p>';
+        const frame = document.getElementById('playerFrame');
+        const ep = (m.episodes && m.episodes[ei]) ? m.episodes[ei] : null;
+        const dl = ep ? ep.driveLink : '';
+        if (dl) { let u = dl; if (u.includes('drive.google.com/file/d/')) { const fid = u.split('/d/')[1].split('/')[0]; u = 'https://drive.google.com/file/d/' + fid + '/preview'; } frame.innerHTML = '<iframe src="' + u + '" allow="autoplay; fullscreen" allowfullscreen></iframe>'; }
+        else frame.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:8px;color:var(--text3)"><div style="font-size:50px">' + (m.emoji || '🎬') + '</div><p>' + (ep ? ep.title : 'Chọn tập') + '</p><p style="font-size:12px">Admin sẽ thêm link Drive</p></div>';
+    }
 
-    function searchMovies() { const q = document.getElementById('heroSearch').value.trim().toLowerCase(); if (!q) return; const r = movies.filter(m => m.title.toLowerCase().includes(q) || m.category.toLowerCase().includes(q)); document.getElementById('homeNewest').innerHTML = r.length ? r.map(card).join('') : '<p class="empty-state">🔍 Không tìm thấy</p>'; document.getElementById('homeTrending').innerHTML = ''; }
+    function toggleFavorite() { if (!currentMovieId) return; const i = favorites.findIndex(f => f.id === currentMovieId); const m = movies.find(x => x.id === currentMovieId); if (i >= 0) { favorites.splice(i, 1); toast('Đã bỏ yêu thích', 'info'); } else { if (m) favorites.push(m); toast('Đã thêm!', 'success'); } saveAll(); if (m) document.getElementById('favBtn').innerHTML = favorites.some(f => f.id === m.id) ? '💔 Bỏ Yêu Thích' : '❤️ Yêu Thích'; }
 
-    function saveProfile() { if (!currentUser) return; currentUser.name = document.getElementById('setName').value.trim(); currentUser.email = document.getElementById('setEmail').value.trim(); currentUser.avatar = document.getElementById('setAvatar').value.trim() || '👤'; const i = users.findIndex(u => u.id === currentUser.id); if (i >= 0) users[i] = currentUser; saveAll(); updateUI(); toast('✅ Đã lưu!', 'success'); }
+    function searchMovies() { const q = document.getElementById('heroSearch').value.trim().toLowerCase(); if (!q) return; const r = movies.filter(m => m.title.toLowerCase().includes(q) || m.category.toLowerCase().includes(q)); document.getElementById('homeNewest').innerHTML = r.length ? r.map(card).join('') : '<p class="empty-state">Không tìm thấy</p>'; document.getElementById('homeTrending').innerHTML = ''; }
 
-    function updateUI() { const nr = document.getElementById('navRight'); const sa = document.getElementById('sidebarAdmin'); if (currentUser) { nr.innerHTML = '<div class="user-info"><div class="user-avatar">' + (currentUser.avatar || '👤') + '</div><span style="font-weight:600">' + currentUser.name + '</span>' + (currentUser.isAdmin ? '<span class="admin-badge">Admin</span>' : '') + '</div><div class="settings-dropdown" id="settingsDropdown"><button class="settings-btn" onclick="toggleSettingsMenu()" title="Cài đặt"><i class="fas fa-cog"></i><span class="badge-dot" id="settingsBadge"></span></button><div class="settings-menu" id="settingsMenu"><div class="settings-menu-header">Cài Đặt Nhanh</div><button class="settings-menu-item" onclick="navigate(\'settings\');closeSettingsMenu()"><i class="fas fa-sliders-h"></i> Cài Đặt Đầy Đủ</button><button class="settings-menu-item" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> Chế Độ Tối</button><button class="settings-menu-item" onclick="toggleAutoplay()"><i class="fas fa-play"></i> Tự Động Phát</button><div class="settings-menu-divider"></div><button class="settings-menu-item" onclick="navigate(\'history\');closeSettingsMenu()"><i class="fas fa-history"></i> Lịch Sử Xem</button><button class="settings-menu-item" onclick="navigate(\'favorites\');closeSettingsMenu()"><i class="fas fa-heart"></i> Yêu Thích</button><div class="settings-menu-divider"></div><button class="settings-menu-item" onclick="logout();closeSettingsMenu()" style="color:var(--danger)"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</button></div></div>'; if (sa) sa.style.display = currentUser.isAdmin ? 'block' : 'none'; } else { nr.innerHTML = ''; if (sa) sa.style.display = 'none'; } }
+    function saveProfile() { if (!currentUser) return; currentUser.name = document.getElementById('setName').value.trim(); currentUser.email = document.getElementById('setEmail').value.trim(); currentUser.avatar = document.getElementById('setAvatar').value.trim() || '👤'; const i = users.findIndex(u => u.id === currentUser.id); if (i >= 0) users[i] = currentUser; saveAll(); updateUI(); toast('Đã lưu!', 'success'); }
+
+    function updateUI() {
+        const nr = document.getElementById('navRight');
+        const sa = document.getElementById('sidebarAdmin');
+        if (currentUser) {
+            nr.innerHTML = '<div style="display:flex;align-items:center;gap:8px;font-size:13px"><div style="width:34px;height:34px;border-radius:50%;background:var(--grad2);display:flex;align-items:center;justify-content:center;font-size:16px">' + (currentUser.avatar || '👤') + '</div><span style="font-weight:600">' + currentUser.name + '</span>' + (currentUser.isAdmin ? '<span style="background:var(--grad2);padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700">Admin</span>' : '') + '</div><div style="position:relative"><button class="icon-btn" onclick="toggleDropdown()" title="Cài đặt"><i class="fas fa-cog"></i></button><div class="dropdown-menu" id="settingsDropdown"><div class="dropdown-header">Cài Đặt Nhanh</div><button class="dropdown-item" onclick="navigate(\'settings\');toggleDropdown()"><i class="fas fa-sliders-h"></i> Cài Đặt</button><button class="dropdown-item" onclick="navigate(\'history\');toggleDropdown()"><i class="fas fa-history"></i> Lịch Sử</button><button class="dropdown-item" onclick="navigate(\'favorites\');toggleDropdown()"><i class="fas fa-heart"></i> Yêu Thích</button><div class="dropdown-divider"></div><button class="dropdown-item" onclick="logout();toggleDropdown()" style="color:var(--danger)"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</button></div></div>';
+            if (sa) sa.style.display = currentUser.isAdmin ? 'block' : 'none';
+        } else { nr.innerHTML = ''; if (sa) sa.style.display = 'none'; }
+    }
+
+    function toggleDropdown() { document.getElementById('settingsDropdown').classList.toggle('show'); }
 
     // ==================== EXPORT ====================
-    window.showLoginForm = showLoginForm;
-    window.showRegisterForm = showRegisterForm;
+    window.switchForm = switchForm;
     window.handleLogin = handleLogin;
     window.handleRegister = handleRegister;
     window.socialLogin = socialLogin;
@@ -1287,19 +1344,17 @@
     window.toggleFavorite = toggleFavorite;
     window.searchMovies = searchMovies;
     window.saveProfile = saveProfile;
-    window.toggleSettingsMenu = toggleSettingsMenu;
-    window.closeSettingsMenu = closeSettingsMenu;
-    window.toggleDarkMode = toggleDarkMode;
-    window.toggleAutoplay = toggleAutoplay;
+    window.toggleDropdown = toggleDropdown;
 
     // ==================== INIT ====================
     function init() {
         initData();
-        if (currentUser) { document.getElementById('loginPage').style.display = 'none'; document.getElementById('appPage').classList.add('active'); updateUI(); navigate('home'); }
-        else { document.getElementById('loginPage').style.display = 'flex'; document.getElementById('appPage').classList.remove('active'); }
+        createParticles();
+        if (currentUser) { document.getElementById('loginPage').classList.remove('active'); document.getElementById('appPage').classList.add('active'); updateUI(); navigate('home'); }
+        else { document.getElementById('loginPage').classList.add('active'); document.getElementById('appPage').classList.remove('active'); }
         console.log('✅ AnimeHub đã sẵn sàng!');
         console.log('👤 admin / admin123 | senpai / 123456');
-        console.log('⚙️ Nút Cài Đặt ở góc phải navbar!');
+        console.log('⚙️ Nút Cài Đặt ở góc phải!');
     }
 
     init();
