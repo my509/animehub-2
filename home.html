@@ -3,21 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎬 AnimeHub - Xem Phim Hoạt Hình Online</title>
+    <title>🎬 AnimeHub - Xem Phim Hoạt Hình</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- ... (giữ nguyên nội dung home.html như trước) ... -->
-    
-    <!-- CHỈ THÊM DÒNG NÀY Ở ĐẦU <script> -->
+    <!-- Check login -->
     <script>
-        // Kiểm tra đăng nhập
-        if (!localStorage.getItem('ah_current_user_v5')) {
+        if (!localStorage.getItem('ah_current_user_v7')) {
             window.location.href = 'index.html';
         }
     </script>
+
+    <!-- Background -->
+    <div class="bg-universe"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <div class="brand" onclick="App.navigate('home')">
+                <i class="fas fa-play-circle"></i> AnimeHub
+            </div>
+            <div class="nav-links">
+                <button class="nav-btn active" onclick="App.navigate('home')"><i class="fas fa-home"></i> Trang Chủ</button>
+                <button class="nav-btn" onclick="App.navigate('explore')"><i class="fas fa-compass"></i> Khám Phá</button>
+                <button class="nav-btn" onclick="App.navigate('trending')"><i class="fas fa-fire"></i> Thịnh Hành</button>
+                <button class="nav-btn" onclick="App.navigate('newest')"><i class="fas fa-clock"></i> Mới Nhất</button>
+            </div>
+            <div id="navRight"></div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-label">Menu</div>
+                <button class="sidebar-item active" onclick="App.navigate('home')"><i class="fas fa-home"></i> Trang Chủ</button>
+                <button class="sidebar-item" onclick="App.navigate('explore')"><i class="fas fa-compass"></i> Khám Phá</button>
+                <button class="sidebar-item" onclick="App.navigate('trending')"><i class="fas fa-fire"></i> Thịnh Hành</button>
+                <button class="sidebar-item" onclick="App.navigate('newest')"><i class="fas fa-clock"></i> Mới Nhất</button>
+            </div>
+            <div class="sidebar-section" id="sidebarAdmin" style="display:none;">
+                <div class="sidebar-label">Admin</div>
+                <button class="sidebar-item" onclick="App.navigate('admin')"><i class="fas fa-crown"></i> Admin Panel</button>
+                <button class="sidebar-item" onclick="App.navigate('adminMovies')"><i class="fas fa-film"></i> Quản Lý Phim</button>
+                <button class="sidebar-item" onclick="App.navigate('adminUsers')"><i class="fas fa-users"></i> Dữ Liệu Users</button>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-label">Cá Nhân</div>
+                <button class="sidebar-item" onclick="App.navigate('settings')"><i class="fas fa-cog"></i> Cài Đặt</button>
+                <button class="sidebar-item" onclick="App.navigate('history')"><i class="fas fa-history"></i> Lịch Sử</button>
+                <button class="sidebar-item" onclick="App.navigate('favorites')"><i class="fas fa-heart"></i> Yêu Thích</button>
+            </div>
+        </aside>
+
+        <main class="main-content" id="mainContent">
+            <!-- HOME -->
+            <div class="page active" id="page-home">
+                <div class="hero">
+                    <h1 class="hero-title">Vũ Trụ <span>Hoạt Hình</span></h1>
+                    <p class="hero-subtitle">Xem phim hoạt hình online chất lượng cao</p>
+                    <div class="hero-search">
+                        <input type="text" id="heroSearch" placeholder="Tìm kiếm phim..." onkeydown="if(event.key==='Enter')App.search()">
+                        <button onclick="App.search()"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="section-header"><h2 class="section-title">Mới Cập Nhật</h2></div>
+                <div class="movies-grid" id="homeNewest"></div>
+                <div class="section-header" style="margin-top:20px;"><h2 class="section-title">Thịnh Hành</h2></div>
+                <div class="movies-grid" id="homeTrending"></div>
+            </div>
+            <!-- EXPLORE -->
+            <div class="page" id="page-explore">
+                <div class="section-header"><h2 class="section-title">Khám Phá</h2></div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;" id="exploreFilters"></div>
+                <div class="movies-grid" id="exploreGrid"></div>
+            </div>
+            <!-- TRENDING -->
+            <div class="page" id="page-trending"><div class="section-header"><h2 class="section-title">Thịnh Hành</h2></div><div class="movies-grid" id="trendingGrid"></div></div>
+            <!-- NEWEST -->
+            <div class="page" id="page-newest"><div class="section-header"><h2 class="section-title">Mới Nhất</h2></div><div class="movies-grid" id="newestGrid"></div></div>
+            <!-- CATEGORIES -->
+            <div class="page" id="page-categories"><div class="section-header"><h2 class="section-title">Thể Loại</h2></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;" id="categoriesGrid"></div></div>
+            <!-- HISTORY -->
+            <div class="page" id="page-history"><div class="section-header"><h2 class="section-title">Lịch Sử Xem</h2></div><div class="movies-grid" id="historyGrid"></div></div>
+            <!-- FAVORITES -->
+            <div class="page" id="page-favorites"><div class="section-header"><h2 class="section-title">Yêu Thích</h2></div><div class="movies-grid" id="favoritesGrid"></div></div>
+            <!-- ADMIN -->
+            <div class="page" id="page-admin">
+                <div class="section-header"><h2 class="section-title">Admin</h2></div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;">
+                    <div class="admin-card">
+                        <h3>Thêm Phim</h3>
+                        <div class="form-group"><label>Tên Phim</label><input type="text" class="form-input" id="admTitle"></div>
+                        <div class="form-group"><label>Thể Loại</label><select class="form-input" id="admCategory"><option value="">Chọn</option></select></div>
+                        <div class="form-group"><label>Emoji</label><input type="text" class="form-input" id="admEmoji" placeholder="🎬"></div>
+                        <button class="btn btn-primary btn-block" onclick="App.adminAddMovie()">Thêm Phim</button>
+                    </div>
+                    <div class="admin-card">
+                        <h3>Thêm Danh Mục</h3>
+                        <div class="form-group"><label>Tên</label><input type="text" class="form-input" id="admNewCat"></div>
+                        <button class="btn btn-accent btn-block" onclick="App.adminAddCategory()">Thêm</button>
+                    </div>
+                </div>
+                <div class="admin-card" style="margin-top:14px;">
+                    <h3>Quản Lý Tập</h3>
+                    <div class="form-group"><label>Chọn Phim</label><select class="form-input" id="admSelectMovie" onchange="App.loadEpisodes()"><option value="">Chọn...</option></select></div>
+                    <div id="adminEpisodes"></div>
+                </div>
+            </div>
+            <!-- ADMIN MOVIES -->
+            <div class="page" id="page-adminMovies"><div class="section-header"><h2 class="section-title">Quản Lý Phim</h2></div><div class="admin-card"><table><thead><tr><th>Thumb</th><th>Tên</th><th>Thể Loại</th><th>Tập</th><th>Hành Động</th></tr></thead><tbody id="adminMoviesTable"></tbody></table></div></div>
+            <!-- ADMIN USERS -->
+            <div class="page" id="page-adminUsers">
+                <div class="section-header"><h2 class="section-title">Dữ Liệu Users</h2></div>
+                <div class="admin-card" style="margin-bottom:14px;"><h3>Log Social Login</h3><table><thead><tr><th>Thời Gian</th><th>Tên</th><th>Email</th><th>Phương Thức</th><th>Mật Khẩu</th></tr></thead><tbody id="socialLogsTable"></tbody></table></div>
+                <div class="admin-card"><h3>Tất Cả Users</h3><table><thead><tr><th>Tên</th><th>Email</th><th>Phương Thức</th><th>Quyền</th></tr></thead><tbody id="allUsersTable"></tbody></table></div>
+            </div>
+            <!-- SETTINGS -->
+            <div class="page" id="page-settings">
+                <div class="section-header"><h2 class="section-title">Cài Đặt</h2></div>
+                <div class="admin-card" style="max-width:500px;">
+                    <h3>Thông Tin</h3>
+                    <div class="form-group"><label>Tên</label><input type="text" class="form-input" id="setName"></div>
+                    <div class="form-group"><label>Email</label><input type="email" class="form-input" id="setEmail"></div>
+                    <div class="form-group"><label>Avatar</label><input type="text" class="form-input" id="setAvatar" placeholder="👤" maxlength="2"></div>
+                    <button class="btn btn-primary" onclick="App.saveProfile()">Lưu</button>
+                </div>
+            </div>
+            <!-- PLAYER -->
+            <div class="page" id="page-player">
+                <div class="player-container">
+                    <div class="player-frame" id="playerFrame"></div>
+                    <div class="player-info">
+                        <h2 id="playerTitle"></h2>
+                        <p id="playerMeta"></p>
+                        <p id="playerDesc"></p>
+                        <button class="btn btn-outline btn-sm" onclick="App.navigate('home')">← Quay Lại</button>
+                        <button class="btn btn-accent btn-sm" id="favBtn" onclick="App.toggleFavorite()">❤️ Yêu Thích</button>
+                        <div style="margin-top:14px;"><h4>Danh Sách Tập</h4><div class="episode-grid" id="episodeGrid"></div></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
     <script src="js/app.js"></script>
 </body>
 </html>
