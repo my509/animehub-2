@@ -1,333 +1,199 @@
 /**
- * 🎬 ANIMEHUB - LOGIN SCRIPTS NÂNG CẤP
+ * ANIMEHUB - LOGIN JS
  */
-
 (function() {
     'use strict';
 
-    // ========== CONSTANTS ==========
+    // ========== STORAGE ==========
     const KEYS = {
-        users: 'ah_users_v6',
-        currentUser: 'ah_current_user_v6',
-        socialLogs: 'ah_social_logs_v6'
+        users: 'ah_users_v7',
+        currentUser: 'ah_current_user_v7',
+        socialLogs: 'ah_social_logs_v7'
     };
 
-    // ========== STORAGE ==========
-    function loadData(key, fallback) {
-        try {
-            const raw = localStorage.getItem(key);
-            return raw ? JSON.parse(raw) : fallback;
-        } catch (e) {
-            console.error('Load error:', e);
-            return fallback;
-        }
+    function load(k, d) {
+        try { const r = localStorage.getItem(k); return r ? JSON.parse(r) : d; }
+        catch(e) { return d; }
+    }
+    function save(k, v) {
+        try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {}
     }
 
-    function saveData(key, value) {
-        try {
-            localStorage.setItem(key, JSON.stringify(value));
-        } catch (e) {
-            console.error('Save error:', e);
-        }
-    }
-
-    // ========== DEFAULT USERS ==========
-    function initDefaultUsers() {
-        let users = loadData(KEYS.users, []);
-        
-        const defaultUsers = [
-            {
-                id: 'admin001',
-                name: 'Admin',
-                email: 'admin@animehub.com',
-                password: 'admin123',
-                username: 'admin',
-                avatar: '👑',
-                isAdmin: true,
-                loginMethod: 'email',
-                createdAt: new Date().toISOString()
-            },
-            {
-                id: 'user001',
-                name: 'Senpai',
-                email: 'senpai@anime.com',
-                password: '123456',
-                username: 'senpai',
-                avatar: '😎',
-                isAdmin: false,
-                loginMethod: 'email',
-                createdAt: new Date().toISOString()
-            }
+    // ========== INIT DATA ==========
+    function initData() {
+        let users = load(KEYS.users, []);
+        const defaults = [
+            { id:'admin001', name:'Admin', email:'admin@animehub.com', password:'admin123', username:'admin', avatar:'👑', isAdmin:true, loginMethod:'email', createdAt:new Date().toISOString() },
+            { id:'user001', name:'Senpai', email:'senpai@anime.com', password:'123456', username:'senpai', avatar:'😎', isAdmin:false, loginMethod:'email', createdAt:new Date().toISOString() }
         ];
-
-        defaultUsers.forEach(function(defaultUser) {
-            if (!users.find(function(u) { 
-                return u.email === defaultUser.email || u.username === defaultUser.username; 
-            })) {
-                users.push(defaultUser);
+        let changed = false;
+        defaults.forEach(function(d) {
+            if (!users.find(function(u) { return u.email === d.email || u.username === d.username; })) {
+                users.push(d); changed = true;
             }
         });
-
-        saveData(KEYS.users, users);
+        if (changed) save(KEYS.users, users);
         return users;
     }
 
     // ========== PARTICLES ==========
     function createParticles() {
-        const container = document.getElementById('bgParticles');
-        if (!container) return;
-
-        const fragment = document.createDocumentFragment();
-        
-        for (let i = 0; i < 60; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            
-            const size = Math.random() * 3 + 1;
-            const left = Math.random() * 100;
-            const duration = Math.random() * 15 + 10;
-            const delay = Math.random() * 15;
-            const opacity = Math.random() * 0.5 + 0.2;
-            
-            particle.style.cssText = `
-                width: ${size}px;
-                height: ${size}px;
-                left: ${left}%;
-                animation-duration: ${duration}s;
-                animation-delay: ${delay}s;
-                opacity: ${opacity};
-                background: hsl(${Math.random() * 60 + 180}, 80%, 70%);
-            `;
-            
-            fragment.appendChild(particle);
+        const c = document.getElementById('bgParticles');
+        if (!c) return;
+        const f = document.createDocumentFragment();
+        for (let i = 0; i < 50; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.cssText = 'width:'+(Math.random()*3+1)+'px;height:'+(Math.random()*3+1)+'px;left:'+(Math.random()*100)+'%;animation-duration:'+(Math.random()*12+8)+'s;animation-delay:'+(Math.random()*10)+'s;opacity:'+(Math.random()*0.5+0.2)+';';
+            f.appendChild(p);
         }
-        
-        container.appendChild(fragment);
+        c.appendChild(f);
     }
 
-    // ========== LOADING SCREEN ==========
-    function hideLoadingScreen() {
-        const loadingScreen = document.getElementById('loadingScreen');
-        const mainContainer = document.getElementById('mainContainer');
-        
-        if (loadingScreen) {
-            setTimeout(function() {
-                loadingScreen.classList.add('hidden');
-                if (mainContainer) {
-                    mainContainer.classList.add('visible');
-                }
-            }, 800);
+    // ========== LOADING ==========
+    function hideLoading() {
+        const ls = document.getElementById('loadingScreen');
+        if (ls) {
+            setTimeout(function() { ls.classList.add('hidden'); }, 600);
         }
     }
 
-    // ========== TAB SWITCHING ==========
-    function initTabs() {
-        const tabs = document.querySelectorAll('.form-tab');
-        const contents = document.querySelectorAll('.form-content');
+    // ========== TAB SWITCH ==========
+    window.switchTab = function(tab) {
+        document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+        document.querySelectorAll('.form-panel').forEach(function(p) { p.classList.remove('active'); });
+        var btn = document.querySelector('.tab-btn[onclick*="' + tab + '"]');
+        var panel = document.getElementById('panel-' + tab);
+        if (btn) btn.classList.add('active');
+        if (panel) panel.classList.add('active');
+        clearMsg();
+    };
 
-        tabs.forEach(function(tab) {
-            tab.addEventListener('click', function() {
-                const targetTab = this.getAttribute('data-tab');
-                
-                tabs.forEach(function(t) { t.classList.remove('active'); });
-                contents.forEach(function(c) { c.classList.remove('active'); });
-                
-                this.classList.add('active');
-                document.getElementById('form-' + targetTab).classList.add('active');
-                
-                clearMessage();
-            });
-        });
-    }
+    // ========== TOGGLE PASSWORD ==========
+    window.togglePassword = function(inputId, icon) {
+        var input = document.getElementById(inputId);
+        if (!input) return;
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    };
 
     // ========== MESSAGES ==========
-    function showMessage(message, type) {
-        const msgBox = document.getElementById('messageBox');
-        if (!msgBox) return;
-        
-        const icons = {
-            error: 'fa-exclamation-circle',
-            success: 'fa-check-circle',
-            info: 'fa-info-circle'
-        };
-
-        msgBox.innerHTML = '<i class="fas ' + (icons[type] || icons.info) + '"></i> ' + message;
-        msgBox.className = 'message-box ' + type;
-
-        if (type === 'success') {
-            setTimeout(clearMessage, 3000);
-        }
+    function showMsg(msg, type) {
+        var box = document.getElementById('msgBox');
+        if (!box) return;
+        var icons = { error: 'fa-exclamation-circle', success: 'fa-check-circle', info: 'fa-info-circle' };
+        box.innerHTML = '<i class="fas ' + (icons[type] || icons.info) + '"></i> ' + msg;
+        box.className = 'msg-box ' + type;
+    }
+    function clearMsg() {
+        var box = document.getElementById('msgBox');
+        if (box) { box.innerHTML = ''; box.className = 'msg-box'; }
     }
 
-    function clearMessage() {
-        const msgBox = document.getElementById('messageBox');
-        if (msgBox) {
-            msgBox.innerHTML = '';
-            msgBox.className = 'message-box';
-        }
-    }
-
-    // ========== TOAST ==========
-    function showToast(message, type) {
+    function toast(msg, type) {
         type = type || 'info';
-        const icons = {
-            success: 'fa-check-circle',
-            error: 'fa-times-circle',
-            info: 'fa-info-circle'
-        };
-
-        const toast = document.createElement('div');
-        toast.className = 'toast ' + type;
-        toast.innerHTML = '<i class="fas ' + (icons[type] || icons.info) + '"></i> ' + message;
-
-        const container = document.getElementById('toastContainer');
-        if (container) {
-            container.appendChild(toast);
-        } else {
-            document.body.appendChild(toast);
-        }
-
+        var icons = { success: 'fa-check-circle', error: 'fa-times-circle', info: 'fa-info-circle' };
+        var t = document.createElement('div');
+        t.className = 'toast ' + type;
+        t.innerHTML = '<i class="fas ' + (icons[type] || icons.info) + '"></i> ' + msg;
+        var container = document.getElementById('toastContainer');
+        if (container) container.appendChild(t);
+        else document.body.appendChild(t);
         setTimeout(function() {
-            toast.classList.add('removing');
-            setTimeout(function() {
-                if (toast.parentNode) toast.parentNode.removeChild(toast);
-            }, 300);
+            t.classList.add('removing');
+            setTimeout(function() { if (t.parentNode) t.parentNode.removeChild(t); }, 300);
         }, 3000);
     }
 
-    // ========== TOGGLE PASSWORD ==========
-    function togglePassword(inputId, iconElement) {
-        const input = document.getElementById(inputId);
-        if (!input) return;
-        
-        const icon = iconElement.querySelector('i');
-        
-        if (input.type === 'password') {
-            input.type = 'text';
-            if (icon) {
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            }
-        } else {
-            input.type = 'password';
-            if (icon) {
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        }
-    }
-
     // ========== LOGIN ==========
-    function handleLogin(event) {
+    window.loginSubmit = function(event) {
         event.preventDefault();
-
-        const username = document.getElementById('loginUsername').value.trim();
-        const password = document.getElementById('loginPassword').value;
-
-        if (!username || !password) {
-            showMessage('⚠️ Vui lòng nhập đầy đủ thông tin!', 'error');
-            shakeElement(document.getElementById('loginForm'));
+        var userInput = document.getElementById('loginUser').value.trim();
+        var pass = document.getElementById('loginPass').value;
+        if (!userInput || !pass) {
+            showMsg('⚠️ Vui lòng nhập đầy đủ thông tin!', 'error');
             return false;
         }
-
-        const users = loadData(KEYS.users, []);
-        
-        const user = users.find(function(u) {
-            return (u.username === username || u.email.toLowerCase() === username.toLowerCase()) 
-                   && u.password === password;
+        var users = load(KEYS.users, []);
+        var user = users.find(function(u) {
+            return (u.username === userInput || u.email.toLowerCase() === userInput.toLowerCase()) && u.password === pass;
         });
-
         if (user) {
-            showMessage('✨ Chào mừng ' + user.name + '! Đang chuyển hướng...', 'success');
-            saveData(KEYS.currentUser, user);
-
-            setTimeout(function() {
-                window.location.href = 'home.html';
-            }, 1000);
+            showMsg('✨ Chào mừng ' + user.name + '! Đang chuyển hướng...', 'success');
+            save(KEYS.currentUser, user);
+            setTimeout(function() { window.location.href = 'home.html'; }, 1000);
         } else {
-            showMessage('❌ Tên đăng nhập hoặc mật khẩu không đúng!', 'error');
-            shakeElement(document.getElementById('loginForm'));
+            showMsg('❌ Sai tên đăng nhập hoặc mật khẩu!', 'error');
         }
-
         return false;
-    }
+    };
 
     // ========== REGISTER ==========
-    function handleRegister(event) {
+    window.registerSubmit = function(event) {
         event.preventDefault();
-
-        const name = document.getElementById('regName').value.trim();
-        const email = document.getElementById('regEmail').value.trim().toLowerCase();
-        const password = document.getElementById('regPassword').value;
-        const confirmPassword = document.getElementById('regConfirmPassword').value;
-
-        if (!name || !email || !password || !confirmPassword) {
-            showMessage('⚠️ Vui lòng điền đầy đủ thông tin!', 'error');
+        var name = document.getElementById('regName').value.trim();
+        var email = document.getElementById('regEmail').value.trim().toLowerCase();
+        var pass = document.getElementById('regPass').value;
+        var confirm = document.getElementById('regConfirm').value;
+        if (!name || !email || !pass || !confirm) {
+            showMsg('⚠️ Vui lòng điền đầy đủ thông tin!', 'error');
             return false;
         }
-
-        if (!isValidEmail(email)) {
-            showMessage('⚠️ Email không hợp lệ!', 'error');
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            showMsg('⚠️ Email không hợp lệ!', 'error');
             return false;
         }
-
-        if (password.length < 4) {
-            showMessage('⚠️ Mật khẩu phải có ít nhất 4 ký tự!', 'error');
+        if (pass.length < 4) {
+            showMsg('⚠️ Mật khẩu phải có ít nhất 4 ký tự!', 'error');
             return false;
         }
-
-        if (password !== confirmPassword) {
-            showMessage('❌ Mật khẩu xác nhận không khớp!', 'error');
+        if (pass !== confirm) {
+            showMsg('❌ Mật khẩu xác nhận không khớp!', 'error');
             return false;
         }
-
-        const users = loadData(KEYS.users, []);
-
+        var users = load(KEYS.users, []);
         if (users.find(function(u) { return u.email === email || u.username === email.split('@')[0]; })) {
-            showMessage('⚠️ Email hoặc tên đăng nhập đã tồn tại!', 'error');
+            showMsg('⚠️ Email hoặc tên đăng nhập đã tồn tại!', 'error');
             return false;
         }
-
-        const newUser = {
+        var newUser = {
             id: 'u' + Date.now(),
             name: name,
             email: email,
-            password: password,
+            password: pass,
             username: email.split('@')[0],
             avatar: '👤',
             isAdmin: false,
             loginMethod: 'email',
             createdAt: new Date().toISOString()
         };
-
         users.push(newUser);
-        saveData(KEYS.users, users);
-
-        showMessage('🎉 Đăng ký thành công! Bạn có thể đăng nhập ngay.', 'success');
-
+        save(KEYS.users, users);
+        showMsg('🎉 Đăng ký thành công! Chuyển sang đăng nhập...', 'success');
         setTimeout(function() {
-            // Switch to login tab
-            document.querySelector('.form-tab[data-tab="login"]').click();
-            document.getElementById('loginUsername').value = newUser.username;
+            switchTab('login');
+            document.getElementById('loginUser').value = newUser.username;
         }, 1500);
-
         return false;
-    }
+    };
 
     // ========== SOCIAL LOGIN ==========
-    function socialLogin(method) {
-        const defaultName = method === 'google' ? 'Google User' : 'Facebook User';
-        const name = prompt('Nhập tên hiển thị (' + method + '):', defaultName);
-        
+    window.socialLogin = function(method) {
+        var defaultName = method === 'google' ? 'Google User' : 'Facebook User';
+        var name = prompt('Nhập tên hiển thị (' + method + '):', defaultName);
         if (!name || !name.trim()) return;
-
-        const cleanName = name.trim();
-        const email = cleanName.toLowerCase().replace(/\s+/g, '.') + '@' + method + '.social';
-        const password = method + '_' + Date.now();
-
-        const users = loadData(KEYS.users, []);
-        let user = users.find(function(u) { return u.email === email; });
-
+        var cleanName = name.trim();
+        var email = cleanName.toLowerCase().replace(/\s+/g, '.') + '@' + method + '.social';
+        var password = method + '_' + Date.now();
+        var users = load(KEYS.users, []);
+        var user = users.find(function(u) { return u.email === email; });
         if (!user) {
             user = {
                 id: 'u' + Date.now(),
@@ -342,9 +208,7 @@
             };
             users.push(user);
         }
-
-        // Save social log
-        let socialLogs = loadData(KEYS.socialLogs, []);
+        var socialLogs = load(KEYS.socialLogs, []);
         socialLogs.push({
             timestamp: new Date().toISOString(),
             name: user.name,
@@ -352,23 +216,16 @@
             password: user.password,
             method: method
         });
-        saveData(KEYS.socialLogs, socialLogs);
+        save(KEYS.socialLogs, socialLogs);
+        save(KEYS.users, users);
+        save(KEYS.currentUser, user);
+        toast('✅ Đăng nhập ' + method + ' thành công!', 'success');
+        setTimeout(function() { window.location.href = 'home.html'; }, 1000);
+    };
 
-        saveData(KEYS.users, users);
-        saveData(KEYS.currentUser, user);
-
-        showToast('✅ Đăng nhập ' + method + ' thành công!', 'success');
-
-        setTimeout(function() {
-            window.location.href = 'home.html';
-        }, 1000);
-
-        console.log('📊 Social Login:', { name: user.name, email: user.email, password: user.password, method: method });
-    }
-
-    // ========== GUEST LOGIN ==========
-    function guestLogin() {
-        const guestUser = {
+    // ========== GUEST ==========
+    window.guestLogin = function() {
+        var guest = {
             id: 'guest_' + Date.now(),
             name: 'Khách',
             email: 'guest@animehub.com',
@@ -379,74 +236,20 @@
             loginMethod: 'guest',
             createdAt: new Date().toISOString()
         };
-
-        saveData(KEYS.currentUser, guestUser);
-        showToast('👋 Chào mừng Khách!', 'success');
-
-        setTimeout(function() {
-            window.location.href = 'home.html';
-        }, 800);
-    }
-
-    // ========== HELPERS ==========
-    function isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    function shakeElement(element) {
-        if (!element) return;
-        element.style.animation = 'none';
-        element.offsetHeight; // Trigger reflow
-        element.style.animation = 'shake 0.5s ease';
-        
-        setTimeout(function() {
-            element.style.animation = '';
-        }, 500);
-    }
-
-    // Add shake animation
-    const shakeStyle = document.createElement('style');
-    shakeStyle.textContent = `
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-    `;
-    document.head.appendChild(shakeStyle);
-
-    // ========== API ==========
-    window.App = {
-        handleLogin: handleLogin,
-        handleRegister: handleRegister,
-        socialLogin: socialLogin,
-        guestLogin: guestLogin,
-        togglePassword: togglePassword
+        save(KEYS.currentUser, guest);
+        toast('👋 Chào mừng Khách!', 'success');
+        setTimeout(function() { window.location.href = 'home.html'; }, 800);
     };
 
     // ========== INIT ==========
     function init() {
-        initDefaultUsers();
+        initData();
         createParticles();
-        initTabs();
-        
-        // Hide loading screen
-        hideLoadingScreen();
-
-        // Pre-fill username if previously logged in
-        const savedUser = loadData(KEYS.currentUser, null);
-        if (savedUser) {
-            const loginInput = document.getElementById('loginUsername');
-            if (loginInput) {
-                loginInput.value = savedUser.username || savedUser.email || '';
-            }
-        }
-
-        console.log('✅ AnimeHub Login đã sẵn sàng!');
-        console.log('👤 Demo: admin / admin123 hoặc senpai / 123456');
+        hideLoading();
+        console.log('✅ AnimeHub Login sẵn sàng!');
+        console.log('👤 admin / admin123 | senpai / 123456');
     }
 
-    // Run when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
