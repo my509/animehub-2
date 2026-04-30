@@ -3,319 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎬 AnimeHub - Xem Phim Hoạt Hình</title>
+    <title>AnimeHub - Xem Phim Hoạt Hình</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6c5ce7;
-            --primary-light: #a29bfe;
-            --accent: #fd79a8;
-            --accent-light: #fab1c8;
-            --success: #00b894;
-            --warning: #fdcb6e;
-            --danger: #ff6b6b;
-            --info: #00f2fe;
-            --dark: #0a0a1a;
-            --darker: #050510;
-            --card: rgba(20, 20, 40, 0.9);
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass2: rgba(255, 255, 255, 0.06);
-            --border: rgba(255, 255, 255, 0.06);
-            --border2: rgba(255, 255, 255, 0.1);
+            --bg: #0a0a0f;
+            --card: #141420;
+            --card2: #1a1a2e;
             --text: #ffffff;
-            --text2: rgba(255, 255, 255, 0.75);
-            --text3: rgba(255, 255, 255, 0.45);
-            --grad1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --grad2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --grad3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --grad4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            --grad5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-            --shadow-sm: 0 2px 10px rgba(0,0,0,0.3);
-            --shadow: 0 8px 32px rgba(0,0,0,0.5);
-            --shadow-lg: 0 20px 60px rgba(0,0,0,0.6);
-            --glow: 0 0 30px rgba(108,92,231,0.5);
-            --glow-pink: 0 0 30px rgba(253,121,168,0.5);
-            --glow-blue: 0 0 30px rgba(0,242,254,0.4);
-            --radius-sm: 10px;
-            --radius: 18px;
-            --radius-lg: 24px;
-            --radius-xl: 32px;
-            --radius-full: 60px;
-            --trans: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --trans-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --text2: #aaaaaa;
+            --text3: #666666;
+            --accent: #6c5ce7;
+            --accent2: #e040fb;
+            --gold: #ffd700;
+            --radius: 12px;
+            --radius2: 20px;
+            --trans: all 0.3s ease;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Be Vietnam Pro', sans-serif;
-            background: var(--darker);
+            background: var(--bg);
             color: var(--text);
             min-height: 100vh;
-            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            background-image: 
-                radial-gradient(ellipse at 20% 20%, rgba(108,92,231,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(253,121,168,0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(0,242,254,0.04) 0%, transparent 50%);
-            background-attachment: fixed;
         }
 
-        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--grad1); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--grad2); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
-        /* ============ PARTICLES BACKGROUND ============ */
-        .particles-bg {
+        /* ===== LOGIN OVERLAY ===== */
+        .login-overlay {
+            display: none;
             position: fixed;
             inset: 0;
-            z-index: -1;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            animation: floatParticle linear infinite;
-            opacity: 0;
-        }
-
-        @keyframes floatParticle {
-            0% { transform: translateY(110vh) scale(0); opacity: 0; }
-            5% { opacity: 0.6; }
-            95% { opacity: 0.6; }
-            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-        }
-
-        /* ============ LOGIN PAGE ============ */
-        .login-page {
-            display: none;
-            min-height: 100vh;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            position: relative;
-        }
-
-        .login-page.active { display: flex; }
-
-        .login-wrapper {
-            display: flex;
-            width: 900px;
-            max-width: 95%;
-            min-height: 550px;
-            border-radius: var(--radius-xl);
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            animation: fadeUp 0.6s ease;
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Left - Hero */
-        .login-hero {
-            flex: 1;
-            background: var(--grad1);
-            padding: 50px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.5;
-        }
-
-        .login-hero-content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            color: var(--text);
-        }
-
-        .login-hero-logo {
-            font-size: 48px;
-            margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .login-hero h1 {
-            font-size: 32px;
-            font-weight: 900;
-            margin-bottom: 12px;
-            line-height: 1.3;
-        }
-
-        .login-hero h1 span {
-            background: var(--grad5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .login-hero p {
-            font-size: 14px;
-            opacity: 0.85;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .login-hero-features {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .hero-feature {
-            background: rgba(255,255,255,0.12);
+            background: rgba(0,0,0,0.85);
             backdrop-filter: blur(10px);
-            padding: 10px 16px;
-            border-radius: var(--radius-full);
-            font-size: 12px;
-            font-weight: 600;
-            border: 1px solid rgba(255,255,255,0.15);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .hero-feature i { color: var(--accent2); }
-
-        /* Right - Form */
-        .login-form-panel {
-            flex: 1;
-            background: var(--card);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            padding: 50px 40px;
-            display: flex;
+            z-index: 9999;
             align-items: center;
             justify-content: center;
-            border-left: 1px solid var(--border2);
         }
+        .login-overlay.active { display: flex; }
 
-        .login-form-inner {
-            width: 100%;
-            max-width: 350px;
+        .login-modal {
+            background: var(--card2);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius2);
+            padding: 35px 30px;
+            width: 400px;
+            max-width: 90%;
+            animation: popIn 0.3s ease;
         }
+        @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        .login-avatar-circle {
-            width: 85px;
-            height: 85px;
-            border-radius: 50%;
-            margin: 0 auto 20px;
+        .login-modal h2 { text-align: center; font-size: 22px; margin-bottom: 6px; }
+        .login-modal .sub { text-align: center; font-size: 12px; color: var(--text3); margin-bottom: 20px; }
+
+        .input-group {
             position: relative;
-            background: var(--grad2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--glow-pink);
+            margin-bottom: 12px;
         }
-
-        .login-avatar-circle::after {
-            content: '';
-            position: absolute;
-            inset: -5px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            background: var(--grad3) border-box;
-            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            animation: rotate 4s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .login-avatar-circle img {
-            width: 75px;
-            height: 75px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .login-avatar-circle .avatar-icon {
-            font-size: 36px;
-            color: var(--text);
-        }
-
-        .login-form-title {
-            text-align: center;
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 6px;
-        }
-
-        .login-form-subtitle {
-            text-align: center;
-            font-size: 12px;
-            color: var(--text3);
-            margin-bottom: 24px;
-        }
-
-        /* Tabs */
-        .form-tabs {
-            display: flex;
-            background: var(--glass);
-            border-radius: var(--radius-full);
-            padding: 4px;
-            margin-bottom: 20px;
-        }
-
-        .form-tab {
-            flex: 1;
-            padding: 10px;
-            border-radius: var(--radius-full);
-            border: none;
-            background: transparent;
-            color: var(--text3);
-            font-weight: 600;
-            font-size: 12px;
-            cursor: pointer;
-            transition: var(--trans);
-            font-family: inherit;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .form-tab.active {
-            background: var(--grad1);
-            color: var(--text);
-            box-shadow: var(--glow);
-        }
-
-        .form-panel { display: none; animation: fadeUp 0.3s ease; }
-        .form-panel.active { display: block; }
-
-        /* Inputs */
-        .input-field {
-            position: relative;
-            margin-bottom: 14px;
-        }
-
-        .input-field .field-icon {
+        .input-group i {
             position: absolute;
             left: 14px;
             top: 50%;
@@ -323,1040 +75,781 @@
             color: var(--text3);
             font-size: 14px;
             pointer-events: none;
-            transition: var(--trans);
         }
-
-        .input-field input {
+        .input-group input {
             width: 100%;
-            padding: 13px 14px 13px 42px;
-            border-radius: var(--radius);
-            border: 2px solid var(--border);
-            background: var(--glass);
+            padding: 12px 14px 12px 40px;
+            border-radius: 10px;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
             color: var(--text);
             font-size: 14px;
             font-family: inherit;
             outline: none;
             transition: var(--trans);
         }
-
-        .input-field input:focus {
-            border-color: var(--primary);
-            box-shadow: var(--glow);
-            background: var(--glass2);
-        }
-
-        .input-field input:focus ~ .field-icon { color: var(--primary); }
-        .input-field input::placeholder { color: rgba(255,255,255,0.3); }
+        .input-group input:focus { border-color: var(--accent); }
 
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 13px 24px;
-            border-radius: var(--radius);
-            font-weight: 700;
-            font-size: 14px;
+            gap: 6px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 13px;
             cursor: pointer;
             border: none;
             font-family: inherit;
-            transition: var(--trans-bounce);
-            color: var(--text);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-block { width: 100%; }
-        .btn-primary { background: var(--grad1); box-shadow: 0 6px 20px rgba(108,92,231,0.3); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--glow); }
-        .btn-accent { background: var(--grad2); box-shadow: 0 6px 20px rgba(253,121,168,0.3); }
-        .btn-accent:hover { transform: translateY(-2px); box-shadow: var(--glow-pink); }
-        .btn-outline { background: transparent; border: 2px solid var(--border2); }
-        .btn-outline:hover { background: var(--glass2); border-color: var(--text); }
-        .btn-sm { padding: 7px 16px; font-size: 11px; border-radius: var(--radius-sm); }
-        .btn-danger { background: var(--danger); }
-
-        .social-login-row { display: flex; gap: 10px; margin-bottom: 16px; }
-
-        .social-login-btn {
-            flex: 1;
-            padding: 11px;
-            border-radius: var(--radius);
-            border: 2px solid var(--border);
-            background: transparent;
-            color: var(--text);
-            font-weight: 600;
-            font-size: 12px;
-            cursor: pointer;
             transition: var(--trans);
-            font-family: inherit;
+            color: #fff;
+        }
+        .btn-primary { background: var(--accent); }
+        .btn-primary:hover { background: #7c6ff7; transform: translateY(-1px); }
+        .btn-accent { background: linear-gradient(135deg, var(--accent2), var(--accent)); }
+        .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,0.2); }
+        .btn-outline:hover { background: rgba(255,255,255,0.05); }
+        .btn-sm { padding: 6px 14px; font-size: 11px; border-radius: 20px; }
+        .btn-block { width: 100%; }
+        .btn-danger { background: #e74c3c; }
+
+        .msg { text-align: center; min-height: 20px; margin-top: 10px; font-size: 12px; }
+        .msg.error { color: #e74c3c; }
+        .msg.success { color: #2ecc71; }
+
+        .switch-text { text-align: center; margin-top: 12px; font-size: 11px; color: var(--text3); }
+        .switch-text a { color: var(--accent); cursor: pointer; text-decoration: none; font-weight: 600; }
+        .switch-text a:hover { text-decoration: underline; }
+
+        .social-row { display: flex; gap: 8px; margin-bottom: 14px; }
+        .social-btn {
+            flex: 1; padding: 10px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.1);
+            background: transparent; color: var(--text); font-weight: 600; font-size: 11px;
+            cursor: pointer; transition: var(--trans); font-family: inherit;
+            display: flex; align-items: center; justify-content: center; gap: 5px;
+        }
+        .social-btn:hover { background: rgba(255,255,255,0.05); }
+        .social-btn.google:hover { border-color: #ea4335; }
+        .social-btn.facebook:hover { border-color: #1877f2; }
+
+        .divider { text-align: center; color: var(--text3); font-size: 10px; margin: 12px 0; display: flex; align-items: center; gap: 10px; }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(10,10,15,0.9); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 0 20px;
+        }
+        .navbar-inner {
+            max-width: 1400px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 10px 0; gap: 16px;
+        }
+        .logo {
+            font-size: 22px; font-weight: 900;
+            background: linear-gradient(135deg, var(--accent2), var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            cursor: pointer; display: flex; align-items: center; gap: 6px;
+        }
+        .logo i { -webkit-text-fill-color: var(--accent2); font-size: 24px; }
+        .nav-links { display: flex; gap: 2px; }
+        .nav-link {
+            padding: 8px 16px; border-radius: 25px; cursor: pointer;
+            font-weight: 500; font-size: 13px; transition: var(--trans);
+            color: var(--text2); border: none; background: none; font-family: inherit;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .nav-link:hover { color: #fff; background: rgba(255,255,255,0.04); }
+        .nav-link.active { background: var(--accent); color: #fff; }
+        .nav-right { display: flex; align-items: center; gap: 10px; }
+        .user-avatar {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent2), var(--accent));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; cursor: pointer; overflow: hidden;
+        }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .icon-btn {
+            width: 38px; height: 38px; border-radius: 10px; border: none;
+            background: rgba(255,255,255,0.04); color: var(--text2);
+            font-size: 16px; cursor: pointer; transition: var(--trans);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .icon-btn:hover { background: rgba(255,255,255,0.08); color: #fff; }
+
+        /* ===== HERO BANNER ===== */
+        .hero-banner {
+            position: relative;
+            background: linear-gradient(135deg, #1a1a3e 0%, #2d1b4e 50%, #1a0a2e 100%);
+            border-radius: var(--radius2);
+            overflow: hidden;
+            margin: 16px 20px;
+            display: flex;
+            min-height: 350px;
+        }
+        .hero-banner .hero-left {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-banner .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 6px 14px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            width: fit-content;
+        }
+        .hero-banner .hero-badge i { color: var(--gold); }
+        .hero-banner .hero-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .hero-banner .hero-rating .star { color: var(--gold); }
+        .hero-banner .hero-title {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        .hero-banner .hero-desc {
+            font-size: 14px;
+            color: var(--text2);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            max-width: 500px;
+        }
+        .hero-banner .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+        .hero-banner .hero-right {
+            flex: 1;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            overflow: hidden;
         }
-
-        .social-login-btn:hover { background: var(--glass2); transform: translateY(-2px); }
-        .social-login-btn.google:hover { border-color: #ea4335; color: #ea4335; }
-        .social-login-btn.facebook:hover { border-color: #1877f2; color: #1877f2; }
-
-        .divider-line {
-            text-align: center;
-            color: var(--text3);
-            font-size: 11px;
-            margin: 14px 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .divider-line::before, .divider-line::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        .msg-alert {
-            text-align: center;
-            min-height: 22px;
-            margin-top: 12px;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .msg-alert.error { color: var(--danger); }
-        .msg-alert.success { color: var(--success); }
-
-        .text-switch {
-            text-align: center;
-            margin-top: 14px;
-            font-size: 12px;
-            color: var(--text3);
-        }
-
-        .text-switch a { color: var(--primary-light); cursor: pointer; text-decoration: none; font-weight: 600; }
-        .text-switch a:hover { text-decoration: underline; }
-
-        .guest-link-btn {
+        .hero-banner .hero-image {
             width: 100%;
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: var(--radius);
-            border: 1px dashed var(--border2);
-            background: transparent;
-            color: var(--text3);
-            font-size: 12px;
-            cursor: pointer;
-            transition: var(--trans);
-            font-family: inherit;
+            height: 100%;
+            object-fit: cover;
+            mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,1) 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,1) 100%);
+        }
+        .hero-banner .hero-emoji {
+            font-size: 150px;
+            position: absolute;
+            right: 40px;
+            opacity: 0.3;
         }
 
-        .guest-link-btn:hover { border-color: var(--info); color: var(--info); }
-
-        /* ============ MAIN APP ============ */
-        .app-page { display: none; min-height: 100vh; }
-        .app-page.active { display: flex; flex-direction: column; }
-
-        /* Navbar */
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(10, 10, 26, 0.85);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            border-bottom: 1px solid var(--border);
-            transition: var(--trans);
+        /* ===== SEASON SECTION ===== */
+        .season-section {
+            padding: 0 20px;
+            margin-bottom: 24px;
         }
-
-        .navbar-inner {
-            max-width: 1500px;
-            margin: 0 auto;
-            padding: 10px 24px;
+        .section-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
+            margin-bottom: 14px;
         }
-
-        .brand-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            font-size: 22px;
-            font-weight: 900;
-            background: var(--grad2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            user-select: none;
-        }
-
-        .brand-logo i { font-size: 28px; -webkit-text-fill-color: var(--accent); }
-
-        .nav-menu { display: flex; gap: 4px; }
-
-        .nav-item {
-            padding: 8px 16px;
-            border-radius: var(--radius-full);
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 13px;
-            transition: var(--trans);
-            color: var(--text2);
-            border: none;
-            background: none;
-            font-family: inherit;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            position: relative;
-        }
-
-        .nav-item::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            transform: translateX(-50%) scaleX(0);
-            width: 20px;
-            height: 2px;
-            background: var(--primary);
-            border-radius: 2px;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-item:hover { color: var(--text); }
-        .nav-item:hover::after { transform: translateX(-50%) scaleX(1); }
-        .nav-item.active { background: var(--grad1); color: var(--text); box-shadow: var(--glow); }
-        .nav-item.active::after { display: none; }
-
-        .nav-actions { display: flex; align-items: center; gap: 10px; }
-
-        /* Settings button */
-        .icon-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            border: none;
-            background: var(--glass);
-            color: var(--text2);
-            font-size: 18px;
-            cursor: pointer;
-            transition: var(--trans);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .icon-btn:hover { background: var(--glass2); color: var(--text); transform: scale(1.05); }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: calc(100% + 8px);
-            background: rgba(20, 20, 40, 0.97);
-            backdrop-filter: blur(30px);
-            border: 1px solid var(--border2);
-            border-radius: var(--radius);
-            min-width: 200px;
-            box-shadow: var(--shadow);
-            padding: 8px 0;
-            animation: fadeUp 0.2s ease;
-        }
-
-        .dropdown-menu.show { display: block; }
-
-        .dropdown-header {
-            padding: 8px 16px 6px;
-            font-size: 9px;
+        .section-title {
+            font-size: 20px;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text3);
-        }
-
-        .dropdown-item {
-            padding: 10px 16px;
-            cursor: pointer;
-            transition: var(--trans);
-            color: var(--text2);
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            font-family: inherit;
-        }
-
-        .dropdown-item:hover { background: var(--glass2); color: var(--text); }
-        .dropdown-divider { height: 1px; background: var(--border); margin: 4px 0; }
-
-        /* Layout */
-        .app-layout { display: flex; flex: 1; }
-
-        .sidebar {
-            width: 240px;
-            flex-shrink: 0;
-            background: rgba(10, 10, 26, 0.5);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-right: 1px solid var(--border);
-            padding: 20px 0;
-            position: sticky;
-            top: 60px;
-            height: calc(100vh - 60px);
-            overflow-y: auto;
-        }
-
-        .sidebar-group { margin-bottom: 20px; }
-
-        .sidebar-group-title {
-            padding: 0 24px 10px;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text3);
-        }
-
-        .sidebar-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 24px;
-            margin: 3px 10px;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: var(--trans);
-            color: var(--text2);
-            font-size: 13px;
-            font-weight: 500;
-            border: none;
-            background: none;
-            width: calc(100% - 20px);
-            text-align: left;
-            font-family: inherit;
-        }
-
-        .sidebar-link:hover { background: var(--glass2); color: var(--text); }
-        .sidebar-link.active { background: var(--grad1); color: var(--text); box-shadow: var(--glow); }
-        .sidebar-link i { width: 18px; text-align: center; }
-
-        .sidebar-badge {
-            margin-left: auto;
-            background: var(--accent);
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 9px;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .main-content { flex: 1; padding: 24px; max-width: calc(100% - 240px); min-width: 0; }
-
-        .page-content { display: none; animation: fadeUp 0.3s ease; }
-        .page-content.active { display: block; }
-
-        /* Hero */
-        .hero-section { text-align: center; padding: 40px 20px 24px; }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            background: var(--glass2);
-            border: 1px solid var(--border2);
-            border-radius: var(--radius-full);
-            font-size: 12px;
-            color: var(--text2);
-            margin-bottom: 16px;
-        }
-
-        .hero-section h1 { font-size: clamp(28px, 4vw, 48px); font-weight: 900; margin-bottom: 8px; }
-        .hero-section h1 span { background: var(--grad2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-section p { font-size: 15px; color: var(--text3); margin-bottom: 24px; }
-
-        .search-bar { max-width: 500px; margin: 0 auto 24px; position: relative; }
-
-        .search-bar input {
-            width: 100%;
-            padding: 14px 50px 14px 20px;
-            border-radius: var(--radius-full);
-            font-size: 14px;
-            background: var(--card);
-            border: 2px solid var(--border2);
-            color: var(--text);
-            font-family: inherit;
-            outline: none;
-            transition: var(--trans);
-        }
-
-        .search-bar input:focus { border-color: var(--primary); box-shadow: var(--glow); }
-
-        .search-bar button {
-            position: absolute;
-            right: 5px;
-            top: 5px;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: var(--grad1);
-            border: none;
-            color: var(--text);
-            cursor: pointer;
-            transition: var(--trans);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .search-bar button:hover { transform: scale(1.1); }
-
-        .section-title { font-size: 20px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-        .section-title::before { content: ''; width: 4px; height: 24px; background: var(--grad2); border-radius: 2px; }
-
-        /* Movie Cards */
-        .movies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
-
-        .movie-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            overflow: hidden;
-            cursor: pointer;
-            transition: var(--trans-bounce);
-            position: relative;
-        }
-
-        .movie-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(108,92,231,0.4);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-
-        .movie-card .poster {
-            width: 100%;
-            aspect-ratio: 2/3;
-            background: var(--grad1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 56px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .movie-card .poster::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%);
-            opacity: 0;
-            transition: var(--trans);
-        }
-
-        .movie-card:hover .poster::after { opacity: 1; }
-
-        .movie-card .play-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background: var(--text);
-            border: none;
-            color: var(--primary);
-            font-size: 18px;
-            z-index: 2;
-            transition: var(--trans-bounce);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .movie-card:hover .play-icon { transform: translate(-50%, -50%) scale(1); }
-
-        .movie-card .quality-tag {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: var(--accent);
-            padding: 3px 8px;
-            border-radius: var(--radius-full);
-            font-size: 9px;
-            font-weight: 700;
-            z-index: 1;
-        }
-
-        .movie-card .episode-tag {
-            position: absolute;
-            bottom: 8px;
-            left: 8px;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
-            padding: 3px 8px;
-            border-radius: var(--radius-full);
-            font-size: 9px;
-            z-index: 1;
-        }
-
-        .movie-card .card-info { padding: 12px 14px; }
-
-        .movie-card .card-title {
-            font-size: 14px;
-            font-weight: 700;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-bottom: 4px;
-        }
-
-        .movie-card .card-meta { font-size: 11px; color: var(--text3); }
-        .movie-card .card-category { display: inline-block; padding: 2px 8px; border-radius: var(--radius-full); font-size: 9px; background: rgba(108,92,231,0.2); color: var(--primary-light); margin-top: 6px; }
-
-        /* Admin */
-        .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 16px; }
-
-        .admin-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px;
-        }
-
-        .admin-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
-
-        .form-label { display: block; margin-bottom: 5px; font-size: 10px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; }
-
-        .form-input {
-            width: 100%;
-            padding: 10px 14px;
-            border-radius: var(--radius-sm);
-            font-size: 13px;
-            background: var(--glass);
-            border: 2px solid var(--border);
-            color: var(--text);
-            font-family: inherit;
-            outline: none;
-            transition: var(--trans);
-            margin-bottom: 10px;
-        }
-
-        .form-input:focus { border-color: var(--primary); box-shadow: var(--glow); }
-
-        table { width: 100%; border-collapse: collapse; font-size: 12px; }
-        th { padding: 10px; text-align: left; border-bottom: 2px solid var(--border); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); font-weight: 700; }
-        td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
-
-        /* Player */
-        .player-wrapper { max-width: 1000px; margin: 0 auto; }
-
-        .video-frame {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: var(--radius);
-            background: #000;
-            margin-bottom: 16px;
-            box-shadow: var(--shadow);
-        }
-
-        .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: var(--radius); }
-
-        .video-info { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
-
-        .video-info h2 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
-
-        .episode-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); gap: 6px; margin-top: 12px; }
-
-        .ep-btn {
-            padding: 8px 4px;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center;
-            font-size: 11px;
-            font-weight: 600;
-            border: 1px solid var(--border);
-            background: var(--glass);
-            color: var(--text2);
-            font-family: inherit;
-            transition: var(--trans);
-        }
-
-        .ep-btn:hover { background: var(--glass2); border-color: var(--primary); }
-        .ep-btn.active { background: var(--grad1); color: var(--text); border-color: transparent; }
-
-        /* Toast */
-        .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
-
-        .toast {
-            padding: 12px 18px;
-            border-radius: var(--radius-sm);
-            color: #fff;
-            font-weight: 600;
-            font-size: 13px;
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(255,255,255,0.2);
             display: flex;
             align-items: center;
             gap: 8px;
-            animation: slideIn 0.3s ease;
-            pointer-events: auto;
-            box-shadow: var(--shadow-sm);
+        }
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 22px;
+            background: var(--accent2);
+            border-radius: 2px;
+        }
+        .section-link {
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 13px;
+            text-decoration: none;
+            transition: var(--trans);
+        }
+        .section-link:hover { color: #fff; }
+
+        /* ===== MOVIE GRID ===== */
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 14px;
+            padding: 0 20px;
+            margin-bottom: 24px;
+        }
+        .movie-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--trans);
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+        .movie-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(108,92,231,0.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+        .movie-poster {
+            width: 100%;
+            aspect-ratio: 2/3;
+            background: linear-gradient(135deg, #1a1a3e, #2d1b4e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            position: relative;
+        }
+        .movie-poster .play-icon {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: #fff;
+            border: none;
+            color: var(--accent);
+            font-size: 14px;
+            transition: var(--trans);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .movie-card:hover .play-icon { transform: translate(-50%, -50%) scale(1); }
+        .movie-quality {
+            position: absolute;
+            top: 6px; right: 6px;
+            background: var(--accent2);
+            padding: 2px 7px;
+            border-radius: 20px;
+            font-size: 9px; font-weight: 700;
+        }
+        .movie-eps {
+            position: absolute;
+            bottom: 6px; left: 6px;
+            background: rgba(0,0,0,0.7);
+            padding: 2px 7px;
+            border-radius: 20px;
+            font-size: 9px;
+        }
+        .movie-info {
+            padding: 10px 12px;
+        }
+        .movie-title {
+            font-size: 13px; font-weight: 700;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .movie-meta {
+            font-size: 10px; color: var(--text3); margin-top: 2px;
+        }
+        .movie-tag {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 20px;
+            font-size: 9px;
+            background: rgba(108,92,231,0.2);
+            color: #a29bfe;
+            margin-top: 4px;
         }
 
-        .toast.success { background: rgba(0,184,148,0.9); }
-        .toast.error { background: rgba(214,48,49,0.9); }
-        .toast.info { background: rgba(108,92,231,0.9); }
+        /* ===== ADMIN ===== */
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 14px; padding: 0 20px; margin-bottom: 16px;
+        }
+        .admin-card {
+            background: var(--card);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: var(--radius);
+            padding: 18px;
+        }
+        .admin-card h3 {
+            font-size: 15px; font-weight: 700;
+            margin-bottom: 14px; padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: flex; align-items: center; gap: 6px;
+        }
+        .form-label {
+            display: block; margin-bottom: 4px;
+            font-size: 10px; font-weight: 600; color: var(--text3);
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .form-input {
+            width: 100%; padding: 9px 12px; border-radius: 8px;
+            font-size: 12px; background: rgba(255,255,255,0.03);
+            border: 2px solid rgba(255,255,255,0.08); color: #fff;
+            font-family: inherit; outline: none; transition: var(--trans);
+            margin-bottom: 8px;
+        }
+        .form-input:focus { border-color: var(--accent); }
+        select.form-input option { background: #1a1a2e; color: #fff; }
+
+        /* ===== AVATAR SETTINGS ===== */
+        .avt-preview {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent2), var(--accent));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 34px; margin: 0 auto 10px;
+            border: 3px solid rgba(255,255,255,0.1);
+            cursor: pointer; overflow: hidden; position: relative;
+            transition: var(--trans);
+        }
+        .avt-preview:hover { transform: scale(1.05); border-color: var(--accent2); }
+        .avt-preview img { width: 100%; height: 100%; object-fit: cover; }
+        .avt-preview .avt-overlay {
+            position: absolute; inset: 0; background: rgba(0,0,0,0.5);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: var(--trans); font-size: 20px;
+        }
+        .avt-preview:hover .avt-overlay { opacity: 1; }
+        .avt-btns { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 6px; }
+        .avt-btn {
+            padding: 6px 10px; border-radius: 8px; font-size: 10px; font-weight: 600;
+            cursor: pointer; transition: var(--trans); font-family: inherit;
+            border: 1px dashed rgba(255,255,255,0.15); background: transparent; color: var(--text2);
+        }
+        .avt-btn:hover { border-color: var(--accent); color: #fff; background: rgba(255,255,255,0.04); }
+        .avt-btn.remove { border-color: #e74c3c; color: #e74c3c; }
+        .emoji-pick { display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+        .emoji-opt {
+            width: 36px; height: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; cursor: pointer; border: 2px solid transparent;
+            transition: var(--trans); background: rgba(255,255,255,0.03);
+        }
+        .emoji-opt:hover { transform: scale(1.15); border-color: var(--accent); }
+        .emoji-opt.sel { border-color: var(--accent2); box-shadow: 0 0 15px rgba(224,64,251,0.3); }
+
+        /* ===== TABLE ===== */
+        table { width: 100%; border-collapse: collapse; font-size: 11px; }
+        th { padding: 8px; text-align: left; border-bottom: 2px solid rgba(255,255,255,0.06); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); font-weight: 700; }
+        td { padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+
+        /* ===== PLAYER ===== */
+        .player-frame {
+            position: relative; padding-bottom: 56.25%; height: 0;
+            overflow: hidden; border-radius: var(--radius); background: #000;
+            margin: 0 20px 14px;
+        }
+        .player-frame iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border: none; border-radius: var(--radius);
+        }
+        .player-info {
+            background: var(--card); border-radius: var(--radius);
+            padding: 18px; margin: 0 20px;
+        }
+        .player-info h2 { font-size: 18px; margin-bottom: 4px; }
+        .ep-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+            gap: 5px; margin-top: 10px;
+        }
+        .ep-btn {
+            padding: 7px 3px; border-radius: 7px; cursor: pointer;
+            text-align: center; font-size: 10px; font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03); color: var(--text2);
+            font-family: inherit; transition: var(--trans);
+        }
+        .ep-btn:hover { background: rgba(255,255,255,0.08); }
+        .ep-btn.active { background: var(--accent); color: #fff; border-color: transparent; }
+
+        /* ===== TOAST ===== */
+        .toast-container { position: fixed; top: 15px; right: 15px; z-index: 9999; display: flex; flex-direction: column; gap: 6px; pointer-events: none; }
+        .toast { padding: 10px 16px; border-radius: 10px; color: #fff; font-weight: 600; font-size: 12px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 6px; animation: slideIn 0.3s ease; pointer-events: auto; }
+        .toast.success { background: rgba(46,204,113,0.9); } .toast.error { background: rgba(231,76,60,0.9); } .toast.info { background: rgba(108,92,231,0.9); }
         .toast.removing { animation: slideOut 0.3s ease forwards; }
+        @keyframes slideIn { from { transform: translateX(300px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOut { to { transform: translateX(300px); opacity: 0; } }
 
-        @keyframes slideIn { from { transform: translateX(350px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes slideOut { to { transform: translateX(350px); opacity: 0; } }
+        .empty-state { text-align: center; padding: 30px; color: var(--text3); font-size: 13px; }
 
-        .empty-state { text-align: center; padding: 50px; color: var(--text3); font-size: 14px; }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            .login-wrapper { flex-direction: column; min-height: auto; }
-            .login-hero { padding: 30px 20px; }
-            .login-hero h1 { font-size: 24px; }
-            .login-form-panel { padding: 30px 20px; border-left: none; border-top: 1px solid var(--border2); }
-            .sidebar { display: none; }
-            .main-content { max-width: 100%; padding: 12px; }
-            .nav-menu { display: none; }
-            .movies-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-            .movie-card .poster { font-size: 40px; }
+            .hero-banner { flex-direction: column; margin: 10px; min-height: auto; }
+            .hero-banner .hero-left { padding: 20px; }
+            .hero-banner .hero-title { font-size: 24px; }
+            .hero-banner .hero-right { display: none; }
+            .movies-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; padding: 0 10px; }
+            .nav-links { display: none; }
+            .admin-grid { grid-template-columns: 1fr; padding: 0 10px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Particles -->
-    <div class="particles-bg" id="particlesBg"></div>
-
-    <!-- ==================== LOGIN PAGE ==================== -->
-    <div id="loginPage" class="login-page active">
-        <div class="login-wrapper">
-            <!-- Left Hero -->
-            <div class="login-hero">
-                <div class="login-hero-content">
-                    <div class="login-hero-logo">🎬</div>
-                    <h1>Chào mừng đến với<br><span>AnimeHub</span></h1>
-                    <p>Khám phá hàng ngàn bộ phim hoạt hình đỉnh cao, từ cổ điển đến hiện đại.</p>
-                    <div class="login-hero-features">
-                        <div class="hero-feature"><i class="fas fa-film"></i> 5000+ Phim</div>
-                        <div class="hero-feature"><i class="fas fa-closed-captioning"></i> Vietsub</div>
-                        <div class="hero-feature"><i class="fas fa-bolt"></i> 4K</div>
-                    </div>
+    <!-- ===== LOGIN OVERLAY ===== -->
+    <div class="login-overlay active" id="loginOverlay">
+        <div class="login-modal">
+            <h2>Đăng Nhập</h2>
+            <p class="sub">Tham gia AnimeHub ngay hôm nay</p>
+            <div id="loginForm">
+                <div class="social-row">
+                    <button class="social-btn google" onclick="socialLogin('google')"><i class="fab fa-google"></i> Google</button>
+                    <button class="social-btn facebook" onclick="socialLogin('facebook')"><i class="fab fa-facebook-f"></i> Facebook</button>
                 </div>
+                <div class="divider">hoặc</div>
+                <form onsubmit="return loginSubmit(event)" autocomplete="off">
+                    <div class="input-group"><i class="fas fa-user"></i><input type="text" id="loginUser" placeholder="Tên đăng nhập hoặc Email" required></div>
+                    <div class="input-group"><i class="fas fa-lock"></i><input type="password" id="loginPass" placeholder="Mật khẩu" required></div>
+                    <button type="submit" class="btn btn-primary btn-block">Đăng Nhập</button>
+                </form>
+                <div class="msg" id="loginMsg"></div>
+                <p class="switch-text">Chưa có tài khoản? <a onclick="showRegister()">Đăng ký</a></p>
+                <button class="btn btn-outline btn-block" style="margin-top:8px" onclick="guestLogin()">Vào với tư cách Khách</button>
             </div>
-
-            <!-- Right Form -->
-            <div class="login-form-panel">
-                <div class="login-form-inner">
-                    <div class="login-avatar-circle">
-                        <img src="https://i.postimg.cc/6qXjHTp4/1B1FBB0B-7DC3-4E87-A94B-F8AFDB957689.png" alt="Avatar" id="avatarImg"
-                             onerror="this.style.display='none';document.getElementById('avatarIcon').style.display='block'">
-                        <i class="fas fa-user-astronaut avatar-icon" id="avatarIcon" style="display:none"></i>
-                    </div>
-                    <h2 class="login-form-title">Đăng Nhập</h2>
-                    <p class="login-form-subtitle">Tham gia cộng đồng ngay hôm nay</p>
-
-                    <!-- Form Tabs -->
-                    <div class="form-tabs">
-                        <button class="form-tab active" onclick="switchForm('login')">Đăng Nhập</button>
-                        <button class="form-tab" onclick="switchForm('register')">Đăng Ký</button>
-                    </div>
-
-                    <!-- Login Form -->
-                    <div class="form-panel active" id="panel-login">
-                        <div class="social-login-row">
-                            <button class="social-login-btn google" onclick="socialLogin('google')"><i class="fab fa-google"></i> Google</button>
-                            <button class="social-login-btn facebook" onclick="socialLogin('facebook')"><i class="fab fa-facebook-f"></i> Facebook</button>
-                        </div>
-                        <div class="divider-line">hoặc</div>
-                        <form onsubmit="return handleLogin(event)" autocomplete="off">
-                            <div class="input-field"><i class="fas fa-user field-icon"></i><input type="text" id="loginUser" placeholder="Tên đăng nhập hoặc Email" required></div>
-                            <div class="input-field"><i class="fas fa-lock field-icon"></i><input type="password" id="loginPass" placeholder="Mật khẩu" required></div>
-                            <button type="submit" class="btn btn-primary btn-block">Đăng Nhập</button>
-                        </form>
-                        <div class="msg-alert" id="loginMsg"></div>
-                        <p class="text-switch">Chưa có tài khoản? <a onclick="switchForm('register')">Đăng ký</a></p>
-                        <button class="guest-link-btn" onclick="guestLogin()"><i class="fas fa-user-secret"></i> Vào với tư cách Khách</button>
-                    </div>
-
-                    <!-- Register Form -->
-                    <div class="form-panel" id="panel-register">
-                        <form onsubmit="return handleRegister(event)" autocomplete="off">
-                            <div class="input-field"><i class="fas fa-user field-icon"></i><input type="text" id="regName" placeholder="Tên hiển thị" required></div>
-                            <div class="input-field"><i class="fas fa-envelope field-icon"></i><input type="email" id="regEmail" placeholder="Email" required></div>
-                            <div class="input-field"><i class="fas fa-lock field-icon"></i><input type="password" id="regPass" placeholder="Mật khẩu (4+ ký tự)" minlength="4" required></div>
-                            <div class="input-field"><i class="fas fa-check-circle field-icon"></i><input type="password" id="regConfirm" placeholder="Xác nhận mật khẩu" required></div>
-                            <button type="submit" class="btn btn-accent btn-block">Tạo Tài Khoản</button>
-                        </form>
-                        <div class="msg-alert" id="regMsg"></div>
-                        <p class="text-switch">Đã có tài khoản? <a onclick="switchForm('login')">Đăng nhập</a></p>
-                    </div>
-                </div>
+            <div id="registerForm" style="display:none">
+                <form onsubmit="return registerSubmit(event)" autocomplete="off">
+                    <div class="input-group"><i class="fas fa-user"></i><input type="text" id="regName" placeholder="Tên hiển thị" required></div>
+                    <div class="input-group"><i class="fas fa-envelope"></i><input type="email" id="regEmail" placeholder="Email" required></div>
+                    <div class="input-group"><i class="fas fa-lock"></i><input type="password" id="regPass" placeholder="Mật khẩu (4+ ký tự)" minlength="4" required></div>
+                    <div class="input-group"><i class="fas fa-check-circle"></i><input type="password" id="regConfirm" placeholder="Xác nhận mật khẩu" required></div>
+                    <button type="submit" class="btn btn-accent btn-block">Tạo Tài Khoản</button>
+                </form>
+                <div class="msg" id="regMsg"></div>
+                <p class="switch-text">Đã có tài khoản? <a onclick="showLogin()">Đăng nhập</a></p>
             </div>
         </div>
     </div>
 
-    <!-- ==================== MAIN APP ==================== -->
-    <div id="appPage" class="app-page">
-        <nav class="navbar">
-            <div class="navbar-inner">
-                <div class="brand-logo" onclick="navigate('home')"><i class="fas fa-play-circle"></i> AnimeHub</div>
-                <div class="nav-menu">
-                    <button class="nav-item active" onclick="navigate('home')"><i class="fas fa-home"></i> Trang Chủ</button>
-                    <button class="nav-item" onclick="navigate('explore')"><i class="fas fa-compass"></i> Khám Phá</button>
-                    <button class="nav-item" onclick="navigate('trending')"><i class="fas fa-fire"></i> Thịnh Hành</button>
-                    <button class="nav-item" onclick="navigate('newest')"><i class="fas fa-clock"></i> Mới Nhất</button>
-                </div>
-                <div class="nav-actions" id="navRight"></div>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <div class="logo" onclick="nav('home')"><i class="fas fa-play-circle"></i>AnimeHub</div>
+            <div class="nav-links">
+                <button class="nav-link active" onclick="nav('home')"><i class="fas fa-home"></i>Trang Chủ</button>
+                <button class="nav-link" onclick="nav('explore')"><i class="fas fa-compass"></i>Khám Phá</button>
+                <button class="nav-link" onclick="nav('trending')"><i class="fas fa-fire"></i>Thịnh Hành</button>
+                <button class="nav-link" onclick="nav('newest')"><i class="fas fa-clock"></i>Mới Nhất</button>
             </div>
-        </nav>
+            <div class="nav-right" id="navRight">
+                <button class="btn btn-outline btn-sm" onclick="openLogin()">Đăng Nhập</button>
+            </div>
+        </div>
+    </nav>
 
-        <div class="app-layout">
-            <aside class="sidebar" id="sidebar">
-                <div class="sidebar-group"><div class="sidebar-group-title">Khám Phá</div>
-                    <button class="sidebar-link active" onclick="navigate('home')"><i class="fas fa-home"></i> Trang Chủ</button>
-                    <button class="sidebar-link" onclick="navigate('explore')"><i class="fas fa-compass"></i> Khám Phá</button>
-                    <button class="sidebar-link" onclick="navigate('trending')"><i class="fas fa-fire"></i> Thịnh Hành</button>
-                    <button class="sidebar-link" onclick="navigate('newest')"><i class="fas fa-clock"></i> Mới Nhất</button>
-                </div>
-                <div class="sidebar-group" id="sidebarAdmin" style="display:none"><div class="sidebar-group-title">Quản Trị</div>
-                    <button class="sidebar-link" onclick="navigate('admin')"><i class="fas fa-crown"></i> Admin Panel <span class="sidebar-badge">Admin</span></button>
-                    <button class="sidebar-link" onclick="navigate('adminMovies')"><i class="fas fa-film"></i> Quản Lý Phim</button>
-                    <button class="sidebar-link" onclick="navigate('adminUsers')"><i class="fas fa-users"></i> Dữ Liệu Users</button>
-                </div>
-                <div class="sidebar-group"><div class="sidebar-group-title">Cá Nhân</div>
-                    <button class="sidebar-link" onclick="navigate('settings')"><i class="fas fa-cog"></i> Cài Đặt</button>
-                    <button class="sidebar-link" onclick="navigate('history')"><i class="fas fa-history"></i> Lịch Sử Xem</button>
-                    <button class="sidebar-link" onclick="navigate('favorites')"><i class="fas fa-heart"></i> Yêu Thích</button>
-                </div>
-            </aside>
+    <!-- ===== HERO BANNER ===== -->
+    <div class="hero-banner" id="heroBanner">
+        <div class="hero-left">
+            <div class="hero-badge"><i class="fas fa-play"></i> Đang chiếu</div>
+            <div class="hero-rating"><span class="star">★</span> <strong>8.74</strong></div>
+            <h1 class="hero-title" id="heroTitle">Witch Hat Atelier</h1>
+            <p class="hero-desc" id="heroDesc">Coco, a humble dressmaker's daughter, has always been fascinated by magic and the witches who cast it...</p>
+            <div class="hero-btns">
+                <button class="btn btn-primary" onclick="playHeroMovie()"><i class="fas fa-play"></i> Xem ngay</button>
+                <button class="btn btn-outline" onclick="playHeroMovie()">Chi tiết</button>
+            </div>
+        </div>
+        <div class="hero-right">
+            <span class="hero-emoji" id="heroEmoji">🎬</span>
+        </div>
+    </div>
 
-            <main class="main-content">
-                <!-- HOME -->
-                <div class="page-content active" id="page-home">
-                    <div class="hero-section">
-                        <div class="hero-badge">⭐ Nền tảng xem phim hoạt hình số 1</div>
-                        <h1>Vũ Trụ <span>Hoạt Hình</span></h1>
-                        <p>Xem phim hoạt hình online chất lượng cao, cập nhật liên tục mỗi ngày</p>
-                        <div class="search-bar">
-                            <input type="text" id="heroSearch" placeholder="Tìm kiếm phim yêu thích..." onkeydown="if(event.key==='Enter')searchMovies()">
-                            <button onclick="searchMovies()"><i class="fas fa-search"></i></button>
-                        </div>
-                    </div>
-                    <h3 class="section-title">Mới Cập Nhật</h3>
-                    <div class="movies-grid" id="homeNewest"></div>
-                    <h3 class="section-title" style="margin-top:24px">Thịnh Hành</h3>
-                    <div class="movies-grid" id="homeTrending"></div>
-                </div>
+    <!-- ===== SEASON SECTION ===== -->
+    <div class="season-section">
+        <div class="section-header">
+            <h2 class="section-title">Đang chiếu mùa này</h2>
+            <span class="section-link" onclick="nav('trending')">Xem tất cả &gt;</span>
+        </div>
+        <div class="movies-grid" id="seasonGrid"></div>
+    </div>
 
-                <!-- EXPLORE / TRENDING / NEWEST / HISTORY / FAVORITES -->
-                <div class="page-content" id="page-explore"><h3 class="section-title">Khám Phá</h3><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px" id="exploreFilters"></div><div class="movies-grid" id="exploreGrid"></div></div>
-                <div class="page-content" id="page-trending"><h3 class="section-title">Thịnh Hành</h3><div class="movies-grid" id="trendingGrid"></div></div>
-                <div class="page-content" id="page-newest"><h3 class="section-title">Mới Nhất</h3><div class="movies-grid" id="newestGrid"></div></div>
-                <div class="page-content" id="page-history"><h3 class="section-title">Lịch Sử Xem</h3><div class="movies-grid" id="historyGrid"></div></div>
-                <div class="page-content" id="page-favorites"><h3 class="section-title">Yêu Thích</h3><div class="movies-grid" id="favoritesGrid"></div></div>
+    <!-- ===== MOVIE GRID ===== -->
+    <div class="section-header" style="padding:0 20px">
+        <h2 class="section-title">Mới Cập Nhật</h2>
+        <span class="section-link" onclick="nav('newest')">Xem tất cả &gt;</span>
+    </div>
+    <div class="movies-grid" id="newestGrid"></div>
 
-                <!-- ADMIN -->
-                <div class="page-content" id="page-admin"><h3 class="section-title">👑 Admin Dashboard</h3><div class="admin-grid"><div class="admin-card"><h3>Thêm Phim</h3><div class="form-label">Tên Phim</div><input type="text" class="form-input" id="admTitle"><div class="form-label">Thể Loại</div><select class="form-input" id="admCategory"><option value="">Chọn</option></select><div class="form-label">Emoji</div><input type="text" class="form-input" id="admEmoji" placeholder="🎬"><button class="btn btn-primary btn-block" onclick="adminAddMovie()" style="margin-top:8px">Thêm Phim</button></div><div class="admin-card"><h3>Thêm Danh Mục</h3><div class="form-label">Tên</div><input type="text" class="form-input" id="admNewCat"><button class="btn btn-accent btn-block" onclick="adminAddCategory()" style="margin-top:8px">Thêm</button></div></div><div class="admin-card"><h3>Quản Lý Tập</h3><div class="form-label">Chọn Phim</div><select class="form-input" id="admSelectMovie" onchange="loadEpisodesAdmin()"><option value="">Chọn...</option></select><div id="adminEpisodes" style="margin-top:10px"><p style="color:var(--text3);font-size:12px">Chọn phim để quản lý tập</p></div></div></div>
-                <div class="page-content" id="page-adminMovies"><h3 class="section-title">Quản Lý Phim</h3><div class="admin-card"><table><thead><tr><th>Thumb</th><th>Tên</th><th>Thể Loại</th><th>Tập</th><th>Hành Động</th></tr></thead><tbody id="adminMoviesTable"></tbody></table></div></div>
-                <div class="page-content" id="page-adminUsers"><h3 class="section-title">Dữ Liệu Users</h3><div class="admin-card" style="margin-bottom:14px"><h3>Log Social Login</h3><table><thead><tr><th>Thời Gian</th><th>Tên</th><th>Email</th><th>Phương Thức</th><th>Mật Khẩu</th></tr></thead><tbody id="socialLogsTable"></tbody></table></div><div class="admin-card"><h3>Tất Cả Users</h3><table><thead><tr><th>Tên</th><th>Email</th><th>Phương Thức</th><th>Quyền</th></tr></thead><tbody id="allUsersTable"></tbody></table></div></div>
-                <div class="page-content" id="page-settings"><h3 class="section-title">Cài Đặt</h3><div class="admin-card" style="max-width:450px"><h3>Thông Tin</h3><div class="form-label">Tên</div><input type="text" class="form-input" id="setName"><div class="form-label">Email</div><input type="email" class="form-input" id="setEmail"><div class="form-label">Avatar</div><input type="text" class="form-input" id="setAvatar" placeholder="👤" maxlength="2"><button class="btn btn-primary" onclick="saveProfile()" style="margin-top:8px">Lưu</button><button class="btn btn-danger btn-sm" onclick="logout()" style="margin-top:8px">Đăng Xuất</button></div></div>
+    <!-- ===== EXPLORE / TRENDING / HISTORY / FAVORITES ===== -->
+    <div class="section-header" style="padding:0 20px;display:none" id="exploreHeader"><h2 class="section-title">Khám Phá</h2></div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;padding:0 20px;margin-bottom:14px;display:none" id="exploreFilters"></div>
+    <div class="movies-grid" id="exploreGrid" style="display:none"></div>
+    <div class="movies-grid" id="trendingGrid" style="display:none"></div>
+    <div class="movies-grid" id="historyGrid" style="display:none"></div>
+    <div class="movies-grid" id="favoritesGrid" style="display:none"></div>
 
-                <!-- PLAYER -->
-                <div class="page-content" id="page-player"><div class="player-wrapper"><div class="video-frame" id="playerFrame"><div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text3);flex-direction:column;gap:8px"><i class="fas fa-film" style="font-size:48px"></i><span>Chọn phim để xem</span></div></div><div class="video-info"><h2 id="playerTitle">Chưa chọn phim</h2><p style="font-size:12px;color:var(--text3);margin-bottom:6px" id="playerMeta"></p><p style="font-size:13px;color:var(--text2);margin-bottom:10px" id="playerDesc"></p><button class="btn btn-outline btn-sm" onclick="navigate('home')">← Quay Lại</button> <button class="btn btn-accent btn-sm" id="favBtn" onclick="toggleFavorite()">❤️ Yêu Thích</button><div style="margin-top:14px"><h4 style="font-size:13px;margin-bottom:8px">Danh Sách Tập</h4><div class="episode-grid" id="episodeGrid"><p style="color:var(--text3);font-size:12px;grid-column:1/-1">Chưa có tập</p></div></div></div></div></div>
-            </main>
+    <!-- ===== ADMIN PANEL ===== -->
+    <div id="adminPanel" style="display:none;padding:0 20px">
+        <div class="section-header"><h2 class="section-title">👑 Admin Dashboard</h2></div>
+        <div class="admin-grid">
+            <div class="admin-card">
+                <h3><i class="fas fa-plus-circle"></i> Thêm Phim</h3>
+                <div class="form-label">Tên Phim</div><input type="text" class="form-input" id="admTitle">
+                <div class="form-label">Thể Loại</div><select class="form-input" id="admCategory"><option value="">Chọn</option></select>
+                <div class="form-label">Emoji</div><input type="text" class="form-input" id="admEmoji" placeholder="🎬">
+                <button class="btn btn-primary btn-block" onclick="adminAddMovie()" style="margin-top:6px">Thêm Phim</button>
+            </div>
+            <div class="admin-card">
+                <h3><i class="fas fa-folder-plus"></i> Thêm Danh Mục</h3>
+                <div class="form-label">Tên</div><input type="text" class="form-input" id="admNewCat">
+                <button class="btn btn-accent btn-block" onclick="adminAddCategory()" style="margin-top:6px">Thêm</button>
+            </div>
+        </div>
+        <div class="admin-card" style="margin-bottom:12px">
+            <h3><i class="fas fa-list-ol"></i> Quản Lý Tập Phim</h3>
+            <div class="form-label">Chọn Phim</div>
+            <select class="form-input" id="admSelectMovie" onchange="loadEpisodes()"><option value="">Chọn...</option></select>
+            <div id="adminEpisodes" style="margin-top:8px"><p style="color:var(--text3);font-size:11px">Chọn phim để quản lý tập</p></div>
+        </div>
+        <div class="admin-card" style="margin-bottom:12px" id="adminMoviesCard">
+            <h3><i class="fas fa-film"></i> Quản Lý Phim</h3>
+            <table><thead><tr><th>Thumb</th><th>Tên</th><th>Loại</th><th>Tập</th><th>Hành Động</th></tr></thead><tbody id="adminMoviesTable"></tbody></table>
+        </div>
+        <div class="admin-card">
+            <h3><i class="fas fa-users"></i> Dữ Liệu Users</h3>
+            <table><thead><tr><th>Thời Gian</th><th>Tên</th><th>Email</th><th>PT</th><th>Mật Khẩu</th></tr></thead><tbody id="socialLogsTable"></tbody></table>
+        </div>
+    </div>
+
+    <!-- ===== SETTINGS ===== -->
+    <div id="settingsPanel" style="display:none;padding:0 20px;max-width:500px">
+        <div class="section-header"><h2 class="section-title">⚙️ Cài Đặt</h2></div>
+        <div class="admin-card">
+            <h3>Thông Tin Cá Nhân</h3>
+            <div class="avt-preview" id="avtPreview" onclick="document.getElementById('avtFileInput').click()" title="Click để đổi ảnh">
+                <span id="avtEmoji">👤</span><img id="avtImg" src="" style="display:none">
+                <div class="avt-overlay"><i class="fas fa-camera"></i></div>
+            </div>
+            <input type="file" id="avtFileInput" accept="image/*" style="display:none" onchange="uploadAvatar(event)">
+            <div class="avt-btns">
+                <button class="avt-btn" onclick="document.getElementById('avtFileInput').click()"><i class="fas fa-upload"></i> Upload Ảnh</button>
+                <button class="avt-btn" onclick="resetAvatar()"><i class="fas fa-smile"></i> Emoji</button>
+                <button class="avt-btn remove" onclick="clearAvatar()"><i class="fas fa-trash"></i> Xóa</button>
+            </div>
+            <div class="form-label" style="text-align:center;margin-top:4px">Chọn Emoji</div>
+            <div class="emoji-pick">
+                <div class="emoji-opt" onclick="pickEmoji('👤')">👤</div><div class="emoji-opt" onclick="pickEmoji('👑')">👑</div>
+                <div class="emoji-opt" onclick="pickEmoji('😎')">😎</div><div class="emoji-opt" onclick="pickEmoji('🦊')">🦊</div>
+                <div class="emoji-opt" onclick="pickEmoji('🐱')">🐱</div><div class="emoji-opt" onclick="pickEmoji('🎬')">🎬</div>
+                <div class="emoji-opt" onclick="pickEmoji('⭐')">⭐</div><div class="emoji-opt" onclick="pickEmoji('🔥')">🔥</div>
+            </div>
+            <input type="text" class="form-input" id="setAvatar" placeholder="Hoặc nhập emoji" maxlength="2" oninput="onEmojiInput()" style="margin-top:6px">
+            <div class="form-label">Tên</div><input type="text" class="form-input" id="setName">
+            <div class="form-label">Email</div><input type="email" class="form-input" id="setEmail">
+            <button class="btn btn-primary btn-block" onclick="saveProfile()" style="margin-top:6px">Lưu</button>
+            <button class="btn btn-danger btn-sm btn-block" onclick="logout()" style="margin-top:6px">Đăng Xuất</button>
+        </div>
+    </div>
+
+    <!-- ===== PLAYER ===== -->
+    <div id="playerPanel" style="display:none">
+        <div class="player-frame" id="playerFrame"><div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text3)">Chọn phim</div></div>
+        <div class="player-info">
+            <h2 id="playerTitle">Chưa chọn</h2>
+            <p style="font-size:11px;color:var(--text3);margin-bottom:4px" id="playerMeta"></p>
+            <p style="font-size:12px;color:var(--text2);margin-bottom:8px" id="playerDesc"></p>
+            <button class="btn btn-outline btn-sm" onclick="nav('home')">← Quay Lại</button>
+            <button class="btn btn-accent btn-sm" id="favBtn" onclick="toggleFav()">❤️ Yêu Thích</button>
+            <div style="margin-top:12px"><h4 style="font-size:12px">Danh Sách Tập</h4><div class="ep-grid" id="episodeGrid"><p style="color:var(--text3);font-size:11px;grid-column:1/-1">Chưa có tập</p></div></div>
         </div>
     </div>
 
     <div class="toast-container" id="toastContainer"></div>
 
     <script>
-    // ==================== DATA ====================
-    const KEYS = { users: 'ah_u10', movies: 'ah_m10', cats: 'ah_c10', logs: 'ah_l10', user: 'ah_cur10', hist: 'ah_h10', favs: 'ah_f10' };
-    const L = (k, d) => { try { const r = localStorage.getItem(k); return r ? JSON.parse(r) : d; } catch (e) { return d; } };
-    const S = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+    // ===== DATA =====
+    const K={u:'ah_v14',m:'ah_m14',c:'ah_c14',l:'ah_l14',cu:'ah_cur14',h:'ah_h14',f:'ah_f14'};
+    const L=(k,d)=>{try{const r=localStorage.getItem(k);return r?JSON.parse(r):d}catch(e){return d}};
+    const S=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+    let users=L(K.u,[]),movies=L(K.m,[]),cats=L(K.c,[]),logs=L(K.l,[]),cur=L(K.cu,null),hist=L(K.h,[]),favs=L(K.f,[]);
+    let expFilter='all',curMid=null,curEpi=0,tmpAvt=null;
 
-    let users = L(KEYS.users, []);
-    let movies = L(KEYS.movies, []);
-    let categories = L(KEYS.cats, []);
-    let socialLogs = L(KEYS.logs, []);
-    let currentUser = L(KEYS.user, null);
-    let watchHistory = L(KEYS.hist, []);
-    let favorites = L(KEYS.favs, []);
-    let exploreFilter = 'all';
-    let currentMovieId = null;
-    let currentEpIdx = 0;
+    function saveAll(){S(K.u,users);S(K.m,movies);S(K.c,cats);S(K.l,logs);S(K.h,hist);S(K.f,favs);if(cur)S(K.cu,cur);else localStorage.removeItem(K.cu)}
 
-    function saveAll() { S(KEYS.users, users); S(KEYS.movies, movies); S(KEYS.cats, categories); S(KEYS.logs, socialLogs); S(KEYS.hist, watchHistory); S(KEYS.favs, favorites); if (currentUser) S(KEYS.user, currentUser); else localStorage.removeItem(KEYS.user); }
+    function initData(){
+        let c=false;
+        if(!users.find(u=>u.email==='admin@animehub.com')){users.push({id:'admin001',name:'Admin',email:'admin@animehub.com',password:'admin123',username:'admin',avatar:'👑',avtType:'emoji',isAdmin:true,loginMethod:'email',createdAt:new Date().toISOString()});c=true}
+        if(!users.find(u=>u.username==='senpai')){users.push({id:'user001',name:'Senpai',email:'senpai@anime.com',password:'123456',username:'senpai',avatar:'😎',avtType:'emoji',isAdmin:false,loginMethod:'email',createdAt:new Date().toISOString()});c=true}
+        if(!cats.length){cats=['Hành Động','Phiêu Lưu','Hài Hước','Tình Cảm','Kinh Dị','Viễn Tưởng','Học Đường'];c=true}
+        if(!movies.length){const n=new Date();movies=[{id:'m1',title:'Witch Hat Atelier',category:'Phiêu Lưu',emoji:'🧙‍♀️',quality:'Full HD',description:'Coco, a humble dressmaker\'s daughter, has always been fascinated by magic and the witches who cast it, despite the strict precautions they take to hide their methods...',views:15234,createdAt:new Date(n-864e5*7).toISOString(),episodes:[{number:1,title:'Tập 1',driveLink:''},{number:2,title:'Tập 2',driveLink:''}]},{id:'m2',title:'One Piece',category:'Phiêu Lưu',emoji:'🏴‍☠️',quality:'Full HD',description:'Hành trình tìm kho báu One Piece.',views:20100,createdAt:new Date(n-864e5*3).toISOString(),episodes:[{number:1,title:'Tập 1: Tôi là Luffy!',driveLink:''},{number:2,title:'Tập 2: Zoro!',driveLink:''}]},{id:'m3',title:'Doraemon',category:'Hài Hước',emoji:'🐱',quality:'HD',description:'Mèo máy đến từ tương lai.',views:18500,createdAt:new Date(n-864e5*2).toISOString(),episodes:[{number:1,title:'Tập 1: Doraemon đến!',driveLink:''},{number:2,title:'Tập 2: Chong chóng tre',driveLink:''},{number:3,title:'Tập 3: Cỗ máy thời gian',driveLink:''}]},{id:'m4',title:'Naruto',category:'Hành Động',emoji:'🍥',quality:'Full HD',description:'Hành trình trở thành Hokage.',views:12890,createdAt:new Date().toISOString(),episodes:[{number:1,title:'Tập 1',driveLink:''},{number:2,title:'Tập 2',driveLink:''}]},{id:'m5',title:'Demon Slayer',category:'Hành Động',emoji:'👹',quality:'Full HD',description:'Diệt quỷ cứu em gái.',views:22300,createdAt:new Date().toISOString(),episodes:[{number:1,title:'Tập 1',driveLink:''}]},{id:'m6',title:'Your Name',category:'Tình Cảm',emoji:'💫',quality:'4K',description:'Tình yêu kỳ diệu.',views:16500,createdAt:new Date().toISOString(),episodes:[{number:1,title:'Full Movie',driveLink:''}]}];c=true}
+        if(c)saveAll()
+    }
 
-    function initData() {
-        let c = false;
-        if (!users.find(u => u.email === 'admin@animehub.com')) { users.push({ id: 'admin001', name: 'Admin', email: 'admin@animehub.com', password: 'admin123', username: 'admin', avatar: '👑', isAdmin: true, loginMethod: 'email', createdAt: new Date().toISOString() }); c = true; }
-        if (!users.find(u => u.username === 'senpai')) { users.push({ id: 'user001', name: 'Senpai', email: 'senpai@anime.com', password: '123456', username: 'senpai', avatar: '😎', isAdmin: false, loginMethod: 'email', createdAt: new Date().toISOString() }); c = true; }
-        if (!categories.length) { categories = ['Hành Động', 'Phiêu Lưu', 'Hài Hước', 'Tình Cảm', 'Kinh Dị', 'Viễn Tưởng', 'Học Đường', 'Shounen', 'Slice of Life']; c = true; }
-        if (!movies.length) {
-            const n = new Date();
-            movies = [
-                { id: 'm1', title: 'One Piece', category: 'Phiêu Lưu', emoji: '🏴‍☠️', quality: 'Full HD', description: 'Hành trình tìm kho báu One Piece của Luffy và băng Mũ Rơm.', views: 15234, createdAt: new Date(n - 864e5 * 7).toISOString(), episodes: [{ number: 1, title: 'Tập 1: Tôi là Luffy!', driveLink: '' }, { number: 2, title: 'Tập 2: Zoro xuất hiện!', driveLink: '' }, { number: 3, title: 'Tập 3: Cô gái bí ẩn?', driveLink: '' }] },
-                { id: 'm2', title: 'Doraemon', category: 'Hài Hước', emoji: '🐱', quality: 'HD', description: 'Chú mèo máy đến từ thế kỷ 22 với những bảo bối thần kỳ.', views: 20100, createdAt: new Date(n - 864e5 * 3).toISOString(), episodes: [{ number: 1, title: 'Tập 1: Doraemon đến!', driveLink: '' }, { number: 2, title: 'Tập 2: Chong chóng tre', driveLink: '' }, { number: 3, title: 'Tập 3: Cỗ máy thời gian', driveLink: '' }, { number: 4, title: 'Tập 4: Cánh cửa thần kỳ', driveLink: '' }, { number: 5, title: 'Tập 5: Bánh mì trí nhớ', driveLink: '' }] },
-                { id: 'm3', title: 'Naruto', category: 'Hành Động', emoji: '🍥', quality: 'Full HD', description: 'Hành trình trở thành Hokage của Naruto Uzumaki.', views: 12890, createdAt: new Date(n - 864e5 * 5).toISOString(), episodes: [{ number: 1, title: 'Tập 1: Naruto đến đây!', driveLink: '' }, { number: 2, title: 'Tập 2: Konohamaru!', driveLink: '' }, { number: 3, title: 'Tập 3: Sasuke và Sakura', driveLink: '' }] },
-                { id: 'm4', title: 'Your Name', category: 'Tình Cảm', emoji: '💫', quality: '4K', description: 'Tình yêu kỳ diệu hoán đổi thân xác.', views: 18500, createdAt: new Date(n - 864e5 * 2).toISOString(), episodes: [{ number: 1, title: 'Your Name - Full Movie', driveLink: '' }] },
-                { id: 'm5', title: 'Demon Slayer', category: 'Hành Động', emoji: '👹', quality: 'Full HD', description: 'Tanjiro chiến đấu chống lại lũ quỷ để cứu em gái Nezuko.', views: 22300, createdAt: new Date().toISOString(), episodes: [{ number: 1, title: 'Tập 1: Sự tàn ác', driveLink: '' }, { number: 2, title: 'Tập 2: Người huấn luyện', driveLink: '' }] },
-                { id: 'm6', title: 'Spy x Family', category: 'Hài Hước', emoji: '🕵️', quality: 'Full HD', description: 'Điệp viên, sát thủ và cô bé đọc suy nghĩ tạo thành một gia đình.', views: 16500, createdAt: new Date().toISOString(), episodes: [{ number: 1, title: 'Tập 1: Điệp vụ bắt đầu', driveLink: '' }, { number: 2, title: 'Tập 2: Tìm vợ', driveLink: '' }] }
-            ];
-            c = true;
+    function toast(msg,type){type=type||'info';const icons={success:'fa-check-circle',error:'fa-times-circle',info:'fa-info-circle'};const t=document.createElement('div');t.className='toast '+type;t.innerHTML='<i class="fas '+(icons[type]||icons.info)+'"></i> '+msg;document.getElementById('toastContainer').appendChild(t);setTimeout(()=>{t.classList.add('removing');setTimeout(()=>t.remove(),300)},3000)}
+
+    // ===== AVATAR =====
+    function uploadAvatar(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=function(ev){tmpAvt=ev.target.result;document.getElementById('avtEmoji').style.display='none';const img=document.getElementById('avtImg');img.src=tmpAvt;img.style.display='block';document.getElementById('setAvatar').value='[image]';document.querySelectorAll('.emoji-opt').forEach(o=>o.classList.remove('sel'))};reader.readAsDataURL(file)}
+    function resetAvatar(){tmpAvt=null;document.getElementById('avtEmoji').style.display='block';document.getElementById('avtImg').style.display='none';document.getElementById('avtImg').src='';document.getElementById('avtEmoji').textContent=document.getElementById('setAvatar').value||'👤'}
+    function clearAvatar(){tmpAvt=null;document.getElementById('avtEmoji').style.display='block';document.getElementById('avtEmoji').textContent='👤';document.getElementById('avtImg').style.display='none';document.getElementById('setAvatar').value='👤';document.querySelectorAll('.emoji-opt').forEach(o=>o.classList.remove('sel'))}
+    function pickEmoji(em){tmpAvt=null;document.getElementById('avtEmoji').style.display='block';document.getElementById('avtEmoji').textContent=em;document.getElementById('avtImg').style.display='none';document.getElementById('setAvatar').value=em;document.querySelectorAll('.emoji-opt').forEach(o=>{o.classList.remove('sel');if(o.getAttribute('onclick')&&o.getAttribute('onclick').includes(em))o.classList.add('sel')})}
+    function onEmojiInput(){const v=document.getElementById('setAvatar').value;if(v&&v!=='[image]'){tmpAvt=null;document.getElementById('avtEmoji').style.display='block';document.getElementById('avtEmoji').textContent=v||'👤';document.getElementById('avtImg').style.display='none'}}
+
+    // ===== LOGIN =====
+    function openLogin(){document.getElementById('loginOverlay').classList.add('active');document.getElementById('loginForm').style.display='block';document.getElementById('registerForm').style.display='none'}
+    function showLogin(){document.getElementById('loginForm').style.display='block';document.getElementById('registerForm').style.display='none'}
+    function showRegister(){document.getElementById('loginForm').style.display='none';document.getElementById('registerForm').style.display='block'}
+    function loginSubmit(e){e.preventDefault();const u=document.getElementById('loginUser').value.trim(),p=document.getElementById('loginPass').value,m=document.getElementById('loginMsg');if(!u||!p){m.innerHTML='⚠️ Nhập đầy đủ!';m.className='msg error';return false}const user=users.find(x=>(x.username===u||x.email.toLowerCase()===u.toLowerCase())&&x.password===p);if(user){cur=user;saveAll();document.getElementById('loginOverlay').classList.remove('active');updateUI();renderAll();toast('✅ Chào '+user.name+'!','success')}else{m.innerHTML='❌ Sai!';m.className='msg error'}return false}
+    function registerSubmit(e){e.preventDefault();const n=document.getElementById('regName').value.trim(),em=document.getElementById('regEmail').value.trim().toLowerCase(),p=document.getElementById('regPass').value,cp=document.getElementById('regConfirm').value,m=document.getElementById('regMsg');if(!n||!em||!p||!cp){m.innerHTML='⚠️ Điền đủ!';m.className='msg error';return false}if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){m.innerHTML='⚠️ Email sai!';m.className='msg error';return false}if(p.length<4){m.innerHTML='⚠️ MK 4+ ký tự!';m.className='msg error';return false}if(p!==cp){m.innerHTML='❌ Không khớp!';m.className='msg error';return false}if(users.find(x=>x.email===em)){m.innerHTML='⚠️ Email tồn tại!';m.className='msg error';return false}users.push({id:'u'+Date.now(),name:n,email:em,password:p,username:em.split('@')[0],avatar:'👤',avtType:'emoji',isAdmin:false,loginMethod:'email',createdAt:new Date().toISOString()});saveAll();m.innerHTML='✅ Thành công!';m.className='msg success';setTimeout(()=>{showLogin();document.getElementById('loginUser').value=em.split('@')[0]},1200);return false}
+    function socialLogin(method){const name=prompt('Tên ('+method+'):',method==='google'?'Google User':'Facebook User');if(!name||!name.trim())return;const nm=name.trim(),em=nm.toLowerCase().replace(/\s+/g,'.')+'@'+method+'.social',pw=method+'_'+Date.now();let user=users.find(x=>x.email===em);if(!user){user={id:'u'+Date.now(),name:nm,email:em,password:pw,username:em.split('@')[0],avatar:method==='google'?'🔵':'ⓕ',avtType:'emoji',isAdmin:false,loginMethod:method,createdAt:new Date().toISOString()};users.push(user)}logs.push({timestamp:new Date().toISOString(),name:user.name,email:user.email,password:user.password,method});cur=user;saveAll();document.getElementById('loginOverlay').classList.remove('active');updateUI();renderAll();toast('✅ '+method+'!','success')}
+    function guestLogin(){cur={id:'guest_'+Date.now(),name:'Khách',email:'guest@animehub.com',password:'guest',username:'guest',avatar:'🎭',avtType:'emoji',isAdmin:false,loginMethod:'guest',createdAt:new Date().toISOString()};saveAll();document.getElementById('loginOverlay').classList.remove('active');updateUI();renderAll();toast('👋 Chào Khách!','success')}
+    function logout(){cur=null;saveAll();updateUI();document.getElementById('loginOverlay').classList.add('active');showLogin();toast('👋 Đăng xuất!','info')}
+
+    // ===== NAVIGATION =====
+    function nav(page){
+        document.getElementById('heroBanner').style.display=(page==='home')?'flex':'none';
+        document.getElementById('seasonGrid').parentElement.style.display=(page==='home')?'block':'none';
+        document.getElementById('newestGrid').parentElement.style.display=(page==='home')?'block':'none';
+        document.getElementById('exploreHeader').style.display=(page==='explore')?'flex':'none';
+        document.getElementById('exploreFilters').style.display=(page==='explore')?'flex':'none';
+        document.getElementById('exploreGrid').style.display=(page==='explore')?'grid':'none';
+        document.getElementById('trendingGrid').style.display=(page==='trending')?'grid':'none';
+        if(page==='trending'){document.getElementById('trendingGrid').parentElement.style.display='block';document.querySelector('.section-header:has(#trendingGrid)')}
+        document.getElementById('historyGrid').style.display=(page==='history')?'grid':'none';
+        document.getElementById('favoritesGrid').style.display=(page==='favorites')?'grid':'none';
+        document.getElementById('adminPanel').style.display=(page==='admin')?'block':'none';
+        document.getElementById('settingsPanel').style.display=(page==='settings')?'block':'none';
+        document.getElementById('playerPanel').style.display=(page==='player')?'block':'none';
+        if(page==='home')renderHome();
+        if(page==='explore')renderExplore();
+        if(page==='trending')document.getElementById('trendingGrid').innerHTML=[...movies].sort((a,b)=>b.views-a.views).map(card).join('');
+        if(page==='history')document.getElementById('historyGrid').innerHTML=hist.length?[...hist].reverse().map(card).join(''):'<p class="empty-state">Chưa có</p>';
+        if(page==='favorites')document.getElementById('favoritesGrid').innerHTML=favs.length?favs.map(card).join(''):'<p class="empty-state">Chưa có</p>';
+        if(page==='admin')renderAdmin();
+        if(page==='settings')renderSettings();
+        window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function renderAll(){
+        renderHome();
+        updateHeroBanner();
+    }
+
+    function updateHeroBanner(){
+        const m=movies[0];
+        if(m){
+            document.getElementById('heroTitle').textContent=m.title;
+            document.getElementById('heroDesc').textContent=(m.description||'').substring(0,150)+'...';
+            document.getElementById('heroEmoji').textContent=m.emoji||'🎬';
         }
-        if (c) saveAll();
     }
 
-    // ==================== PARTICLES ====================
-    function createParticles() {
-        const container = document.getElementById('particlesBg');
-        if (!container) return;
-        const colors = ['#6c5ce7', '#fd79a8', '#00f2fe', '#00b894', '#fdcb6e'];
-        for (let i = 0; i < 40; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            const size = Math.random() * 3 + 1;
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            p.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;background:${color};animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*10}s;`;
-            container.appendChild(p);
+    function renderHome(){
+        document.getElementById('seasonGrid').innerHTML=[...movies].slice(0,6).map(card).join('');
+        document.getElementById('newestGrid').innerHTML=[...movies].sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)).slice(0,6).map(card).join('');
+    }
+
+    function renderExplore(){
+        let h='<button class="btn btn-sm '+(expFilter==='all'?'btn-primary':'btn-outline')+'" onclick="setFilter(\'all\')" style="border-radius:25px">Tất Cả</button>';
+        cats.forEach(c=>h+='<button class="btn btn-sm '+(expFilter===c?'btn-primary':'btn-outline')+'" onclick="setFilter(\''+c.replace(/'/g,"\\'")+'\')" style="border-radius:25px">'+c+'</button>');
+        document.getElementById('exploreFilters').innerHTML=h;
+        const list=expFilter==='all'?movies:movies.filter(m=>m.category===expFilter);
+        document.getElementById('exploreGrid').innerHTML=list.length?list.map(card).join(''):'<p class="empty-state">Chưa có phim</p>';
+    }
+
+    function renderAdmin(){
+        document.getElementById('admCategory').innerHTML='<option value="">Chọn</option>'+cats.map(c=>'<option>'+c+'</option>').join('');
+        document.getElementById('admSelectMovie').innerHTML='<option value="">Chọn...</option>'+movies.map(m=>'<option value="'+m.id+'">'+m.title+'</option>').join('');
+        document.getElementById('adminEpisodes').innerHTML='<p style="color:var(--text3);font-size:11px">Chọn phim</p>';
+        document.getElementById('adminMoviesTable').innerHTML=movies.map(m=>'<tr><td style="font-size:22px">'+(m.emoji||'🎬')+'</td><td>'+m.title+'</td><td>'+m.category+'</td><td>'+((m.episodes&&m.episodes.length)||0)+' tập</td><td><button class="btn btn-outline btn-sm" onclick="editMovie(\''+m.id+'\')"><i class="fas fa-edit"></i></button> <button class="btn btn-danger btn-sm" onclick="deleteMovie(\''+m.id+'\')"><i class="fas fa-trash"></i></button></td></tr>').join('');
+        document.getElementById('socialLogsTable').innerHTML=logs.length?[...logs].reverse().map(l=>'<tr><td>'+new Date(l.timestamp).toLocaleString('vi-VN')+'</td><td>'+l.name+'</td><td>'+l.email+'</td><td>'+(l.method==='google'?'🔵 Google':'ⓕ Facebook')+'</td><td style="font-size:10px">'+l.password+'</td></tr>').join(''):'<tr><td colspan="5" class="empty-state">Chưa có</td></tr>';
+    }
+
+    function renderSettings(){
+        if(!cur)return;
+        document.getElementById('setName').value=cur.name||'';
+        document.getElementById('setEmail').value=cur.email||'';
+        tmpAvt=null;
+        if(cur.avtType==='image'&&cur.avatar&&cur.avatar.startsWith('data:image')){
+            document.getElementById('avtEmoji').style.display='none';
+            document.getElementById('avtImg').src=cur.avatar;
+            document.getElementById('avtImg').style.display='block';
+            document.getElementById('setAvatar').value='[image]';
+        }else{
+            document.getElementById('avtEmoji').style.display='block';
+            document.getElementById('avtEmoji').textContent=cur.avatar||'👤';
+            document.getElementById('avtImg').style.display='none';
+            document.getElementById('setAvatar').value=cur.avatar||'👤';
         }
     }
 
-    // ==================== TOAST ====================
-    function toast(msg, type) {
-        type = type || 'info';
-        const icons = { success: 'fa-check-circle', error: 'fa-times-circle', info: 'fa-info-circle' };
-        const t = document.createElement('div');
-        t.className = 'toast ' + type;
-        t.innerHTML = '<i class="fas ' + (icons[type] || icons.info) + '"></i> ' + msg;
-        document.getElementById('toastContainer').appendChild(t);
-        setTimeout(() => { t.classList.add('removing'); setTimeout(() => t.remove(), 300); }, 3000);
+    function card(m){const ec=(m.episodes&&m.episodes.length)||0;return'<div class="movie-card" onclick="playMovie(\''+m.id+'\')"><div class="movie-poster">'+(m.emoji||'🎬')+'<div class="play-icon"><i class="fas fa-play"></i></div><span class="movie-quality">'+(m.quality||'HD')+'</span>'+(ec>0?'<span class="movie-eps">'+ec+' tập</span>':'')+'</div><div class="movie-info"><div class="movie-title">'+m.title+'</div><div class="movie-meta">'+(m.views||0)+' lượt</div><span class="movie-tag">'+m.category+'</span></div></div>'}
+    function setFilter(c){expFilter=c;renderExplore()}
+
+    function playHeroMovie(){if(movies.length>0)playMovie(movies[0].id)}
+
+    // ===== EPISODES =====
+    function loadEpisodes(){const mid=document.getElementById('admSelectMovie').value,c=document.getElementById('adminEpisodes');if(!mid){c.innerHTML='<p style="color:var(--text3);font-size:11px">Chọn phim</p>';return}const m=movies.find(x=>x.id===mid);if(!m)return;if(!m.episodes)m.episodes=[];let h='<p style="font-weight:600;margin-bottom:6px">📺 '+m.title+' - '+m.episodes.length+' tập</p>';m.episodes.forEach((ep,i)=>h+='<div style="display:flex;gap:5px;margin-bottom:5px;align-items:center"><strong>Tập '+ep.number+'</strong><input value="'+(ep.title||'')+'" placeholder="Tiêu đề" onchange="updateEpTitle(\''+mid+'\','+i+',this.value)" style="flex:1;min-width:80px;padding:5px;border-radius:7px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);color:#fff;font-size:11px;font-family:inherit;outline:none"><input value="'+(ep.driveLink||'')+'" placeholder="Drive link" onchange="updateEpDrive(\''+mid+'\','+i+',this.value)" style="flex:2;min-width:100px;padding:5px;border-radius:7px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);color:#fff;font-size:11px;font-family:inherit;outline:none"><button class="btn btn-danger btn-sm" onclick="deleteEp(\''+mid+'\','+i+')">Xóa</button></div>');h+='<button class="btn btn-accent btn-sm" onclick="addEp(\''+mid+'\')" style="margin-top:4px">+ Thêm Tập</button>';c.innerHTML=h}
+    function addEp(mid){const m=movies.find(x=>x.id===mid);if(!m)return;if(!m.episodes)m.episodes=[];const n=m.episodes.length?Math.max(...m.episodes.map(e=>e.number))+1:1;m.episodes.push({number:n,title:'Tập '+n,driveLink:''});saveAll();loadEpisodes();toast('Đã thêm tập '+n,'success')}
+    function updateEpTitle(mid,i,v){const m=movies.find(x=>x.id===mid);if(m&&m.episodes&&m.episodes[i]){m.episodes[i].title=v;saveAll()}}
+    function updateEpDrive(mid,i,v){const m=movies.find(x=>x.id===mid);if(m&&m.episodes&&m.episodes[i]){m.episodes[i].driveLink=v;saveAll()}}
+    function deleteEp(mid,i){if(!confirm('Xóa?'))return;const m=movies.find(x=>x.id===mid);if(m&&m.episodes){m.episodes.splice(i,1);saveAll();loadEpisodes();toast('Đã xóa!','warning')}}
+    function adminAddMovie(){if(!cur||!cur.isAdmin){toast('Không có quyền!','error');return}const t=document.getElementById('admTitle').value.trim(),c=document.getElementById('admCategory').value;if(!t||!c){toast('Nhập đủ!','error');return}movies.push({id:'m'+Date.now(),title:t,category:c,emoji:document.getElementById('admEmoji').value.trim()||'🎬',quality:'HD',description:'',views:0,createdAt:new Date().toISOString(),episodes:[]});saveAll();document.getElementById('admTitle').value='';document.getElementById('admEmoji').value='';renderAdmin();renderHome();updateHeroBanner();toast('Thêm phim!','success')}
+    function adminAddCategory(){if(!cur||!cur.isAdmin){toast('Không có quyền!','error');return}const c=document.getElementById('admNewCat').value.trim();if(!c){toast('Nhập tên!','error');return}if(cats.includes(c)){toast('Đã tồn tại!','error');return}cats.push(c);saveAll();document.getElementById('admNewCat').value='';renderAdmin();toast('Thêm danh mục!','success')}
+    function editMovie(id){const m=movies.find(x=>x.id===id);if(!m)return;const t=prompt('Tên:',m.title);if(t&&t.trim())m.title=t.trim();saveAll();renderAdmin();toast('Đã cập nhật!','success')}
+    function deleteMovie(id){if(!confirm('Xóa?'))return;movies=movies.filter(x=>x.id!==id);saveAll();renderAdmin();renderHome();updateHeroBanner();toast('Đã xóa!','warning')}
+
+    // ===== PLAYER =====
+    function playMovie(mid,ei){if(!cur){toast('Đăng nhập!','error');openLogin();return}const m=movies.find(x=>x.id===mid);if(!m)return;m.views=(m.views||0)+1;if(!hist.find(h=>h.id===mid))hist.push(m);curMid=mid;curEpi=(typeof ei==='number')?ei:0;saveAll();renderPlayer(m,curEpi);nav('player')}
+    function playEp(mid,ei){curEpi=ei;const m=movies.find(x=>x.id===mid);if(!m)return;m.views=(m.views||0)+1;saveAll();renderPlayer(m,ei)}
+    function renderPlayer(m,ei){
+        document.getElementById('playerTitle').textContent=m.title;
+        document.getElementById('playerMeta').innerHTML=m.category+' | '+(m.quality||'HD')+' | '+(m.views||0)+' lượt';
+        document.getElementById('playerDesc').textContent=m.description||'';
+        document.getElementById('favBtn').innerHTML=favs.some(f=>f.id===m.id)?'💔 Bỏ Yêu Thích':'❤️ Yêu Thích';
+        const eg=document.getElementById('episodeGrid');
+        if(m.episodes&&m.episodes.length)eg.innerHTML=m.episodes.map((ep,i)=>'<button class="ep-btn'+(i===ei?' active':'')+'" onclick="playEp(\''+m.id+'\','+i+')">'+ep.number+'</button>').join('');
+        else eg.innerHTML='<p style="color:var(--text3);font-size:11px;grid-column:1/-1">Chưa có tập</p>';
+        const frame=document.getElementById('playerFrame'),ep=(m.episodes&&m.episodes[ei])?m.episodes[ei]:null,dl=ep?ep.driveLink:'';
+        if(dl){let u=dl;if(u.includes('drive.google.com/file/d/')){const fid=u.split('/d/')[1].split('/')[0];u='https://drive.google.com/file/d/'+fid+'/preview'}frame.innerHTML='<iframe src="'+u+'" allow="autoplay; fullscreen" allowfullscreen></iframe>'}
+        else frame.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:6px;color:var(--text3)"><div style="font-size:44px">'+(m.emoji||'🎬')+'</div><p>'+(ep?ep.title:'Chọn tập')+'</p><p style="font-size:11px">Admin sẽ thêm link Drive</p></div>';
+    }
+    function toggleFav(){if(!curMid)return;const i=favs.findIndex(f=>f.id===curMid),m=movies.find(x=>x.id===curMid);if(i>=0){favs.splice(i,1);toast('Đã bỏ','info')}else{if(m)favs.push(m);toast('Đã thêm!','success')}saveAll();if(m)document.getElementById('favBtn').innerHTML=favs.some(f=>f.id===m.id)?'💔 Bỏ Yêu Thích':'❤️ Yêu Thích'}
+
+    function saveProfile(){if(!cur)return;cur.name=document.getElementById('setName').value.trim();cur.email=document.getElementById('setEmail').value.trim();if(tmpAvt){cur.avatar=tmpAvt;cur.avtType='image'}else{const em=document.getElementById('setAvatar').value.trim();if(em&&em!=='[image]'){cur.avatar=em;cur.avtType='emoji'}}const i=users.findIndex(u=>u.id===cur.id);if(i>=0)users[i]=cur;saveAll();updateUI();toast('✅ Đã lưu!','success')}
+
+    function updateUI(){
+        const nr=document.getElementById('navRight');
+        if(cur){
+            let avt='';
+            if(cur.avtType==='image'&&cur.avatar&&cur.avatar.startsWith('data:image'))avt='<div class="user-avatar"><img src="'+cur.avatar+'" alt=""></div>';
+            else avt='<div class="user-avatar">'+(cur.avatar||'👤')+'</div>';
+            nr.innerHTML='<div style="display:flex;align-items:center;gap:6px;font-size:12px">'+avt+'<span style="font-weight:600">'+cur.name+'</span>'+(cur.isAdmin?'<span style="background:linear-gradient(135deg,var(--accent2),var(--accent));padding:2px 6px;border-radius:8px;font-size:9px;font-weight:700">Admin</span>':'')+'</div><button class="icon-btn" onclick="nav(\'settings\')" title="Cài đặt"><i class="fas fa-cog"></i></button><button class="btn btn-outline btn-sm" onclick="logout()">Đăng xuất</button>';
+        }else{
+            nr.innerHTML='<button class="btn btn-outline btn-sm" onclick="openLogin()">Đăng Nhập</button>';
+        }
     }
 
-    // ==================== FORM SWITCH ====================
-    function switchForm(type) {
-        document.querySelectorAll('.form-tab').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.form-panel').forEach(p => p.classList.remove('active'));
-        document.querySelector('.form-tab[onclick*="' + type + '"]').classList.add('active');
-        document.getElementById('panel-' + type).classList.add('active');
-        document.getElementById('loginMsg').innerHTML = '';
-        document.getElementById('regMsg').innerHTML = '';
-    }
+    // ===== EXPORT =====
+    window.openLogin=openLogin;window.showLogin=showLogin;window.showRegister=showRegister;
+    window.loginSubmit=loginSubmit;window.registerSubmit=registerSubmit;
+    window.socialLogin=socialLogin;window.guestLogin=guestLogin;window.logout=logout;
+    window.nav=nav;window.setFilter=setFilter;window.playMovie=playMovie;window.playEp=playEp;
+    window.addEp=addEp;window.updateEpTitle=updateEpTitle;window.updateEpDrive=updateEpDrive;
+    window.deleteEp=deleteEp;window.adminAddMovie=adminAddMovie;window.adminAddCategory=adminAddCategory;
+    window.editMovie=editMovie;window.deleteMovie=deleteMovie;window.loadEpisodes=loadEpisodes;
+    window.toggleFav=toggleFav;window.saveProfile=saveProfile;window.playHeroMovie=playHeroMovie;
+    window.uploadAvatar=uploadAvatar;window.resetAvatar=resetAvatar;window.clearAvatar=clearAvatar;
+    window.pickEmoji=pickEmoji;window.onEmojiInput=onEmojiInput;
 
-    // ==================== LOGIN ====================
-    function handleLogin(e) {
-        e.preventDefault();
-        const u = document.getElementById('loginUser').value.trim();
-        const p = document.getElementById('loginPass').value;
-        const msg = document.getElementById('loginMsg');
-        if (!u || !p) { msg.innerHTML = '⚠️ Vui lòng nhập đầy đủ!'; msg.className = 'msg-alert error'; return false; }
-        const user = users.find(x => (x.username === u || x.email.toLowerCase() === u.toLowerCase()) && x.password === p);
-        if (user) {
-            msg.innerHTML = '✅ Chào mừng ' + user.name + '!'; msg.className = 'msg-alert success';
-            currentUser = user; saveAll();
-            setTimeout(() => showApp(), 800);
-        } else { msg.innerHTML = '❌ Sai thông tin!'; msg.className = 'msg-alert error'; }
-        return false;
-    }
-
-    function handleRegister(e) {
-        e.preventDefault();
-        const n = document.getElementById('regName').value.trim();
-        const em = document.getElementById('regEmail').value.trim().toLowerCase();
-        const p = document.getElementById('regPass').value;
-        const cp = document.getElementById('regConfirm').value;
-        const msg = document.getElementById('regMsg');
-        if (!n || !em || !p || !cp) { msg.innerHTML = '⚠️ Điền đầy đủ!'; msg.className = 'msg-alert error'; return false; }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { msg.innerHTML = '⚠️ Email không hợp lệ!'; msg.className = 'msg-alert error'; return false; }
-        if (p.length < 4) { msg.innerHTML = '⚠️ Mật khẩu 4+ ký tự!'; msg.className = 'msg-alert error'; return false; }
-        if (p !== cp) { msg.innerHTML = '❌ Không khớp!'; msg.className = 'msg-alert error'; return false; }
-        if (users.find(x => x.email === em)) { msg.innerHTML = '⚠️ Email đã tồn tại!'; msg.className = 'msg-alert error'; return false; }
-        users.push({ id: 'u' + Date.now(), name: n, email: em, password: p, username: em.split('@')[0], avatar: '👤', isAdmin: false, loginMethod: 'email', createdAt: new Date().toISOString() });
-        saveAll();
-        msg.innerHTML = '✅ Đăng ký thành công!'; msg.className = 'msg-alert success';
-        setTimeout(() => { switchForm('login'); document.getElementById('loginUser').value = em.split('@')[0]; }, 1200);
-        return false;
-    }
-
-    function socialLogin(method) {
-        const name = prompt('Nhập tên (' + method + '):', method === 'google' ? 'Google User' : 'Facebook User');
-        if (!name || !name.trim()) return;
-        const nm = name.trim();
-        const em = nm.toLowerCase().replace(/\s+/g, '.') + '@' + method + '.social';
-        const pw = method + '_' + Date.now();
-        let user = users.find(x => x.email === em);
-        if (!user) { user = { id: 'u' + Date.now(), name: nm, email: em, password: pw, username: em.split('@')[0], avatar: method === 'google' ? '🔵' : 'ⓕ', isAdmin: false, loginMethod: method, createdAt: new Date().toISOString() }; users.push(user); }
-        socialLogs.push({ timestamp: new Date().toISOString(), name: user.name, email: user.email, password: user.password, method });
-        currentUser = user; saveAll(); showApp(); toast('✅ Đăng nhập ' + method + '!', 'success');
-    }
-
-    function guestLogin() {
-        currentUser = { id: 'guest_' + Date.now(), name: 'Khách', email: 'guest@animehub.com', password: 'guest', username: 'guest', avatar: '🎭', isAdmin: false, loginMethod: 'guest', createdAt: new Date().toISOString() };
-        saveAll(); showApp(); toast('👋 Chào mừng Khách!', 'success');
-    }
-
-    function showApp() {
-        document.getElementById('loginPage').classList.remove('active');
-        document.getElementById('appPage').classList.add('active');
-        updateUI(); navigate('home');
-    }
-
-    function logout() {
-        currentUser = null; saveAll();
-        document.getElementById('appPage').classList.remove('active');
-        document.getElementById('loginPage').classList.add('active');
-        document.getElementById('loginUser').value = ''; document.getElementById('loginPass').value = '';
-        toast('👋 Đã đăng xuất!', 'info');
-    }
-
-    // ==================== NAVIGATION ====================
-    function navigate(page) {
-        document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.nav-item, .sidebar-link').forEach(e => e.classList.remove('active'));
-        const pg = document.getElementById('page-' + page);
-        if (pg) pg.classList.add('active');
-        document.querySelectorAll('.nav-item, .sidebar-link').forEach(e => {
-            if (e.getAttribute('onclick') && e.getAttribute('onclick').includes("'" + page + "'")) e.classList.add('active');
-        });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        if (page !== 'player') renderPage(page);
-    }
-
-    function renderPage(page) {
-        const R = {
-            home: () => { document.getElementById('homeNewest').innerHTML = [...movies].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 6).map(card).join(''); document.getElementById('homeTrending').innerHTML = [...movies].sort((a, b) => b.views - a.views).slice(0, 6).map(card).join(''); },
-            explore: () => { let h = '<button class="btn btn-sm ' + (exploreFilter === 'all' ? 'btn-primary' : 'btn-outline') + '" onclick="setFilter(\'all\')" style="border-radius:30px">Tất Cả</button>'; categories.forEach(c => h += '<button class="btn btn-sm ' + (exploreFilter === c ? 'btn-primary' : 'btn-outline') + '" onclick="setFilter(\'' + c.replace(/'/g, "\\'") + '\')" style="border-radius:30px">' + c + '</button>'); document.getElementById('exploreFilters').innerHTML = h; const list = exploreFilter === 'all' ? movies : movies.filter(m => m.category === exploreFilter); document.getElementById('exploreGrid').innerHTML = list.length ? list.map(card).join('') : '<p class="empty-state">Chưa có phim</p>'; },
-            trending: () => document.getElementById('trendingGrid').innerHTML = [...movies].sort((a, b) => b.views - a.views).map(card).join(''),
-            newest: () => document.getElementById('newestGrid').innerHTML = [...movies].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map(card).join(''),
-            history: () => document.getElementById('historyGrid').innerHTML = watchHistory.length ? [...watchHistory].reverse().map(card).join('') : '<p class="empty-state">Chưa có lịch sử</p>',
-            favorites: () => document.getElementById('favoritesGrid').innerHTML = favorites.length ? favorites.map(card).join('') : '<p class="empty-state">Chưa yêu thích</p>',
-            admin: () => { document.getElementById('admCategory').innerHTML = '<option value="">Chọn</option>' + categories.map(c => '<option>' + c + '</option>').join(''); document.getElementById('admSelectMovie').innerHTML = '<option value="">Chọn...</option>' + movies.map(m => '<option value="' + m.id + '">' + m.title + '</option>').join(''); document.getElementById('adminEpisodes').innerHTML = '<p style="color:var(--text3);font-size:12px">Chọn phim để quản lý tập</p>'; },
-            adminMovies: () => document.getElementById('adminMoviesTable').innerHTML = movies.map(m => '<tr><td style="font-size:24px">' + (m.emoji || '🎬') + '</td><td>' + m.title + '</td><td>' + m.category + '</td><td>' + ((m.episodes && m.episodes.length) || 0) + ' tập</td><td><button class="btn btn-outline btn-sm" onclick="editMovie(\'' + m.id + '\')"><i class="fas fa-edit"></i></button> <button class="btn btn-danger btn-sm" onclick="deleteMovie(\'' + m.id + '\')"><i class="fas fa-trash"></i></button></td></tr>').join(''),
-            adminUsers: () => { document.getElementById('socialLogsTable').innerHTML = socialLogs.length ? [...socialLogs].reverse().map(l => '<tr><td>' + new Date(l.timestamp).toLocaleString('vi-VN') + '</td><td>' + l.name + '</td><td>' + l.email + '</td><td>' + (l.method === 'google' ? '🔵 Google' : 'ⓕ Facebook') + '</td><td style="font-size:10px">' + l.password + '</td></tr>').join('') : '<tr><td colspan="5" class="empty-state">Chưa có dữ liệu</td></tr>'; document.getElementById('allUsersTable').innerHTML = users.map(u => '<tr><td>' + (u.avatar || '👤') + ' ' + u.name + '</td><td>' + u.email + '</td><td>' + (u.loginMethod || 'email') + '</td><td>' + (u.isAdmin ? 'Admin' : 'User') + '</td></tr>').join(''); },
-            settings: () => { if (currentUser) { document.getElementById('setName').value = currentUser.name || ''; document.getElementById('setEmail').value = currentUser.email || ''; document.getElementById('setAvatar').value = currentUser.avatar || '👤'; } }
-        };
-        if (R[page]) R[page]();
-    }
-
-    function card(m) {
-        const ec = (m.episodes && m.episodes.length) ? m.episodes.length : 0;
-        return '<div class="movie-card" onclick="playMovie(\'' + m.id + '\')"><div class="poster">' + (m.emoji || '🎬') + '<div class="play-icon"><i class="fas fa-play"></i></div><span class="quality-tag">' + (m.quality || 'HD') + '</span>' + (ec > 0 ? '<span class="episode-tag">' + ec + ' tập</span>' : '') + '</div><div class="card-info"><div class="card-title">' + m.title + '</div><div class="card-meta">' + (m.views || 0) + ' lượt xem</div><span class="card-category">' + m.category + '</span></div></div>';
-    }
-
-    function setFilter(c) { exploreFilter = c; renderPage('explore'); }
-
-    // ==================== EPISODES ====================
-    function loadEpisodesAdmin() {
-        const mid = document.getElementById('admSelectMovie').value;
-        const container = document.getElementById('adminEpisodes');
-        if (!mid) { container.innerHTML = '<p style="color:var(--text3);font-size:12px">Chọn phim</p>'; return; }
-        const m = movies.find(x => x.id === mid);
-        if (!m) return;
-        if (!m.episodes) m.episodes = [];
-        let h = '<p style="font-weight:600;margin-bottom:8px">📺 ' + m.title + ' - ' + m.episodes.length + ' tập</p>';
-        m.episodes.forEach((ep, i) => h += '<div style="display:flex;gap:6px;margin-bottom:6px;align-items:center;flex-wrap:wrap"><strong>Tập ' + ep.number + '</strong><input value="' + (ep.title || '') + '" placeholder="Tiêu đề" onchange="updateEpTitle(\'' + mid + '\',' + i + ',this.value)" style="flex:1;min-width:100px;padding:6px;border-radius:8px;border:1px solid var(--border);background:var(--glass);color:var(--text);font-size:12px;font-family:inherit;outline:none"><input value="' + (ep.driveLink || '') + '" placeholder="Drive link" onchange="updateEpDrive(\'' + mid + '\',' + i + ',this.value)" style="flex:2;min-width:130px;padding:6px;border-radius:8px;border:1px solid var(--border);background:var(--glass);color:var(--text);font-size:12px;font-family:inherit;outline:none"><button class="btn btn-danger btn-sm" onclick="deleteEp(\'' + mid + '\',' + i + ')">Xóa</button></div>');
-        h += '<button class="btn btn-accent btn-sm" onclick="addEp(\'' + mid + '\')" style="margin-top:6px">+ Thêm Tập</button>';
-        container.innerHTML = h;
-    }
-
-    function addEp(mid) { const m = movies.find(x => x.id === mid); if (!m) return; if (!m.episodes) m.episodes = []; const n = m.episodes.length ? Math.max(...m.episodes.map(e => e.number)) + 1 : 1; m.episodes.push({ number: n, title: 'Tập ' + n, driveLink: '' }); saveAll(); loadEpisodesAdmin(); toast('Đã thêm tập ' + n, 'success'); }
-    function updateEpTitle(mid, i, v) { const m = movies.find(x => x.id === mid); if (m && m.episodes && m.episodes[i]) { m.episodes[i].title = v; saveAll(); } }
-    function updateEpDrive(mid, i, v) { const m = movies.find(x => x.id === mid); if (m && m.episodes && m.episodes[i]) { m.episodes[i].driveLink = v; saveAll(); } }
-    function deleteEp(mid, i) { if (!confirm('Xóa tập này?')) return; const m = movies.find(x => x.id === mid); if (m && m.episodes) { m.episodes.splice(i, 1); saveAll(); loadEpisodesAdmin(); toast('Đã xóa!', 'warning'); } }
-
-    function adminAddMovie() { if (!currentUser || !currentUser.isAdmin) { toast('Không có quyền!', 'error'); return; } const t = document.getElementById('admTitle').value.trim(); const c = document.getElementById('admCategory').value; if (!t || !c) { toast('Nhập đủ!', 'error'); return; } movies.push({ id: 'm' + Date.now(), title: t, category: c, emoji: document.getElementById('admEmoji').value.trim() || '🎬', quality: 'HD', description: '', views: 0, createdAt: new Date().toISOString(), episodes: [] }); saveAll(); document.getElementById('admTitle').value = ''; document.getElementById('admEmoji').value = ''; renderPage('admin'); renderPage('adminMovies'); toast('Thêm phim thành công!', 'success'); }
-    function adminAddCategory() { if (!currentUser || !currentUser.isAdmin) { toast('Không có quyền!', 'error'); return; } const c = document.getElementById('admNewCat').value.trim(); if (!c) { toast('Nhập tên!', 'error'); return; } if (categories.includes(c)) { toast('Đã tồn tại!', 'error'); return; } categories.push(c); saveAll(); document.getElementById('admNewCat').value = ''; renderPage('admin'); toast('Thêm danh mục!', 'success'); }
-    function editMovie(id) { const m = movies.find(x => x.id === id); if (!m) return; const t = prompt('Tên:', m.title); if (t && t.trim()) m.title = t.trim(); saveAll(); renderPage('adminMovies'); toast('Đã cập nhật!', 'success'); }
-    function deleteMovie(id) { if (!confirm('Xóa?')) return; movies = movies.filter(x => x.id !== id); saveAll(); renderPage('adminMovies'); toast('Đã xóa!', 'warning'); }
-
-    // ==================== PLAYER ====================
-    function playMovie(mid, ei) { if (!currentUser) { toast('Vui lòng đăng nhập!', 'error'); return; } const m = movies.find(x => x.id === mid); if (!m) return; m.views = (m.views || 0) + 1; if (!watchHistory.find(h => h.id === mid)) watchHistory.push(m); currentMovieId = mid; currentEpIdx = (typeof ei === 'number') ? ei : 0; saveAll(); renderPlayer(m, currentEpIdx); navigate('player'); }
-    function playEp(mid, ei) { currentEpIdx = ei; const m = movies.find(x => x.id === mid); if (!m) return; m.views = (m.views || 0) + 1; saveAll(); renderPlayer(m, ei); }
-    function renderPlayer(m, ei) {
-        document.getElementById('playerTitle').textContent = m.title;
-        document.getElementById('playerMeta').innerHTML = m.category + ' | ' + (m.quality || 'HD') + ' | ' + (m.views || 0) + ' lượt';
-        document.getElementById('playerDesc').textContent = m.description || '';
-        document.getElementById('favBtn').innerHTML = favorites.some(f => f.id === m.id) ? '💔 Bỏ Yêu Thích' : '❤️ Yêu Thích';
-        const eg = document.getElementById('episodeGrid');
-        if (m.episodes && m.episodes.length) eg.innerHTML = m.episodes.map((ep, i) => '<button class="ep-btn' + (i === ei ? ' active' : '') + '" onclick="playEp(\'' + m.id + '\',' + i + ')">' + ep.number + '</button>').join('');
-        else eg.innerHTML = '<p style="color:var(--text3);font-size:12px;grid-column:1/-1">Chưa có tập</p>';
-        const frame = document.getElementById('playerFrame');
-        const ep = (m.episodes && m.episodes[ei]) ? m.episodes[ei] : null;
-        const dl = ep ? ep.driveLink : '';
-        if (dl) { let u = dl; if (u.includes('drive.google.com/file/d/')) { const fid = u.split('/d/')[1].split('/')[0]; u = 'https://drive.google.com/file/d/' + fid + '/preview'; } frame.innerHTML = '<iframe src="' + u + '" allow="autoplay; fullscreen" allowfullscreen></iframe>'; }
-        else frame.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:8px;color:var(--text3)"><div style="font-size:50px">' + (m.emoji || '🎬') + '</div><p>' + (ep ? ep.title : 'Chọn tập') + '</p><p style="font-size:12px">Admin sẽ thêm link Drive</p></div>';
-    }
-
-    function toggleFavorite() { if (!currentMovieId) return; const i = favorites.findIndex(f => f.id === currentMovieId); const m = movies.find(x => x.id === currentMovieId); if (i >= 0) { favorites.splice(i, 1); toast('Đã bỏ yêu thích', 'info'); } else { if (m) favorites.push(m); toast('Đã thêm!', 'success'); } saveAll(); if (m) document.getElementById('favBtn').innerHTML = favorites.some(f => f.id === m.id) ? '💔 Bỏ Yêu Thích' : '❤️ Yêu Thích'; }
-
-    function searchMovies() { const q = document.getElementById('heroSearch').value.trim().toLowerCase(); if (!q) return; const r = movies.filter(m => m.title.toLowerCase().includes(q) || m.category.toLowerCase().includes(q)); document.getElementById('homeNewest').innerHTML = r.length ? r.map(card).join('') : '<p class="empty-state">Không tìm thấy</p>'; document.getElementById('homeTrending').innerHTML = ''; }
-
-    function saveProfile() { if (!currentUser) return; currentUser.name = document.getElementById('setName').value.trim(); currentUser.email = document.getElementById('setEmail').value.trim(); currentUser.avatar = document.getElementById('setAvatar').value.trim() || '👤'; const i = users.findIndex(u => u.id === currentUser.id); if (i >= 0) users[i] = currentUser; saveAll(); updateUI(); toast('Đã lưu!', 'success'); }
-
-    function updateUI() {
-        const nr = document.getElementById('navRight');
-        const sa = document.getElementById('sidebarAdmin');
-        if (currentUser) {
-            nr.innerHTML = '<div style="display:flex;align-items:center;gap:8px;font-size:13px"><div style="width:34px;height:34px;border-radius:50%;background:var(--grad2);display:flex;align-items:center;justify-content:center;font-size:16px">' + (currentUser.avatar || '👤') + '</div><span style="font-weight:600">' + currentUser.name + '</span>' + (currentUser.isAdmin ? '<span style="background:var(--grad2);padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700">Admin</span>' : '') + '</div><div style="position:relative"><button class="icon-btn" onclick="toggleDropdown()" title="Cài đặt"><i class="fas fa-cog"></i></button><div class="dropdown-menu" id="settingsDropdown"><div class="dropdown-header">Cài Đặt Nhanh</div><button class="dropdown-item" onclick="navigate(\'settings\');toggleDropdown()"><i class="fas fa-sliders-h"></i> Cài Đặt</button><button class="dropdown-item" onclick="navigate(\'history\');toggleDropdown()"><i class="fas fa-history"></i> Lịch Sử</button><button class="dropdown-item" onclick="navigate(\'favorites\');toggleDropdown()"><i class="fas fa-heart"></i> Yêu Thích</button><div class="dropdown-divider"></div><button class="dropdown-item" onclick="logout();toggleDropdown()" style="color:var(--danger)"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</button></div></div>';
-            if (sa) sa.style.display = currentUser.isAdmin ? 'block' : 'none';
-        } else { nr.innerHTML = ''; if (sa) sa.style.display = 'none'; }
-    }
-
-    function toggleDropdown() { document.getElementById('settingsDropdown').classList.toggle('show'); }
-
-    // ==================== EXPORT ====================
-    window.switchForm = switchForm;
-    window.handleLogin = handleLogin;
-    window.handleRegister = handleRegister;
-    window.socialLogin = socialLogin;
-    window.guestLogin = guestLogin;
-    window.logout = logout;
-    window.navigate = navigate;
-    window.setFilter = setFilter;
-    window.playMovie = playMovie;
-    window.playEp = playEp;
-    window.addEp = addEp;
-    window.updateEpTitle = updateEpTitle;
-    window.updateEpDrive = updateEpDrive;
-    window.deleteEp = deleteEp;
-    window.adminAddMovie = adminAddMovie;
-    window.adminAddCategory = adminAddCategory;
-    window.editMovie = editMovie;
-    window.deleteMovie = deleteMovie;
-    window.loadEpisodesAdmin = loadEpisodesAdmin;
-    window.toggleFavorite = toggleFavorite;
-    window.searchMovies = searchMovies;
-    window.saveProfile = saveProfile;
-    window.toggleDropdown = toggleDropdown;
-
-    // ==================== INIT ====================
-    function init() {
+    // ===== INIT =====
+    function init(){
         initData();
-        createParticles();
-        if (currentUser) { document.getElementById('loginPage').classList.remove('active'); document.getElementById('appPage').classList.add('active'); updateUI(); navigate('home'); }
-        else { document.getElementById('loginPage').classList.add('active'); document.getElementById('appPage').classList.remove('active'); }
-        console.log('✅ AnimeHub đã sẵn sàng!');
-        console.log('👤 admin / admin123 | senpai / 123456');
-        console.log('⚙️ Nút Cài Đặt ở góc phải!');
+        if(cur){document.getElementById('loginOverlay').classList.remove('active');updateUI();renderAll()}else{document.getElementById('loginOverlay').classList.add('active');showLogin()}
+        updateUI();
+        renderAll();
+        console.log('✅ AnimeHub sẵn sàng! admin/admin123');
     }
-
     init();
     </script>
 </body>
