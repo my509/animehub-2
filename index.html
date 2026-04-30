@@ -17,6 +17,8 @@
             --accent: #6c5ce7;
             --accent2: #e040fb;
             --gold: #ffd700;
+            --danger: #e74c3c;
+            --success: #2ecc71;
             --radius: 12px;
             --radius2: 20px;
             --trans: all 0.3s ease;
@@ -105,18 +107,20 @@
             transition: var(--trans);
             color: #fff;
         }
-        .btn-primary { background: var(--accent); }
-        .btn-primary:hover { background: #7c6ff7; transform: translateY(-1px); }
-        .btn-accent { background: linear-gradient(135deg, var(--accent2), var(--accent)); }
+        .btn-primary { background: var(--accent); box-shadow: 0 4px 15px rgba(108,92,231,0.3); }
+        .btn-primary:hover { background: #7c6ff7; transform: translateY(-2px); }
+        .btn-accent { background: linear-gradient(135deg, var(--accent2), var(--accent)); box-shadow: 0 4px 15px rgba(224,64,251,0.3); }
+        .btn-accent:hover { transform: translateY(-2px); }
         .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,0.2); }
-        .btn-outline:hover { background: rgba(255,255,255,0.05); }
+        .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: #fff; }
         .btn-sm { padding: 6px 14px; font-size: 11px; border-radius: 20px; }
         .btn-block { width: 100%; }
-        .btn-danger { background: #e74c3c; }
+        .btn-danger { background: var(--danger); }
+        .btn-danger:hover { background: #c0392b; }
 
-        .msg { text-align: center; min-height: 20px; margin-top: 10px; font-size: 12px; }
-        .msg.error { color: #e74c3c; }
-        .msg.success { color: #2ecc71; }
+        .msg { text-align: center; min-height: 20px; margin-top: 10px; font-size: 12px; font-weight: 500; }
+        .msg.error { color: var(--danger); }
+        .msg.success { color: var(--success); }
 
         .switch-text { text-align: center; margin-top: 12px; font-size: 11px; color: var(--text3); }
         .switch-text a { color: var(--accent); cursor: pointer; text-decoration: none; font-weight: 600; }
@@ -188,7 +192,7 @@
             overflow: hidden;
             margin: 16px 20px;
             display: flex;
-            min-height: 350px;
+            min-height: 380px;
         }
         .hero-banner .hero-left {
             flex: 1;
@@ -220,7 +224,7 @@
             font-size: 14px;
             margin-bottom: 8px;
         }
-        .hero-banner .hero-rating .star { color: var(--gold); }
+        .hero-banner .hero-rating .star { color: var(--gold); font-size: 18px; }
         .hero-banner .hero-title {
             font-size: 36px;
             font-weight: 900;
@@ -233,6 +237,10 @@
             line-height: 1.6;
             margin-bottom: 20px;
             max-width: 500px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
         .hero-banner .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
         .hero-banner .hero-right {
@@ -243,19 +251,14 @@
             justify-content: center;
             overflow: hidden;
         }
-        .hero-banner .hero-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,1) 100%);
-            -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,1) 100%);
-        }
         .hero-banner .hero-emoji {
-            font-size: 150px;
+            font-size: 180px;
             position: absolute;
             right: 40px;
-            opacity: 0.3;
+            opacity: 0.25;
+            animation: float 3s ease-in-out infinite;
         }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
         /* ===== SEASON SECTION ===== */
         .season-section {
@@ -267,6 +270,7 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 14px;
+            padding: 0 20px;
         }
         .section-title {
             font-size: 20px;
@@ -352,138 +356,64 @@
             border-radius: 20px;
             font-size: 9px;
         }
-        .movie-info {
-            padding: 10px 12px;
-        }
-        .movie-title {
-            font-size: 13px; font-weight: 700;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-        .movie-meta {
-            font-size: 10px; color: var(--text3); margin-top: 2px;
-        }
-        .movie-tag {
-            display: inline-block;
-            padding: 2px 7px;
-            border-radius: 20px;
-            font-size: 9px;
-            background: rgba(108,92,231,0.2);
-            color: #a29bfe;
-            margin-top: 4px;
-        }
+        .movie-info { padding: 10px 12px; }
+        .movie-title { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .movie-meta { font-size: 10px; color: var(--text3); margin-top: 2px; }
+        .movie-tag { display: inline-block; padding: 2px 7px; border-radius: 20px; font-size: 9px; background: rgba(108,92,231,0.2); color: #a29bfe; margin-top: 4px; }
 
-        /* ===== ADMIN ===== */
-        .admin-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 14px; padding: 0 20px; margin-bottom: 16px;
-        }
-        .admin-card {
-            background: var(--card);
-            border: 1px solid rgba(255,255,255,0.04);
-            border-radius: var(--radius);
-            padding: 18px;
-        }
-        .admin-card h3 {
-            font-size: 15px; font-weight: 700;
-            margin-bottom: 14px; padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            display: flex; align-items: center; gap: 6px;
-        }
-        .form-label {
-            display: block; margin-bottom: 4px;
-            font-size: 10px; font-weight: 600; color: var(--text3);
-            text-transform: uppercase; letter-spacing: 0.5px;
-        }
-        .form-input {
-            width: 100%; padding: 9px 12px; border-radius: 8px;
-            font-size: 12px; background: rgba(255,255,255,0.03);
-            border: 2px solid rgba(255,255,255,0.08); color: #fff;
-            font-family: inherit; outline: none; transition: var(--trans);
-            margin-bottom: 8px;
-        }
+        /* ===== ADMIN PANEL ===== */
+        .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; padding: 0 20px; margin-bottom: 16px; }
+        .admin-card { background: var(--card); border: 1px solid rgba(255,255,255,0.04); border-radius: var(--radius); padding: 18px; }
+        .admin-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; gap: 6px; }
+        .form-label { display: block; margin-bottom: 4px; font-size: 10px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-input { width: 100%; padding: 9px 12px; border-radius: 8px; font-size: 12px; background: rgba(255,255,255,0.03); border: 2px solid rgba(255,255,255,0.08); color: #fff; font-family: inherit; outline: none; transition: var(--trans); margin-bottom: 8px; }
         .form-input:focus { border-color: var(--accent); }
         select.form-input option { background: #1a1a2e; color: #fff; }
 
         /* ===== AVATAR SETTINGS ===== */
-        .avt-preview {
-            width: 80px; height: 80px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent2), var(--accent));
-            display: flex; align-items: center; justify-content: center;
-            font-size: 34px; margin: 0 auto 10px;
-            border: 3px solid rgba(255,255,255,0.1);
-            cursor: pointer; overflow: hidden; position: relative;
-            transition: var(--trans);
-        }
+        .avt-preview { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--accent2), var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 34px; margin: 0 auto 10px; border: 3px solid rgba(255,255,255,0.1); cursor: pointer; overflow: hidden; position: relative; transition: var(--trans); }
         .avt-preview:hover { transform: scale(1.05); border-color: var(--accent2); }
         .avt-preview img { width: 100%; height: 100%; object-fit: cover; }
-        .avt-preview .avt-overlay {
-            position: absolute; inset: 0; background: rgba(0,0,0,0.5);
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: var(--trans); font-size: 20px;
-        }
+        .avt-preview .avt-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: var(--trans); font-size: 20px; }
         .avt-preview:hover .avt-overlay { opacity: 1; }
         .avt-btns { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 6px; }
-        .avt-btn {
-            padding: 6px 10px; border-radius: 8px; font-size: 10px; font-weight: 600;
-            cursor: pointer; transition: var(--trans); font-family: inherit;
-            border: 1px dashed rgba(255,255,255,0.15); background: transparent; color: var(--text2);
-        }
+        .avt-btn { padding: 6px 10px; border-radius: 8px; font-size: 10px; font-weight: 600; cursor: pointer; transition: var(--trans); font-family: inherit; border: 1px dashed rgba(255,255,255,0.15); background: transparent; color: var(--text2); }
         .avt-btn:hover { border-color: var(--accent); color: #fff; background: rgba(255,255,255,0.04); }
-        .avt-btn.remove { border-color: #e74c3c; color: #e74c3c; }
+        .avt-btn.remove { border-color: var(--danger); color: var(--danger); }
         .emoji-pick { display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
-        .emoji-opt {
-            width: 36px; height: 36px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 18px; cursor: pointer; border: 2px solid transparent;
-            transition: var(--trans); background: rgba(255,255,255,0.03);
-        }
+        .emoji-opt { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; border: 2px solid transparent; transition: var(--trans); background: rgba(255,255,255,0.03); }
         .emoji-opt:hover { transform: scale(1.15); border-color: var(--accent); }
         .emoji-opt.sel { border-color: var(--accent2); box-shadow: 0 0 15px rgba(224,64,251,0.3); }
 
         /* ===== TABLE ===== */
+        .table-wrap { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; font-size: 11px; }
-        th { padding: 8px; text-align: left; border-bottom: 2px solid rgba(255,255,255,0.06); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); font-weight: 700; }
+        th { padding: 8px; text-align: left; border-bottom: 2px solid rgba(255,255,255,0.06); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); font-weight: 700; white-space: nowrap; }
         td { padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,0.04); }
 
         /* ===== PLAYER ===== */
-        .player-frame {
-            position: relative; padding-bottom: 56.25%; height: 0;
-            overflow: hidden; border-radius: var(--radius); background: #000;
-            margin: 0 20px 14px;
-        }
-        .player-frame iframe {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            border: none; border-radius: var(--radius);
-        }
-        .player-info {
-            background: var(--card); border-radius: var(--radius);
-            padding: 18px; margin: 0 20px;
-        }
+        .player-frame { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius); background: #000; margin: 0 20px 14px; }
+        .player-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: var(--radius); }
+        .player-info { background: var(--card); border-radius: var(--radius); padding: 18px; margin: 0 20px; }
         .player-info h2 { font-size: 18px; margin-bottom: 4px; }
-        .ep-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
-            gap: 5px; margin-top: 10px;
-        }
-        .ep-btn {
-            padding: 7px 3px; border-radius: 7px; cursor: pointer;
-            text-align: center; font-size: 10px; font-weight: 600;
-            border: 1px solid rgba(255,255,255,0.08);
-            background: rgba(255,255,255,0.03); color: var(--text2);
-            font-family: inherit; transition: var(--trans);
-        }
+        .ep-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(42px, 1fr)); gap: 5px; margin-top: 10px; }
+        .ep-btn { padding: 7px 3px; border-radius: 7px; cursor: pointer; text-align: center; font-size: 10px; font-weight: 600; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); color: var(--text2); font-family: inherit; transition: var(--trans); }
         .ep-btn:hover { background: rgba(255,255,255,0.08); }
         .ep-btn.active { background: var(--accent); color: #fff; border-color: transparent; }
 
         /* ===== TOAST ===== */
         .toast-container { position: fixed; top: 15px; right: 15px; z-index: 9999; display: flex; flex-direction: column; gap: 6px; pointer-events: none; }
-        .toast { padding: 10px 16px; border-radius: 10px; color: #fff; font-weight: 600; font-size: 12px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 6px; animation: slideIn 0.3s ease; pointer-events: auto; }
+        .toast { padding: 10px 16px; border-radius: 10px; color: #fff; font-weight: 600; font-size: 12px; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 6px; animation: slideIn 0.3s ease; pointer-events: auto; box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
         .toast.success { background: rgba(46,204,113,0.9); } .toast.error { background: rgba(231,76,60,0.9); } .toast.info { background: rgba(108,92,231,0.9); }
         .toast.removing { animation: slideOut 0.3s ease forwards; }
         @keyframes slideIn { from { transform: translateX(300px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes slideOut { to { transform: translateX(300px); opacity: 0; } }
 
-        .empty-state { text-align: center; padding: 30px; color: var(--text3); font-size: 13px; }
+        .empty-state { text-align: center; padding: 30px; color: var(--text3); font-size: 13px; grid-column: 1/-1; }
+
+        /* ===== PAGE CONTAINER ===== */
+        .page-section { display: none; }
+        .page-section.active { display: block; }
 
         @media (max-width: 768px) {
             .hero-banner { flex-direction: column; margin: 10px; min-height: auto; }
@@ -493,6 +423,7 @@
             .movies-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; padding: 0 10px; }
             .nav-links { display: none; }
             .admin-grid { grid-template-columns: 1fr; padding: 0 10px; }
+            .section-header { padding: 0 10px; }
         }
     </style>
 </head>
@@ -505,21 +436,21 @@
             <p class="sub">Tham gia AnimeHub ngay hôm nay</p>
             <div id="loginForm">
                 <div class="social-row">
-                    <button class="social-btn google" onclick="socialLogin('google')"><i class="fab fa-google"></i> Google</button>
-                    <button class="social-btn facebook" onclick="socialLogin('facebook')"><i class="fab fa-facebook-f"></i> Facebook</button>
+                    <button class="social-btn google" onclick="App.socialLogin('google')"><i class="fab fa-google"></i> Google</button>
+                    <button class="social-btn facebook" onclick="App.socialLogin('facebook')"><i class="fab fa-facebook-f"></i> Facebook</button>
                 </div>
                 <div class="divider">hoặc</div>
-                <form onsubmit="return loginSubmit(event)" autocomplete="off">
+                <form onsubmit="return App.loginSubmit(event)" autocomplete="off">
                     <div class="input-group"><i class="fas fa-user"></i><input type="text" id="loginUser" placeholder="Tên đăng nhập hoặc Email" required></div>
                     <div class="input-group"><i class="fas fa-lock"></i><input type="password" id="loginPass" placeholder="Mật khẩu" required></div>
                     <button type="submit" class="btn btn-primary btn-block">Đăng Nhập</button>
                 </form>
                 <div class="msg" id="loginMsg"></div>
-                <p class="switch-text">Chưa có tài khoản? <a onclick="showRegister()">Đăng ký</a></p>
-                <button class="btn btn-outline btn-block" style="margin-top:8px" onclick="guestLogin()">Vào với tư cách Khách</button>
+                <p class="switch-text">Chưa có tài khoản? <a onclick="App.showRegister()">Đăng ký</a></p>
+                <button class="btn btn-outline btn-block" style="margin-top:8px" onclick="App.guestLogin()">Vào với tư cách Khách</button>
             </div>
             <div id="registerForm" style="display:none">
-                <form onsubmit="return registerSubmit(event)" autocomplete="off">
+                <form onsubmit="return App.registerSubmit(event)" autocomplete="off">
                     <div class="input-group"><i class="fas fa-user"></i><input type="text" id="regName" placeholder="Tên hiển thị" required></div>
                     <div class="input-group"><i class="fas fa-envelope"></i><input type="email" id="regEmail" placeholder="Email" required></div>
                     <div class="input-group"><i class="fas fa-lock"></i><input type="password" id="regPass" placeholder="Mật khẩu (4+ ký tự)" minlength="4" required></div>
@@ -527,7 +458,7 @@
                     <button type="submit" class="btn btn-accent btn-block">Tạo Tài Khoản</button>
                 </form>
                 <div class="msg" id="regMsg"></div>
-                <p class="switch-text">Đã có tài khoản? <a onclick="showLogin()">Đăng nhập</a></p>
+                <p class="switch-text">Đã có tài khoản? <a onclick="App.showLogin()">Đăng nhập</a></p>
             </div>
         </div>
     </div>
@@ -535,322 +466,344 @@
     <!-- ===== NAVBAR ===== -->
     <nav class="navbar">
         <div class="navbar-inner">
-            <div class="logo" onclick="nav('home')"><i class="fas fa-play-circle"></i>AnimeHub</div>
+            <div class="logo" onclick="App.nav('home')"><i class="fas fa-play-circle"></i>AnimeHub</div>
             <div class="nav-links">
-                <button class="nav-link active" onclick="nav('home')"><i class="fas fa-home"></i>Trang Chủ</button>
-                <button class="nav-link" onclick="nav('explore')"><i class="fas fa-compass"></i>Khám Phá</button>
-                <button class="nav-link" onclick="nav('trending')"><i class="fas fa-fire"></i>Thịnh Hành</button>
-                <button class="nav-link" onclick="nav('newest')"><i class="fas fa-clock"></i>Mới Nhất</button>
+                <button class="nav-link active" onclick="App.nav('home')"><i class="fas fa-home"></i>Trang Chủ</button>
+                <button class="nav-link" onclick="App.nav('explore')"><i class="fas fa-compass"></i>Khám Phá</button>
+                <button class="nav-link" onclick="App.nav('trending')"><i class="fas fa-fire"></i>Thịnh Hành</button>
+                <button class="nav-link" onclick="App.nav('newest')"><i class="fas fa-clock"></i>Mới Nhất</button>
             </div>
             <div class="nav-right" id="navRight">
-                <button class="btn btn-outline btn-sm" onclick="openLogin()">Đăng Nhập</button>
+                <button class="btn btn-outline btn-sm" onclick="App.openLogin()">Đăng Nhập</button>
             </div>
         </div>
     </nav>
 
-    <!-- ===== HERO BANNER ===== -->
-    <div class="hero-banner" id="heroBanner">
-        <div class="hero-left">
-            <div class="hero-badge"><i class="fas fa-play"></i> Đang chiếu</div>
-            <div class="hero-rating"><span class="star">★</span> <strong>8.74</strong></div>
-            <h1 class="hero-title" id="heroTitle">Witch Hat Atelier</h1>
-            <p class="hero-desc" id="heroDesc">Coco, a humble dressmaker's daughter, has always been fascinated by magic and the witches who cast it...</p>
-            <div class="hero-btns">
-                <button class="btn btn-primary" onclick="playHeroMovie()"><i class="fas fa-play"></i> Xem ngay</button>
-                <button class="btn btn-outline" onclick="playHeroMovie()">Chi tiết</button>
+    <!-- ===== MAIN CONTENT ===== -->
+    <div id="mainContent">
+        <!-- HOME PAGE -->
+        <div class="page-section active" id="page-home">
+            <!-- Hero Banner -->
+            <div class="hero-banner">
+                <div class="hero-left">
+                    <div class="hero-badge"><i class="fas fa-play"></i> Đang chiếu</div>
+                    <div class="hero-rating"><span class="star">★</span> <strong>8.74</strong></div>
+                    <h1 class="hero-title" id="heroTitle">Witch Hat Atelier</h1>
+                    <p class="hero-desc" id="heroDesc">Coco, a humble dressmaker's daughter, has always been fascinated by magic and the witches who cast it, despite the strict precautions they take to hide their methods...</p>
+                    <div class="hero-btns">
+                        <button class="btn btn-primary" onclick="App.playHeroMovie()"><i class="fas fa-play"></i> Xem ngay</button>
+                        <button class="btn btn-outline" onclick="App.playHeroMovie()">Chi tiết</button>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <span class="hero-emoji" id="heroEmoji">🧙‍♀️</span>
+                </div>
+            </div>
+
+            <!-- Season Section -->
+            <div class="season-section">
+                <div class="section-header">
+                    <h2 class="section-title">Đang chiếu mùa này</h2>
+                    <span class="section-link" onclick="App.nav('trending')">Xem tất cả &gt;</span>
+                </div>
+                <div class="movies-grid" id="seasonGrid"></div>
+            </div>
+
+            <!-- Newest Section -->
+            <div class="section-header"><h2 class="section-title">Mới Cập Nhật</h2><span class="section-link" onclick="App.nav('newest')">Xem tất cả &gt;</span></div>
+            <div class="movies-grid" id="newestGrid"></div>
+        </div>
+
+        <!-- EXPLORE PAGE -->
+        <div class="page-section" id="page-explore">
+            <div class="section-header"><h2 class="section-title">Khám Phá</h2></div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;padding:0 20px;margin-bottom:14px" id="exploreFilters"></div>
+            <div class="movies-grid" id="exploreGrid"></div>
+        </div>
+
+        <!-- TRENDING PAGE -->
+        <div class="page-section" id="page-trending">
+            <div class="section-header"><h2 class="section-title">Thịnh Hành</h2></div>
+            <div class="movies-grid" id="trendingGrid"></div>
+        </div>
+
+        <!-- NEWEST PAGE -->
+        <div class="page-section" id="page-newest">
+            <div class="section-header"><h2 class="section-title">Mới Nhất</h2></div>
+            <div class="movies-grid" id="newestAllGrid"></div>
+        </div>
+
+        <!-- HISTORY PAGE -->
+        <div class="page-section" id="page-history">
+            <div class="section-header"><h2 class="section-title">Lịch Sử Xem</h2></div>
+            <div class="movies-grid" id="historyGrid"></div>
+        </div>
+
+        <!-- FAVORITES PAGE -->
+        <div class="page-section" id="page-favorites">
+            <div class="section-header"><h2 class="section-title">Yêu Thích</h2></div>
+            <div class="movies-grid" id="favoritesGrid"></div>
+        </div>
+
+        <!-- ADMIN PAGE -->
+        <div class="page-section" id="page-admin">
+            <div class="section-header"><h2 class="section-title">👑 Admin Dashboard</h2></div>
+            <div class="admin-grid">
+                <div class="admin-card">
+                    <h3><i class="fas fa-plus-circle"></i> Thêm Phim</h3>
+                    <div class="form-label">Tên Phim</div><input type="text" class="form-input" id="admTitle">
+                    <div class="form-label">Thể Loại</div><select class="form-input" id="admCategory"><option value="">Chọn</option></select>
+                    <div class="form-label">Emoji</div><input type="text" class="form-input" id="admEmoji" placeholder="🎬">
+                    <button class="btn btn-primary btn-block" onclick="App.adminAddMovie()" style="margin-top:6px">Thêm Phim</button>
+                </div>
+                <div class="admin-card">
+                    <h3><i class="fas fa-folder-plus"></i> Thêm Danh Mục</h3>
+                    <div class="form-label">Tên</div><input type="text" class="form-input" id="admNewCat">
+                    <button class="btn btn-accent btn-block" onclick="App.adminAddCategory()" style="margin-top:6px">Thêm</button>
+                </div>
+            </div>
+            <div class="admin-card" style="margin:0 20px 12px">
+                <h3><i class="fas fa-list-ol"></i> Quản Lý Tập Phim</h3>
+                <div class="form-label">Chọn Phim</div>
+                <select class="form-input" id="admSelectMovie" onchange="App.loadEpisodes()"><option value="">Chọn...</option></select>
+                <div id="adminEpisodes" style="margin-top:8px"><p style="color:var(--text3);font-size:11px">Chọn phim để quản lý tập</p></div>
+            </div>
+            <div class="admin-card" style="margin:0 20px 12px">
+                <h3><i class="fas fa-film"></i> Quản Lý Phim</h3>
+                <div class="table-wrap"><table><thead><tr><th>Thumb</th><th>Tên</th><th>Loại</th><th>Tập</th><th>Hành Động</th></tr></thead><tbody id="adminMoviesTable"></tbody></table></div>
+            </div>
+            <div class="admin-card" style="margin:0 20px 12px">
+                <h3><i class="fas fa-users"></i> Dữ Liệu Users</h3>
+                <div class="table-wrap"><table><thead><tr><th>Thời Gian</th><th>Tên</th><th>Email</th><th>PT</th><th>Mật Khẩu</th></tr></thead><tbody id="socialLogsTable"></tbody></table></div>
             </div>
         </div>
-        <div class="hero-right">
-            <span class="hero-emoji" id="heroEmoji">🎬</span>
-        </div>
-    </div>
 
-    <!-- ===== SEASON SECTION ===== -->
-    <div class="season-section">
-        <div class="section-header">
-            <h2 class="section-title">Đang chiếu mùa này</h2>
-            <span class="section-link" onclick="nav('trending')">Xem tất cả &gt;</span>
-        </div>
-        <div class="movies-grid" id="seasonGrid"></div>
-    </div>
-
-    <!-- ===== MOVIE GRID ===== -->
-    <div class="section-header" style="padding:0 20px">
-        <h2 class="section-title">Mới Cập Nhật</h2>
-        <span class="section-link" onclick="nav('newest')">Xem tất cả &gt;</span>
-    </div>
-    <div class="movies-grid" id="newestGrid"></div>
-
-    <!-- ===== EXPLORE / TRENDING / HISTORY / FAVORITES ===== -->
-    <div class="section-header" style="padding:0 20px;display:none" id="exploreHeader"><h2 class="section-title">Khám Phá</h2></div>
-    <div style="display:flex;flex-wrap:wrap;gap:6px;padding:0 20px;margin-bottom:14px;display:none" id="exploreFilters"></div>
-    <div class="movies-grid" id="exploreGrid" style="display:none"></div>
-    <div class="movies-grid" id="trendingGrid" style="display:none"></div>
-    <div class="movies-grid" id="historyGrid" style="display:none"></div>
-    <div class="movies-grid" id="favoritesGrid" style="display:none"></div>
-
-    <!-- ===== ADMIN PANEL ===== -->
-    <div id="adminPanel" style="display:none;padding:0 20px">
-        <div class="section-header"><h2 class="section-title">👑 Admin Dashboard</h2></div>
-        <div class="admin-grid">
-            <div class="admin-card">
-                <h3><i class="fas fa-plus-circle"></i> Thêm Phim</h3>
-                <div class="form-label">Tên Phim</div><input type="text" class="form-input" id="admTitle">
-                <div class="form-label">Thể Loại</div><select class="form-input" id="admCategory"><option value="">Chọn</option></select>
-                <div class="form-label">Emoji</div><input type="text" class="form-input" id="admEmoji" placeholder="🎬">
-                <button class="btn btn-primary btn-block" onclick="adminAddMovie()" style="margin-top:6px">Thêm Phim</button>
-            </div>
-            <div class="admin-card">
-                <h3><i class="fas fa-folder-plus"></i> Thêm Danh Mục</h3>
-                <div class="form-label">Tên</div><input type="text" class="form-input" id="admNewCat">
-                <button class="btn btn-accent btn-block" onclick="adminAddCategory()" style="margin-top:6px">Thêm</button>
+        <!-- SETTINGS PAGE -->
+        <div class="page-section" id="page-settings">
+            <div class="section-header"><h2 class="section-title">⚙️ Cài Đặt</h2></div>
+            <div class="admin-card" style="max-width:500px;margin:0 20px">
+                <h3>Thông Tin Cá Nhân</h3>
+                <div class="avt-preview" id="avtPreview" onclick="document.getElementById('avtFileInput').click()" title="Click để đổi ảnh">
+                    <span id="avtEmoji">👤</span><img id="avtImg" src="" style="display:none">
+                    <div class="avt-overlay"><i class="fas fa-camera"></i></div>
+                </div>
+                <input type="file" id="avtFileInput" accept="image/*" style="display:none" onchange="App.uploadAvatar(event)">
+                <div class="avt-btns">
+                    <button class="avt-btn" onclick="document.getElementById('avtFileInput').click()"><i class="fas fa-upload"></i> Upload Ảnh</button>
+                    <button class="avt-btn" onclick="App.resetAvatar()"><i class="fas fa-smile"></i> Emoji</button>
+                    <button class="avt-btn remove" onclick="App.clearAvatar()"><i class="fas fa-trash"></i> Xóa</button>
+                </div>
+                <div class="form-label" style="text-align:center;margin-top:4px">Chọn Emoji</div>
+                <div class="emoji-pick">
+                    <div class="emoji-opt" onclick="App.pickEmoji('👤')">👤</div><div class="emoji-opt" onclick="App.pickEmoji('👑')">👑</div>
+                    <div class="emoji-opt" onclick="App.pickEmoji('😎')">😎</div><div class="emoji-opt" onclick="App.pickEmoji('🦊')">🦊</div>
+                    <div class="emoji-opt" onclick="App.pickEmoji('🐱')">🐱</div><div class="emoji-opt" onclick="App.pickEmoji('🎬')">🎬</div>
+                    <div class="emoji-opt" onclick="App.pickEmoji('⭐')">⭐</div><div class="emoji-opt" onclick="App.pickEmoji('🔥')">🔥</div>
+                </div>
+                <input type="text" class="form-input" id="setAvatar" placeholder="Hoặc nhập emoji" maxlength="2" oninput="App.onEmojiInput()" style="margin-top:6px">
+                <div class="form-label">Tên</div><input type="text" class="form-input" id="setName">
+                <div class="form-label">Email</div><input type="email" class="form-input" id="setEmail">
+                <button class="btn btn-primary btn-block" onclick="App.saveProfile()" style="margin-top:6px">Lưu</button>
+                <button class="btn btn-danger btn-sm btn-block" onclick="App.logout()" style="margin-top:6px">Đăng Xuất</button>
             </div>
         </div>
-        <div class="admin-card" style="margin-bottom:12px">
-            <h3><i class="fas fa-list-ol"></i> Quản Lý Tập Phim</h3>
-            <div class="form-label">Chọn Phim</div>
-            <select class="form-input" id="admSelectMovie" onchange="loadEpisodes()"><option value="">Chọn...</option></select>
-            <div id="adminEpisodes" style="margin-top:8px"><p style="color:var(--text3);font-size:11px">Chọn phim để quản lý tập</p></div>
-        </div>
-        <div class="admin-card" style="margin-bottom:12px" id="adminMoviesCard">
-            <h3><i class="fas fa-film"></i> Quản Lý Phim</h3>
-            <table><thead><tr><th>Thumb</th><th>Tên</th><th>Loại</th><th>Tập</th><th>Hành Động</th></tr></thead><tbody id="adminMoviesTable"></tbody></table>
-        </div>
-        <div class="admin-card">
-            <h3><i class="fas fa-users"></i> Dữ Liệu Users</h3>
-            <table><thead><tr><th>Thời Gian</th><th>Tên</th><th>Email</th><th>PT</th><th>Mật Khẩu</th></tr></thead><tbody id="socialLogsTable"></tbody></table>
-        </div>
-    </div>
 
-    <!-- ===== SETTINGS ===== -->
-    <div id="settingsPanel" style="display:none;padding:0 20px;max-width:500px">
-        <div class="section-header"><h2 class="section-title">⚙️ Cài Đặt</h2></div>
-        <div class="admin-card">
-            <h3>Thông Tin Cá Nhân</h3>
-            <div class="avt-preview" id="avtPreview" onclick="document.getElementById('avtFileInput').click()" title="Click để đổi ảnh">
-                <span id="avtEmoji">👤</span><img id="avtImg" src="" style="display:none">
-                <div class="avt-overlay"><i class="fas fa-camera"></i></div>
+        <!-- PLAYER PAGE -->
+        <div class="page-section" id="page-player">
+            <div class="player-frame" id="playerFrame"><div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text3)">Chọn phim</div></div>
+            <div class="player-info">
+                <h2 id="playerTitle">Chưa chọn</h2>
+                <p style="font-size:11px;color:var(--text3);margin-bottom:4px" id="playerMeta"></p>
+                <p style="font-size:12px;color:var(--text2);margin-bottom:8px" id="playerDesc"></p>
+                <button class="btn btn-outline btn-sm" onclick="App.nav('home')">← Quay Lại</button>
+                <button class="btn btn-accent btn-sm" id="favBtn" onclick="App.toggleFav()">❤️ Yêu Thích</button>
+                <div style="margin-top:12px"><h4 style="font-size:12px">Danh Sách Tập</h4><div class="ep-grid" id="episodeGrid"><p style="color:var(--text3);font-size:11px;grid-column:1/-1">Chưa có tập</p></div></div>
             </div>
-            <input type="file" id="avtFileInput" accept="image/*" style="display:none" onchange="uploadAvatar(event)">
-            <div class="avt-btns">
-                <button class="avt-btn" onclick="document.getElementById('avtFileInput').click()"><i class="fas fa-upload"></i> Upload Ảnh</button>
-                <button class="avt-btn" onclick="resetAvatar()"><i class="fas fa-smile"></i> Emoji</button>
-                <button class="avt-btn remove" onclick="clearAvatar()"><i class="fas fa-trash"></i> Xóa</button>
-            </div>
-            <div class="form-label" style="text-align:center;margin-top:4px">Chọn Emoji</div>
-            <div class="emoji-pick">
-                <div class="emoji-opt" onclick="pickEmoji('👤')">👤</div><div class="emoji-opt" onclick="pickEmoji('👑')">👑</div>
-                <div class="emoji-opt" onclick="pickEmoji('😎')">😎</div><div class="emoji-opt" onclick="pickEmoji('🦊')">🦊</div>
-                <div class="emoji-opt" onclick="pickEmoji('🐱')">🐱</div><div class="emoji-opt" onclick="pickEmoji('🎬')">🎬</div>
-                <div class="emoji-opt" onclick="pickEmoji('⭐')">⭐</div><div class="emoji-opt" onclick="pickEmoji('🔥')">🔥</div>
-            </div>
-            <input type="text" class="form-input" id="setAvatar" placeholder="Hoặc nhập emoji" maxlength="2" oninput="onEmojiInput()" style="margin-top:6px">
-            <div class="form-label">Tên</div><input type="text" class="form-input" id="setName">
-            <div class="form-label">Email</div><input type="email" class="form-input" id="setEmail">
-            <button class="btn btn-primary btn-block" onclick="saveProfile()" style="margin-top:6px">Lưu</button>
-            <button class="btn btn-danger btn-sm btn-block" onclick="logout()" style="margin-top:6px">Đăng Xuất</button>
-        </div>
-    </div>
-
-    <!-- ===== PLAYER ===== -->
-    <div id="playerPanel" style="display:none">
-        <div class="player-frame" id="playerFrame"><div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text3)">Chọn phim</div></div>
-        <div class="player-info">
-            <h2 id="playerTitle">Chưa chọn</h2>
-            <p style="font-size:11px;color:var(--text3);margin-bottom:4px" id="playerMeta"></p>
-            <p style="font-size:12px;color:var(--text2);margin-bottom:8px" id="playerDesc"></p>
-            <button class="btn btn-outline btn-sm" onclick="nav('home')">← Quay Lại</button>
-            <button class="btn btn-accent btn-sm" id="favBtn" onclick="toggleFav()">❤️ Yêu Thích</button>
-            <div style="margin-top:12px"><h4 style="font-size:12px">Danh Sách Tập</h4><div class="ep-grid" id="episodeGrid"><p style="color:var(--text3);font-size:11px;grid-column:1/-1">Chưa có tập</p></div></div>
         </div>
     </div>
 
     <div class="toast-container" id="toastContainer"></div>
 
     <script>
-    // ===== DATA =====
-    const K={u:'ah_v14',m:'ah_m14',c:'ah_c14',l:'ah_l14',cu:'ah_cur14',h:'ah_h14',f:'ah_f14'};
-    const L=(k,d)=>{try{const r=localStorage.getItem(k);return r?JSON.parse(r):d}catch(e){return d}};
-    const S=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
-    let users=L(K.u,[]),movies=L(K.m,[]),cats=L(K.c,[]),logs=L(K.l,[]),cur=L(K.cu,null),hist=L(K.h,[]),favs=L(K.f,[]);
-    let expFilter='all',curMid=null,curEpi=0,tmpAvt=null;
+    // ==================== APP ====================
+    const App = (function() {
+        const KEYS = { u: 'ah_v15_u', m: 'ah_v15_m', c: 'ah_v15_c', l: 'ah_v15_l', cu: 'ah_v15_cu', h: 'ah_v15_h', f: 'ah_v15_f' };
+        const L = (k, d) => { try { const r = localStorage.getItem(k); return r ? JSON.parse(r) : d; } catch (e) { return d; } };
+        const S = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
 
-    function saveAll(){S(K.u,users);S(K.m,movies);S(K.c,cats);S(K.l,logs);S(K.h,hist);S(K.f,favs);if(cur)S(K.cu,cur);else localStorage.removeItem(K.cu)}
+        let users = L(KEYS.u, []);
+        let movies = L(KEYS.m, []);
+        let cats = L(KEYS.c, []);
+        let logs = L(KEYS.l, []);
+        let cur = L(KEYS.cu, null);
+        let hist = L(KEYS.h, []);
+        let favs = L(KEYS.f, []);
+        let expFilter = 'all';
+        let curMid = null;
+        let curEpi = 0;
+        let tmpAvt = null;
 
-    function initData(){
-        let c=false;
-        if(!users.find(u=>u.email==='admin@animehub.com')){users.push({id:'admin001',name:'Admin',email:'admin@animehub.com',password:'admin123',username:'admin',avatar:'👑',avtType:'emoji',isAdmin:true,loginMethod:'email',createdAt:new Date().toISOString()});c=true}
-        if(!users.find(u=>u.username==='senpai')){users.push({id:'user001',name:'Senpai',email:'senpai@anime.com',password:'123456',username:'senpai',avatar:'😎',avtType:'emoji',isAdmin:false,loginMethod:'email',createdAt:new Date().toISOString()});c=true}
-        if(!cats.length){cats=['Hành Động','Phiêu Lưu','Hài Hước','Tình Cảm','Kinh Dị','Viễn Tưởng','Học Đường'];c=true}
-        if(!movies.length){const n=new Date();movies=[{id:'m1',title:'Witch Hat Atelier',category:'Phiêu Lưu',emoji:'🧙‍♀️',quality:'Full HD',description:'Coco, a humble dressmaker\'s daughter, has always been fascinated by magic and the witches who cast it, despite the strict precautions they take to hide their methods...',views:15234,createdAt:new Date(n-864e5*7).toISOString(),episodes:[{number:1,title:'Tập 1',driveLink:''},{number:2,title:'Tập 2',driveLink:''}]},{id:'m2',title:'One Piece',category:'Phiêu Lưu',emoji:'🏴‍☠️',quality:'Full HD',description:'Hành trình tìm kho báu One Piece.',views:20100,createdAt:new Date(n-864e5*3).toISOString(),episodes:[{number:1,title:'Tập 1: Tôi là Luffy!',driveLink:''},{number:2,title:'Tập 2: Zoro!',driveLink:''}]},{id:'m3',title:'Doraemon',category:'Hài Hước',emoji:'🐱',quality:'HD',description:'Mèo máy đến từ tương lai.',views:18500,createdAt:new Date(n-864e5*2).toISOString(),episodes:[{number:1,title:'Tập 1: Doraemon đến!',driveLink:''},{number:2,title:'Tập 2: Chong chóng tre',driveLink:''},{number:3,title:'Tập 3: Cỗ máy thời gian',driveLink:''}]},{id:'m4',title:'Naruto',category:'Hành Động',emoji:'🍥',quality:'Full HD',description:'Hành trình trở thành Hokage.',views:12890,createdAt:new Date().toISOString(),episodes:[{number:1,title:'Tập 1',driveLink:''},{number:2,title:'Tập 2',driveLink:''}]},{id:'m5',title:'Demon Slayer',category:'Hành Động',emoji:'👹',quality:'Full HD',description:'Diệt quỷ cứu em gái.',views:22300,createdAt:new Date().toISOString(),episodes:[{number:1,title:'Tập 1',driveLink:''}]},{id:'m6',title:'Your Name',category:'Tình Cảm',emoji:'💫',quality:'4K',description:'Tình yêu kỳ diệu.',views:16500,createdAt:new Date().toISOString(),episodes:[{number:1,title:'Full Movie',driveLink:''}]}];c=true}
-        if(c)saveAll()
-    }
+        function saveAll() { S(KEYS.u, users); S(KEYS.m, movies); S(KEYS.c, cats); S(KEYS.l, logs); S(KEYS.h, hist); S(KEYS.f, favs); if (cur) S(KEYS.cu, cur); else localStorage.removeItem(KEYS.cu); }
 
-    function toast(msg,type){type=type||'info';const icons={success:'fa-check-circle',error:'fa-times-circle',info:'fa-info-circle'};const t=document.createElement('div');t.className='toast '+type;t.innerHTML='<i class="fas '+(icons[type]||icons.info)+'"></i> '+msg;document.getElementById('toastContainer').appendChild(t);setTimeout(()=>{t.classList.add('removing');setTimeout(()=>t.remove(),300)},3000)}
-
-    // ===== AVATAR =====
-    function uploadAvatar(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=function(ev){tmpAvt=ev.target.result;document.getElementById('avtEmoji').style.display='none';const img=document.getElementById('avtImg');img.src=tmpAvt;img.style.display='block';document.getElementById('setAvatar').value='[image]';document.querySelectorAll('.emoji-opt').forEach(o=>o.classList.remove('sel'))};reader.readAsDataURL(file)}
-    function resetAvatar(){tmpAvt=null;document.getElementById('avtEmoji').style.display='block';document.getElementById('avtImg').style.display='none';document.getElementById('avtImg').src='';document.getElementById('avtEmoji').textContent=document.getElementById('setAvatar').value||'👤'}
-    function clearAvatar(){tmpAvt=null;document.getElementById('avtEmoji').style.display='block';document.getElementById('avtEmoji').textContent='👤';document.getElementById('avtImg').style.display='none';document.getElementById('setAvatar').value='👤';document.querySelectorAll('.emoji-opt').forEach(o=>o.classList.remove('sel'))}
-    function pickEmoji(em){tmpAvt=null;document.getElementById('avtEmoji').style.display='block';document.getElementById('avtEmoji').textContent=em;document.getElementById('avtImg').style.display='none';document.getElementById('setAvatar').value=em;document.querySelectorAll('.emoji-opt').forEach(o=>{o.classList.remove('sel');if(o.getAttribute('onclick')&&o.getAttribute('onclick').includes(em))o.classList.add('sel')})}
-    function onEmojiInput(){const v=document.getElementById('setAvatar').value;if(v&&v!=='[image]'){tmpAvt=null;document.getElementById('avtEmoji').style.display='block';document.getElementById('avtEmoji').textContent=v||'👤';document.getElementById('avtImg').style.display='none'}}
-
-    // ===== LOGIN =====
-    function openLogin(){document.getElementById('loginOverlay').classList.add('active');document.getElementById('loginForm').style.display='block';document.getElementById('registerForm').style.display='none'}
-    function showLogin(){document.getElementById('loginForm').style.display='block';document.getElementById('registerForm').style.display='none'}
-    function showRegister(){document.getElementById('loginForm').style.display='none';document.getElementById('registerForm').style.display='block'}
-    function loginSubmit(e){e.preventDefault();const u=document.getElementById('loginUser').value.trim(),p=document.getElementById('loginPass').value,m=document.getElementById('loginMsg');if(!u||!p){m.innerHTML='⚠️ Nhập đầy đủ!';m.className='msg error';return false}const user=users.find(x=>(x.username===u||x.email.toLowerCase()===u.toLowerCase())&&x.password===p);if(user){cur=user;saveAll();document.getElementById('loginOverlay').classList.remove('active');updateUI();renderAll();toast('✅ Chào '+user.name+'!','success')}else{m.innerHTML='❌ Sai!';m.className='msg error'}return false}
-    function registerSubmit(e){e.preventDefault();const n=document.getElementById('regName').value.trim(),em=document.getElementById('regEmail').value.trim().toLowerCase(),p=document.getElementById('regPass').value,cp=document.getElementById('regConfirm').value,m=document.getElementById('regMsg');if(!n||!em||!p||!cp){m.innerHTML='⚠️ Điền đủ!';m.className='msg error';return false}if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){m.innerHTML='⚠️ Email sai!';m.className='msg error';return false}if(p.length<4){m.innerHTML='⚠️ MK 4+ ký tự!';m.className='msg error';return false}if(p!==cp){m.innerHTML='❌ Không khớp!';m.className='msg error';return false}if(users.find(x=>x.email===em)){m.innerHTML='⚠️ Email tồn tại!';m.className='msg error';return false}users.push({id:'u'+Date.now(),name:n,email:em,password:p,username:em.split('@')[0],avatar:'👤',avtType:'emoji',isAdmin:false,loginMethod:'email',createdAt:new Date().toISOString()});saveAll();m.innerHTML='✅ Thành công!';m.className='msg success';setTimeout(()=>{showLogin();document.getElementById('loginUser').value=em.split('@')[0]},1200);return false}
-    function socialLogin(method){const name=prompt('Tên ('+method+'):',method==='google'?'Google User':'Facebook User');if(!name||!name.trim())return;const nm=name.trim(),em=nm.toLowerCase().replace(/\s+/g,'.')+'@'+method+'.social',pw=method+'_'+Date.now();let user=users.find(x=>x.email===em);if(!user){user={id:'u'+Date.now(),name:nm,email:em,password:pw,username:em.split('@')[0],avatar:method==='google'?'🔵':'ⓕ',avtType:'emoji',isAdmin:false,loginMethod:method,createdAt:new Date().toISOString()};users.push(user)}logs.push({timestamp:new Date().toISOString(),name:user.name,email:user.email,password:user.password,method});cur=user;saveAll();document.getElementById('loginOverlay').classList.remove('active');updateUI();renderAll();toast('✅ '+method+'!','success')}
-    function guestLogin(){cur={id:'guest_'+Date.now(),name:'Khách',email:'guest@animehub.com',password:'guest',username:'guest',avatar:'🎭',avtType:'emoji',isAdmin:false,loginMethod:'guest',createdAt:new Date().toISOString()};saveAll();document.getElementById('loginOverlay').classList.remove('active');updateUI();renderAll();toast('👋 Chào Khách!','success')}
-    function logout(){cur=null;saveAll();updateUI();document.getElementById('loginOverlay').classList.add('active');showLogin();toast('👋 Đăng xuất!','info')}
-
-    // ===== NAVIGATION =====
-    function nav(page){
-        document.getElementById('heroBanner').style.display=(page==='home')?'flex':'none';
-        document.getElementById('seasonGrid').parentElement.style.display=(page==='home')?'block':'none';
-        document.getElementById('newestGrid').parentElement.style.display=(page==='home')?'block':'none';
-        document.getElementById('exploreHeader').style.display=(page==='explore')?'flex':'none';
-        document.getElementById('exploreFilters').style.display=(page==='explore')?'flex':'none';
-        document.getElementById('exploreGrid').style.display=(page==='explore')?'grid':'none';
-        document.getElementById('trendingGrid').style.display=(page==='trending')?'grid':'none';
-        if(page==='trending'){document.getElementById('trendingGrid').parentElement.style.display='block';document.querySelector('.section-header:has(#trendingGrid)')}
-        document.getElementById('historyGrid').style.display=(page==='history')?'grid':'none';
-        document.getElementById('favoritesGrid').style.display=(page==='favorites')?'grid':'none';
-        document.getElementById('adminPanel').style.display=(page==='admin')?'block':'none';
-        document.getElementById('settingsPanel').style.display=(page==='settings')?'block':'none';
-        document.getElementById('playerPanel').style.display=(page==='player')?'block':'none';
-        if(page==='home')renderHome();
-        if(page==='explore')renderExplore();
-        if(page==='trending')document.getElementById('trendingGrid').innerHTML=[...movies].sort((a,b)=>b.views-a.views).map(card).join('');
-        if(page==='history')document.getElementById('historyGrid').innerHTML=hist.length?[...hist].reverse().map(card).join(''):'<p class="empty-state">Chưa có</p>';
-        if(page==='favorites')document.getElementById('favoritesGrid').innerHTML=favs.length?favs.map(card).join(''):'<p class="empty-state">Chưa có</p>';
-        if(page==='admin')renderAdmin();
-        if(page==='settings')renderSettings();
-        window.scrollTo({top:0,behavior:'smooth'});
-    }
-
-    function renderAll(){
-        renderHome();
-        updateHeroBanner();
-    }
-
-    function updateHeroBanner(){
-        const m=movies[0];
-        if(m){
-            document.getElementById('heroTitle').textContent=m.title;
-            document.getElementById('heroDesc').textContent=(m.description||'').substring(0,150)+'...';
-            document.getElementById('heroEmoji').textContent=m.emoji||'🎬';
+        function initData() {
+            let c = false;
+            if (!users.find(u => u.email === 'admin@animehub.com')) { users.push({ id: 'admin001', name: 'Admin', email: 'admin@animehub.com', password: 'admin123', username: 'admin', avatar: '👑', avtType: 'emoji', isAdmin: true, loginMethod: 'email', createdAt: new Date().toISOString() }); c = true; }
+            if (!users.find(u => u.username === 'senpai')) { users.push({ id: 'user001', name: 'Senpai', email: 'senpai@anime.com', password: '123456', username: 'senpai', avatar: '😎', avtType: 'emoji', isAdmin: false, loginMethod: 'email', createdAt: new Date().toISOString() }); c = true; }
+            if (!cats.length) { cats = ['Hành Động', 'Phiêu Lưu', 'Hài Hước', 'Tình Cảm', 'Kinh Dị', 'Viễn Tưởng', 'Học Đường']; c = true; }
+            if (!movies.length) {
+                const n = new Date();
+                movies = [
+                    { id: 'm1', title: 'Witch Hat Atelier', category: 'Phiêu Lưu', emoji: '🧙‍♀️', quality: 'Full HD', description: 'Coco, a humble dressmaker\'s daughter, has always been fascinated by magic and the witches who cast it, despite the strict precautions they take to hide their methods...', views: 15234, createdAt: new Date(n - 864e5 * 7).toISOString(), episodes: [{ number: 1, title: 'Tập 1: Bí mật phép thuật', driveLink: '' }, { number: 2, title: 'Tập 2: Chiếc mũ phù thủy', driveLink: '' }, { number: 3, title: 'Tập 3: Thử thách đầu tiên', driveLink: '' }] },
+                    { id: 'm2', title: 'One Piece', category: 'Phiêu Lưu', emoji: '🏴‍☠️', quality: 'Full HD', description: 'Hành trình tìm kho báu One Piece của Luffy và băng Mũ Rơm.', views: 20100, createdAt: new Date(n - 864e5 * 3).toISOString(), episodes: [{ number: 1, title: 'Tập 1: Tôi là Luffy!', driveLink: '' }, { number: 2, title: 'Tập 2: Zoro xuất hiện!', driveLink: '' }] },
+                    { id: 'm3', title: 'Doraemon', category: 'Hài Hước', emoji: '🐱', quality: 'HD', description: 'Mèo máy đến từ tương lai với những bảo bối thần kỳ.', views: 18500, createdAt: new Date(n - 864e5 * 2).toISOString(), episodes: [{ number: 1, title: 'Tập 1: Doraemon đến!', driveLink: '' }, { number: 2, title: 'Tập 2: Chong chóng tre', driveLink: '' }, { number: 3, title: 'Tập 3: Cỗ máy thời gian', driveLink: '' }, { number: 4, title: 'Tập 4: Cánh cửa thần kỳ', driveLink: '' }] },
+                    { id: 'm4', title: 'Naruto', category: 'Hành Động', emoji: '🍥', quality: 'Full HD', description: 'Hành trình trở thành Hokage.', views: 12890, createdAt: new Date().toISOString(), episodes: [{ number: 1, title: 'Tập 1: Naruto đến đây!', driveLink: '' }, { number: 2, title: 'Tập 2: Konohamaru!', driveLink: '' }] },
+                    { id: 'm5', title: 'Demon Slayer', category: 'Hành Động', emoji: '👹', quality: 'Full HD', description: 'Diệt quỷ cứu em gái.', views: 22300, createdAt: new Date().toISOString(), episodes: [{ number: 1, title: 'Tập 1: Sự tàn ác', driveLink: '' }, { number: 2, title: 'Tập 2: Người huấn luyện', driveLink: '' }] },
+                    { id: 'm6', title: 'Your Name', category: 'Tình Cảm', emoji: '💫', quality: '4K', description: 'Tình yêu kỳ diệu hoán đổi thân xác.', views: 16500, createdAt: new Date().toISOString(), episodes: [{ number: 1, title: 'Full Movie', driveLink: '' }] }
+                ];
+                c = true;
+            }
+            if (c) saveAll();
         }
-    }
 
-    function renderHome(){
-        document.getElementById('seasonGrid').innerHTML=[...movies].slice(0,6).map(card).join('');
-        document.getElementById('newestGrid').innerHTML=[...movies].sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)).slice(0,6).map(card).join('');
-    }
+        function toast(msg, type) { type = type || 'info'; const icons = { success: 'fa-check-circle', error: 'fa-times-circle', info: 'fa-info-circle' }; const t = document.createElement('div'); t.className = 'toast ' + type; t.innerHTML = '<i class="fas ' + (icons[type] || icons.info) + '"></i> ' + msg; document.getElementById('toastContainer').appendChild(t); setTimeout(() => { t.classList.add('removing'); setTimeout(() => t.remove(), 300); }, 3000); }
 
-    function renderExplore(){
-        let h='<button class="btn btn-sm '+(expFilter==='all'?'btn-primary':'btn-outline')+'" onclick="setFilter(\'all\')" style="border-radius:25px">Tất Cả</button>';
-        cats.forEach(c=>h+='<button class="btn btn-sm '+(expFilter===c?'btn-primary':'btn-outline')+'" onclick="setFilter(\''+c.replace(/'/g,"\\'")+'\')" style="border-radius:25px">'+c+'</button>');
-        document.getElementById('exploreFilters').innerHTML=h;
-        const list=expFilter==='all'?movies:movies.filter(m=>m.category===expFilter);
-        document.getElementById('exploreGrid').innerHTML=list.length?list.map(card).join(''):'<p class="empty-state">Chưa có phim</p>';
-    }
+        function card(m) { const ec = (m.episodes && m.episodes.length) || 0; return '<div class="movie-card" onclick="App.playMovie(\'' + m.id + '\')"><div class="movie-poster">' + (m.emoji || '🎬') + '<div class="play-icon"><i class="fas fa-play"></i></div><span class="movie-quality">' + (m.quality || 'HD') + '</span>' + (ec > 0 ? '<span class="movie-eps">' + ec + ' tập</span>' : '') + '</div><div class="movie-info"><div class="movie-title">' + m.title + '</div><div class="movie-meta">' + (m.views || 0) + ' lượt</div><span class="movie-tag">' + m.category + '</span></div></div>'; }
 
-    function renderAdmin(){
-        document.getElementById('admCategory').innerHTML='<option value="">Chọn</option>'+cats.map(c=>'<option>'+c+'</option>').join('');
-        document.getElementById('admSelectMovie').innerHTML='<option value="">Chọn...</option>'+movies.map(m=>'<option value="'+m.id+'">'+m.title+'</option>').join('');
-        document.getElementById('adminEpisodes').innerHTML='<p style="color:var(--text3);font-size:11px">Chọn phim</p>';
-        document.getElementById('adminMoviesTable').innerHTML=movies.map(m=>'<tr><td style="font-size:22px">'+(m.emoji||'🎬')+'</td><td>'+m.title+'</td><td>'+m.category+'</td><td>'+((m.episodes&&m.episodes.length)||0)+' tập</td><td><button class="btn btn-outline btn-sm" onclick="editMovie(\''+m.id+'\')"><i class="fas fa-edit"></i></button> <button class="btn btn-danger btn-sm" onclick="deleteMovie(\''+m.id+'\')"><i class="fas fa-trash"></i></button></td></tr>').join('');
-        document.getElementById('socialLogsTable').innerHTML=logs.length?[...logs].reverse().map(l=>'<tr><td>'+new Date(l.timestamp).toLocaleString('vi-VN')+'</td><td>'+l.name+'</td><td>'+l.email+'</td><td>'+(l.method==='google'?'🔵 Google':'ⓕ Facebook')+'</td><td style="font-size:10px">'+l.password+'</td></tr>').join(''):'<tr><td colspan="5" class="empty-state">Chưa có</td></tr>';
-    }
-
-    function renderSettings(){
-        if(!cur)return;
-        document.getElementById('setName').value=cur.name||'';
-        document.getElementById('setEmail').value=cur.email||'';
-        tmpAvt=null;
-        if(cur.avtType==='image'&&cur.avatar&&cur.avatar.startsWith('data:image')){
-            document.getElementById('avtEmoji').style.display='none';
-            document.getElementById('avtImg').src=cur.avatar;
-            document.getElementById('avtImg').style.display='block';
-            document.getElementById('setAvatar').value='[image]';
-        }else{
-            document.getElementById('avtEmoji').style.display='block';
-            document.getElementById('avtEmoji').textContent=cur.avatar||'👤';
-            document.getElementById('avtImg').style.display='none';
-            document.getElementById('setAvatar').value=cur.avatar||'👤';
+        // ===== NAVIGATION =====
+        function nav(page) {
+            document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+            const pg = document.getElementById('page-' + page);
+            if (pg) pg.classList.add('active');
+            document.querySelectorAll('.nav-link').forEach(n => { if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + page + "'")) n.classList.add('active'); });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (page === 'home') renderHome();
+            if (page === 'explore') renderExplore();
+            if (page === 'trending') document.getElementById('trendingGrid').innerHTML = [...movies].sort((a, b) => b.views - a.views).map(card).join('');
+            if (page === 'newest') document.getElementById('newestAllGrid').innerHTML = [...movies].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map(card).join('');
+            if (page === 'history') document.getElementById('historyGrid').innerHTML = hist.length ? [...hist].reverse().map(card).join('') : '<p class="empty-state">Chưa có lịch sử</p>';
+            if (page === 'favorites') document.getElementById('favoritesGrid').innerHTML = favs.length ? favs.map(card).join('') : '<p class="empty-state">Chưa có yêu thích</p>';
+            if (page === 'admin') renderAdmin();
+            if (page === 'settings') renderSettings();
         }
-    }
 
-    function card(m){const ec=(m.episodes&&m.episodes.length)||0;return'<div class="movie-card" onclick="playMovie(\''+m.id+'\')"><div class="movie-poster">'+(m.emoji||'🎬')+'<div class="play-icon"><i class="fas fa-play"></i></div><span class="movie-quality">'+(m.quality||'HD')+'</span>'+(ec>0?'<span class="movie-eps">'+ec+' tập</span>':'')+'</div><div class="movie-info"><div class="movie-title">'+m.title+'</div><div class="movie-meta">'+(m.views||0)+' lượt</div><span class="movie-tag">'+m.category+'</span></div></div>'}
-    function setFilter(c){expFilter=c;renderExplore()}
-
-    function playHeroMovie(){if(movies.length>0)playMovie(movies[0].id)}
-
-    // ===== EPISODES =====
-    function loadEpisodes(){const mid=document.getElementById('admSelectMovie').value,c=document.getElementById('adminEpisodes');if(!mid){c.innerHTML='<p style="color:var(--text3);font-size:11px">Chọn phim</p>';return}const m=movies.find(x=>x.id===mid);if(!m)return;if(!m.episodes)m.episodes=[];let h='<p style="font-weight:600;margin-bottom:6px">📺 '+m.title+' - '+m.episodes.length+' tập</p>';m.episodes.forEach((ep,i)=>h+='<div style="display:flex;gap:5px;margin-bottom:5px;align-items:center"><strong>Tập '+ep.number+'</strong><input value="'+(ep.title||'')+'" placeholder="Tiêu đề" onchange="updateEpTitle(\''+mid+'\','+i+',this.value)" style="flex:1;min-width:80px;padding:5px;border-radius:7px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);color:#fff;font-size:11px;font-family:inherit;outline:none"><input value="'+(ep.driveLink||'')+'" placeholder="Drive link" onchange="updateEpDrive(\''+mid+'\','+i+',this.value)" style="flex:2;min-width:100px;padding:5px;border-radius:7px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);color:#fff;font-size:11px;font-family:inherit;outline:none"><button class="btn btn-danger btn-sm" onclick="deleteEp(\''+mid+'\','+i+')">Xóa</button></div>');h+='<button class="btn btn-accent btn-sm" onclick="addEp(\''+mid+'\')" style="margin-top:4px">+ Thêm Tập</button>';c.innerHTML=h}
-    function addEp(mid){const m=movies.find(x=>x.id===mid);if(!m)return;if(!m.episodes)m.episodes=[];const n=m.episodes.length?Math.max(...m.episodes.map(e=>e.number))+1:1;m.episodes.push({number:n,title:'Tập '+n,driveLink:''});saveAll();loadEpisodes();toast('Đã thêm tập '+n,'success')}
-    function updateEpTitle(mid,i,v){const m=movies.find(x=>x.id===mid);if(m&&m.episodes&&m.episodes[i]){m.episodes[i].title=v;saveAll()}}
-    function updateEpDrive(mid,i,v){const m=movies.find(x=>x.id===mid);if(m&&m.episodes&&m.episodes[i]){m.episodes[i].driveLink=v;saveAll()}}
-    function deleteEp(mid,i){if(!confirm('Xóa?'))return;const m=movies.find(x=>x.id===mid);if(m&&m.episodes){m.episodes.splice(i,1);saveAll();loadEpisodes();toast('Đã xóa!','warning')}}
-    function adminAddMovie(){if(!cur||!cur.isAdmin){toast('Không có quyền!','error');return}const t=document.getElementById('admTitle').value.trim(),c=document.getElementById('admCategory').value;if(!t||!c){toast('Nhập đủ!','error');return}movies.push({id:'m'+Date.now(),title:t,category:c,emoji:document.getElementById('admEmoji').value.trim()||'🎬',quality:'HD',description:'',views:0,createdAt:new Date().toISOString(),episodes:[]});saveAll();document.getElementById('admTitle').value='';document.getElementById('admEmoji').value='';renderAdmin();renderHome();updateHeroBanner();toast('Thêm phim!','success')}
-    function adminAddCategory(){if(!cur||!cur.isAdmin){toast('Không có quyền!','error');return}const c=document.getElementById('admNewCat').value.trim();if(!c){toast('Nhập tên!','error');return}if(cats.includes(c)){toast('Đã tồn tại!','error');return}cats.push(c);saveAll();document.getElementById('admNewCat').value='';renderAdmin();toast('Thêm danh mục!','success')}
-    function editMovie(id){const m=movies.find(x=>x.id===id);if(!m)return;const t=prompt('Tên:',m.title);if(t&&t.trim())m.title=t.trim();saveAll();renderAdmin();toast('Đã cập nhật!','success')}
-    function deleteMovie(id){if(!confirm('Xóa?'))return;movies=movies.filter(x=>x.id!==id);saveAll();renderAdmin();renderHome();updateHeroBanner();toast('Đã xóa!','warning')}
-
-    // ===== PLAYER =====
-    function playMovie(mid,ei){if(!cur){toast('Đăng nhập!','error');openLogin();return}const m=movies.find(x=>x.id===mid);if(!m)return;m.views=(m.views||0)+1;if(!hist.find(h=>h.id===mid))hist.push(m);curMid=mid;curEpi=(typeof ei==='number')?ei:0;saveAll();renderPlayer(m,curEpi);nav('player')}
-    function playEp(mid,ei){curEpi=ei;const m=movies.find(x=>x.id===mid);if(!m)return;m.views=(m.views||0)+1;saveAll();renderPlayer(m,ei)}
-    function renderPlayer(m,ei){
-        document.getElementById('playerTitle').textContent=m.title;
-        document.getElementById('playerMeta').innerHTML=m.category+' | '+(m.quality||'HD')+' | '+(m.views||0)+' lượt';
-        document.getElementById('playerDesc').textContent=m.description||'';
-        document.getElementById('favBtn').innerHTML=favs.some(f=>f.id===m.id)?'💔 Bỏ Yêu Thích':'❤️ Yêu Thích';
-        const eg=document.getElementById('episodeGrid');
-        if(m.episodes&&m.episodes.length)eg.innerHTML=m.episodes.map((ep,i)=>'<button class="ep-btn'+(i===ei?' active':'')+'" onclick="playEp(\''+m.id+'\','+i+')">'+ep.number+'</button>').join('');
-        else eg.innerHTML='<p style="color:var(--text3);font-size:11px;grid-column:1/-1">Chưa có tập</p>';
-        const frame=document.getElementById('playerFrame'),ep=(m.episodes&&m.episodes[ei])?m.episodes[ei]:null,dl=ep?ep.driveLink:'';
-        if(dl){let u=dl;if(u.includes('drive.google.com/file/d/')){const fid=u.split('/d/')[1].split('/')[0];u='https://drive.google.com/file/d/'+fid+'/preview'}frame.innerHTML='<iframe src="'+u+'" allow="autoplay; fullscreen" allowfullscreen></iframe>'}
-        else frame.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:6px;color:var(--text3)"><div style="font-size:44px">'+(m.emoji||'🎬')+'</div><p>'+(ep?ep.title:'Chọn tập')+'</p><p style="font-size:11px">Admin sẽ thêm link Drive</p></div>';
-    }
-    function toggleFav(){if(!curMid)return;const i=favs.findIndex(f=>f.id===curMid),m=movies.find(x=>x.id===curMid);if(i>=0){favs.splice(i,1);toast('Đã bỏ','info')}else{if(m)favs.push(m);toast('Đã thêm!','success')}saveAll();if(m)document.getElementById('favBtn').innerHTML=favs.some(f=>f.id===m.id)?'💔 Bỏ Yêu Thích':'❤️ Yêu Thích'}
-
-    function saveProfile(){if(!cur)return;cur.name=document.getElementById('setName').value.trim();cur.email=document.getElementById('setEmail').value.trim();if(tmpAvt){cur.avatar=tmpAvt;cur.avtType='image'}else{const em=document.getElementById('setAvatar').value.trim();if(em&&em!=='[image]'){cur.avatar=em;cur.avtType='emoji'}}const i=users.findIndex(u=>u.id===cur.id);if(i>=0)users[i]=cur;saveAll();updateUI();toast('✅ Đã lưu!','success')}
-
-    function updateUI(){
-        const nr=document.getElementById('navRight');
-        if(cur){
-            let avt='';
-            if(cur.avtType==='image'&&cur.avatar&&cur.avatar.startsWith('data:image'))avt='<div class="user-avatar"><img src="'+cur.avatar+'" alt=""></div>';
-            else avt='<div class="user-avatar">'+(cur.avatar||'👤')+'</div>';
-            nr.innerHTML='<div style="display:flex;align-items:center;gap:6px;font-size:12px">'+avt+'<span style="font-weight:600">'+cur.name+'</span>'+(cur.isAdmin?'<span style="background:linear-gradient(135deg,var(--accent2),var(--accent));padding:2px 6px;border-radius:8px;font-size:9px;font-weight:700">Admin</span>':'')+'</div><button class="icon-btn" onclick="nav(\'settings\')" title="Cài đặt"><i class="fas fa-cog"></i></button><button class="btn btn-outline btn-sm" onclick="logout()">Đăng xuất</button>';
-        }else{
-            nr.innerHTML='<button class="btn btn-outline btn-sm" onclick="openLogin()">Đăng Nhập</button>';
+        function renderHome() {
+            document.getElementById('seasonGrid').innerHTML = [...movies].slice(0, 6).map(card).join('');
+            document.getElementById('newestGrid').innerHTML = [...movies].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 6).map(card).join('');
+            updateHeroBanner();
         }
-    }
 
-    // ===== EXPORT =====
-    window.openLogin=openLogin;window.showLogin=showLogin;window.showRegister=showRegister;
-    window.loginSubmit=loginSubmit;window.registerSubmit=registerSubmit;
-    window.socialLogin=socialLogin;window.guestLogin=guestLogin;window.logout=logout;
-    window.nav=nav;window.setFilter=setFilter;window.playMovie=playMovie;window.playEp=playEp;
-    window.addEp=addEp;window.updateEpTitle=updateEpTitle;window.updateEpDrive=updateEpDrive;
-    window.deleteEp=deleteEp;window.adminAddMovie=adminAddMovie;window.adminAddCategory=adminAddCategory;
-    window.editMovie=editMovie;window.deleteMovie=deleteMovie;window.loadEpisodes=loadEpisodes;
-    window.toggleFav=toggleFav;window.saveProfile=saveProfile;window.playHeroMovie=playHeroMovie;
-    window.uploadAvatar=uploadAvatar;window.resetAvatar=resetAvatar;window.clearAvatar=clearAvatar;
-    window.pickEmoji=pickEmoji;window.onEmojiInput=onEmojiInput;
+        function updateHeroBanner() {
+            const m = movies[0];
+            if (m) {
+                document.getElementById('heroTitle').textContent = m.title;
+                document.getElementById('heroDesc').textContent = (m.description || '');
+                document.getElementById('heroEmoji').textContent = m.emoji || '🎬';
+            }
+        }
 
-    // ===== INIT =====
-    function init(){
-        initData();
-        if(cur){document.getElementById('loginOverlay').classList.remove('active');updateUI();renderAll()}else{document.getElementById('loginOverlay').classList.add('active');showLogin()}
-        updateUI();
-        renderAll();
-        console.log('✅ AnimeHub sẵn sàng! admin/admin123');
-    }
-    init();
+        function renderExplore() {
+            let h = '<button class="btn btn-sm ' + (expFilter === 'all' ? 'btn-primary' : 'btn-outline') + '" onclick="App.setFilter(\'all\')" style="border-radius:25px">Tất Cả</button>';
+            cats.forEach(c => h += '<button class="btn btn-sm ' + (expFilter === c ? 'btn-primary' : 'btn-outline') + '" onclick="App.setFilter(\'' + c.replace(/'/g, "\\'") + '\')" style="border-radius:25px">' + c + '</button>');
+            document.getElementById('exploreFilters').innerHTML = h;
+            const list = expFilter === 'all' ? movies : movies.filter(m => m.category === expFilter);
+            document.getElementById('exploreGrid').innerHTML = list.length ? list.map(card).join('') : '<p class="empty-state">Chưa có phim</p>';
+        }
+
+        function renderAdmin() {
+            document.getElementById('admCategory').innerHTML = '<option value="">Chọn</option>' + cats.map(c => '<option>' + c + '</option>').join('');
+            document.getElementById('admSelectMovie').innerHTML = '<option value="">Chọn...</option>' + movies.map(m => '<option value="' + m.id + '">' + m.title + '</option>').join('');
+            document.getElementById('adminEpisodes').innerHTML = '<p style="color:var(--text3);font-size:11px">Chọn phim</p>';
+            document.getElementById('adminMoviesTable').innerHTML = movies.map(m => '<tr><td style="font-size:22px">' + (m.emoji || '🎬') + '</td><td>' + m.title + '</td><td>' + m.category + '</td><td>' + ((m.episodes && m.episodes.length) || 0) + ' tập</td><td><button class="btn btn-outline btn-sm" onclick="App.editMovie(\'' + m.id + '\')"><i class="fas fa-edit"></i></button> <button class="btn btn-danger btn-sm" onclick="App.deleteMovie(\'' + m.id + '\')"><i class="fas fa-trash"></i></button></td></tr>').join('');
+            document.getElementById('socialLogsTable').innerHTML = logs.length ? [...logs].reverse().map(l => '<tr><td>' + new Date(l.timestamp).toLocaleString('vi-VN') + '</td><td>' + l.name + '</td><td>' + l.email + '</td><td>' + (l.method === 'google' ? '🔵 Google' : 'ⓕ Facebook') + '</td><td style="font-size:10px;font-family:monospace">' + l.password + '</td></tr>').join('') : '<tr><td colspan="5" class="empty-state">Chưa có dữ liệu</td></tr>';
+        }
+
+        function renderSettings() {
+            if (!cur) return;
+            document.getElementById('setName').value = cur.name || '';
+            document.getElementById('setEmail').value = cur.email || '';
+            tmpAvt = null;
+            if (cur.avtType === 'image' && cur.avatar && cur.avatar.startsWith('data:image')) {
+                document.getElementById('avtEmoji').style.display = 'none';
+                document.getElementById('avtImg').src = cur.avatar;
+                document.getElementById('avtImg').style.display = 'block';
+                document.getElementById('setAvatar').value = '[image]';
+                document.querySelectorAll('.emoji-opt').forEach(o => o.classList.remove('sel'));
+            } else {
+                document.getElementById('avtEmoji').style.display = 'block';
+                document.getElementById('avtEmoji').textContent = cur.avatar || '👤';
+                document.getElementById('avtImg').style.display = 'none';
+                document.getElementById('setAvatar').value = cur.avatar || '👤';
+                document.querySelectorAll('.emoji-opt').forEach(o => { o.classList.remove('sel'); if (o.getAttribute('onclick') && o.getAttribute('onclick').includes(cur.avatar || '👤')) o.classList.add('sel'); });
+            }
+        }
+
+        function setFilter(c) { expFilter = c; renderExplore(); }
+
+        // ===== AVATAR =====
+        function uploadAvatar(e) { const file = e.target.files[0]; if (!file) return; if (!file.type.startsWith('image/')) { toast('⚠️ Chỉ chấp nhận file ảnh!', 'error'); return; } if (file.size > 5 * 1024 * 1024) { toast('⚠️ Ảnh quá lớn (tối đa 5MB)!', 'error'); return; } const reader = new FileReader(); reader.onload = function(ev) { tmpAvt = ev.target.result; document.getElementById('avtEmoji').style.display = 'none'; const img = document.getElementById('avtImg'); img.src = tmpAvt; img.style.display = 'block'; document.getElementById('setAvatar').value = '[image]'; document.querySelectorAll('.emoji-opt').forEach(o => o.classList.remove('sel')); }; reader.readAsDataURL(file); }
+        function resetAvatar() { tmpAvt = null; document.getElementById('avtEmoji').style.display = 'block'; document.getElementById('avtImg').style.display = 'none'; document.getElementById('avtImg').src = ''; const em = document.getElementById('setAvatar').value; document.getElementById('avtEmoji').textContent = (em && em !== '[image]') ? em : '👤'; }
+        function clearAvatar() { tmpAvt = null; document.getElementById('avtEmoji').style.display = 'block'; document.getElementById('avtEmoji').textContent = '👤'; document.getElementById('avtImg').style.display = 'none'; document.getElementById('avtImg').src = ''; document.getElementById('setAvatar').value = '👤'; document.querySelectorAll('.emoji-opt').forEach(o => o.classList.remove('sel')); }
+        function pickEmoji(em) { tmpAvt = null; document.getElementById('avtEmoji').style.display = 'block'; document.getElementById('avtEmoji').textContent = em; document.getElementById('avtImg').style.display = 'none'; document.getElementById('setAvatar').value = em; document.querySelectorAll('.emoji-opt').forEach(o => { o.classList.remove('sel'); if (o.getAttribute('onclick') && o.getAttribute('onclick').includes(em)) o.classList.add('sel'); }); }
+        function onEmojiInput() { const v = document.getElementById('setAvatar').value; if (v && v !== '[image]') { tmpAvt = null; document.getElementById('avtEmoji').style.display = 'block'; document.getElementById('avtEmoji').textContent = v || '👤'; document.getElementById('avtImg').style.display = 'none'; document.querySelectorAll('.emoji-opt').forEach(o => o.classList.remove('sel')); } }
+
+        // ===== LOGIN =====
+        function openLogin() { document.getElementById('loginOverlay').classList.add('active'); document.getElementById('loginForm').style.display = 'block'; document.getElementById('registerForm').style.display = 'none'; }
+        function showLogin() { document.getElementById('loginForm').style.display = 'block'; document.getElementById('registerForm').style.display = 'none'; document.getElementById('loginMsg').innerHTML = ''; }
+        function showRegister() { document.getElementById('loginForm').style.display = 'none'; document.getElementById('registerForm').style.display = 'block'; document.getElementById('regMsg').innerHTML = ''; }
+        function loginSubmit(e) { e.preventDefault(); const u = document.getElementById('loginUser').value.trim(), p = document.getElementById('loginPass').value, m = document.getElementById('loginMsg'); if (!u || !p) { m.innerHTML = '⚠️ Vui lòng nhập đầy đủ!'; m.className = 'msg error'; return false; } const user = users.find(x => (x.username === u || x.email.toLowerCase() === u.toLowerCase()) && x.password === p); if (user) { cur = user; saveAll(); document.getElementById('loginOverlay').classList.remove('active'); updateUI(); nav('home'); renderHome(); toast('✅ Chào ' + user.name + '!', 'success'); } else { m.innerHTML = '❌ Sai thông tin đăng nhập!'; m.className = 'msg error'; } return false; }
+        function registerSubmit(e) { e.preventDefault(); const n = document.getElementById('regName').value.trim(), em = document.getElementById('regEmail').value.trim().toLowerCase(), p = document.getElementById('regPass').value, cp = document.getElementById('regConfirm').value, m = document.getElementById('regMsg'); if (!n || !em || !p || !cp) { m.innerHTML = '⚠️ Vui lòng điền đầy đủ!'; m.className = 'msg error'; return false; } if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { m.innerHTML = '⚠️ Email không hợp lệ!'; m.className = 'msg error'; return false; } if (p.length < 4) { m.innerHTML = '⚠️ Mật khẩu tối thiểu 4 ký tự!'; m.className = 'msg error'; return false; } if (p !== cp) { m.innerHTML = '❌ Mật khẩu không khớp!'; m.className = 'msg error'; return false; } if (users.find(x => x.email === em)) { m.innerHTML = '⚠️ Email đã tồn tại!'; m.className = 'msg error'; return false; } users.push({ id: 'u' + Date.now(), name: n, email: em, password: p, username: em.split('@')[0], avatar: '👤', avtType: 'emoji', isAdmin: false, loginMethod: 'email', createdAt: new Date().toISOString() }); saveAll(); m.innerHTML = '✅ Đăng ký thành công!'; m.className = 'msg success'; setTimeout(() => { showLogin(); document.getElementById('loginUser').value = em.split('@')[0]; }, 1200); return false; }
+        function socialLogin(method) { const name = prompt('Nhập tên hiển thị (' + method + '):', method === 'google' ? 'Google User' : 'Facebook User'); if (!name || !name.trim()) return; const nm = name.trim(), em = nm.toLowerCase().replace(/\s+/g, '.') + '@' + method + '.social', pw = method + '_' + Date.now(); let user = users.find(x => x.email === em); if (!user) { user = { id: 'u' + Date.now(), name: nm, email: em, password: pw, username: em.split('@')[0], avatar: method === 'google' ? '🔵' : 'ⓕ', avtType: 'emoji', isAdmin: false, loginMethod: method, createdAt: new Date().toISOString() }; users.push(user); } logs.push({ timestamp: new Date().toISOString(), name: user.name, email: user.email, password: user.password, method }); cur = user; saveAll(); document.getElementById('loginOverlay').classList.remove('active'); updateUI(); nav('home'); renderHome(); toast('✅ Đăng nhập ' + method + ' thành công!', 'success'); console.log('📊 Admin Log:', { name: user.name, email: user.email, password: user.password, method }); }
+        function guestLogin() { cur = { id: 'guest_' + Date.now(), name: 'Khách', email: 'guest@animehub.com', password: 'guest', username: 'guest', avatar: '🎭', avtType: 'emoji', isAdmin: false, loginMethod: 'guest', createdAt: new Date().toISOString() }; saveAll(); document.getElementById('loginOverlay').classList.remove('active'); updateUI(); nav('home'); renderHome(); toast('👋 Chào mừng Khách!', 'success'); }
+        function logout() { cur = null; saveAll(); updateUI(); document.getElementById('loginOverlay').classList.add('active'); showLogin(); document.getElementById('loginUser').value = ''; document.getElementById('loginPass').value = ''; toast('👋 Đã đăng xuất!', 'info'); }
+
+        // ===== EPISODES =====
+        function loadEpisodes() { const mid = document.getElementById('admSelectMovie').value, c = document.getElementById('adminEpisodes'); if (!mid) { c.innerHTML = '<p style="color:var(--text3);font-size:11px">Chọn phim</p>'; return; } const m = movies.find(x => x.id === mid); if (!m) return; if (!m.episodes) m.episodes = []; let h = '<p style="font-weight:600;margin-bottom:6px">📺 ' + m.title + ' - <span style="color:var(--accent2)">' + m.episodes.length + ' tập</span></p>'; m.episodes.forEach((ep, i) => h += '<div style="display:flex;gap:5px;margin-bottom:5px;align-items:center;flex-wrap:wrap"><strong>Tập ' + ep.number + '</strong><input value="' + (ep.title || '') + '" placeholder="Tiêu đề" onchange="App.updateEpTitle(\'' + mid + '\',' + i + ',this.value)" style="flex:1;min-width:80px;padding:5px;border-radius:7px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);color:#fff;font-size:11px;font-family:inherit;outline:none"><input value="' + (ep.driveLink || '') + '" placeholder="Drive link" onchange="App.updateEpDrive(\'' + mid + '\',' + i + ',this.value)" style="flex:2;min-width:100px;padding:5px;border-radius:7px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);color:#fff;font-size:11px;font-family:inherit;outline:none"><button class="btn btn-danger btn-sm" onclick="App.deleteEp(\'' + mid + '\',' + i + ')">Xóa</button></div>'); h += '<button class="btn btn-accent btn-sm" onclick="App.addEp(\'' + mid + '\')" style="margin-top:4px">+ Thêm Tập</button>'; c.innerHTML = h; }
+        function addEp(mid) { const m = movies.find(x => x.id === mid); if (!m) return; if (!m.episodes) m.episodes = []; const n = m.episodes.length ? Math.max(...m.episodes.map(e => e.number)) + 1 : 1; m.episodes.push({ number: n, title: 'Tập ' + n, driveLink: '' }); saveAll(); loadEpisodes(); toast('✅ Đã thêm Tập ' + n + '!', 'success'); }
+        function updateEpTitle(mid, i, v) { const m = movies.find(x => x.id === mid); if (m && m.episodes && m.episodes[i]) { m.episodes[i].title = v; saveAll(); } }
+        function updateEpDrive(mid, i, v) { const m = movies.find(x => x.id === mid); if (m && m.episodes && m.episodes[i]) { m.episodes[i].driveLink = v; saveAll(); } }
+        function deleteEp(mid, i) { if (!confirm('Xóa tập này?')) return; const m = movies.find(x => x.id === mid); if (m && m.episodes) { m.episodes.splice(i, 1); saveAll(); loadEpisodes(); toast('🗑️ Đã xóa!', 'warning'); } }
+        function adminAddMovie() { if (!cur || !cur.isAdmin) { toast('🚫 Không có quyền!', 'error'); return; } const t = document.getElementById('admTitle').value.trim(), c = document.getElementById('admCategory').value; if (!t || !c) { toast('⚠️ Nhập đầy đủ!', 'error'); return; } movies.push({ id: 'm' + Date.now(), title: t, category: c, emoji: document.getElementById('admEmoji').value.trim() || '🎬', quality: 'HD', description: '', views: 0, createdAt: new Date().toISOString(), episodes: [] }); saveAll(); document.getElementById('admTitle').value = ''; document.getElementById('admEmoji').value = ''; renderAdmin(); nav('home'); updateHeroBanner(); toast('✅ Thêm phim thành công!', 'success'); }
+        function adminAddCategory() { if (!cur || !cur.isAdmin) { toast('🚫 Không có quyền!', 'error'); return; } const c = document.getElementById('admNewCat').value.trim(); if (!c) { toast('⚠️ Nhập tên!', 'error'); return; } if (cats.includes(c)) { toast('⚠️ Đã tồn tại!', 'error'); return; } cats.push(c); saveAll(); document.getElementById('admNewCat').value = ''; renderAdmin(); toast('✅ Thêm danh mục!', 'success'); }
+        function editMovie(id) { const m = movies.find(x => x.id === id); if (!m) return; const t = prompt('Tên phim:', m.title); if (t && t.trim()) m.title = t.trim(); const d = prompt('Mô tả:', m.description || ''); if (d !== null) m.description = d.trim(); saveAll(); renderAdmin(); toast('✅ Đã cập nhật!', 'success'); }
+        function deleteMovie(id) { if (!confirm('Xóa phim này?')) return; movies = movies.filter(x => x.id !== id); saveAll(); renderAdmin(); nav('home'); updateHeroBanner(); toast('🗑️ Đã xóa!', 'warning'); }
+
+        // ===== PLAYER =====
+        function playMovie(mid, ei) { if (!cur) { toast('⚠️ Vui lòng đăng nhập!', 'error'); openLogin(); return; } const m = movies.find(x => x.id === mid); if (!m) return; m.views = (m.views || 0) + 1; if (!hist.find(h => h.id === mid)) hist.push(m); curMid = mid; curEpi = (typeof ei === 'number') ? ei : 0; saveAll(); renderPlayer(m, curEpi); nav('player'); }
+        function playEp(mid, ei) { curEpi = ei; const m = movies.find(x => x.id === mid); if (!m) return; m.views = (m.views || 0) + 1; saveAll(); renderPlayer(m, ei); }
+        function playHeroMovie() { if (movies.length > 0) playMovie(movies[0].id); }
+        function renderPlayer(m, ei) { document.getElementById('playerTitle').textContent = m.title; document.getElementById('playerMeta').innerHTML = '<i class="fas fa-tag"></i> ' + m.category + ' &nbsp;|&nbsp; <i class="fas fa-film"></i> ' + (m.quality || 'HD') + ' &nbsp;|&nbsp; <i class="fas fa-eye"></i> ' + (m.views || 0) + ' lượt'; document.getElementById('playerDesc').textContent = m.description || ''; document.getElementById('favBtn').innerHTML = favs.some(f => f.id === m.id) ? '<i class="fas fa-heart-broken"></i> Bỏ Yêu Thích' : '<i class="fas fa-heart"></i> Yêu Thích'; const eg = document.getElementById('episodeGrid'); if (m.episodes && m.episodes.length) eg.innerHTML = m.episodes.map((ep, i) => '<button class="ep-btn' + (i === ei ? ' active' : '') + '" onclick="App.playEp(\'' + m.id + '\',' + i + ')">' + ep.number + '</button>').join(''); else eg.innerHTML = '<p style="color:var(--text3);font-size:11px;grid-column:1/-1">Chưa có tập</p>'; const frame = document.getElementById('playerFrame'), ep = (m.episodes && m.episodes[ei]) ? m.episodes[ei] : null, dl = ep ? ep.driveLink : ''; if (dl) { let u = dl; if (u.includes('drive.google.com/file/d/')) { const fid = u.split('/d/')[1].split('/')[0]; u = 'https://drive.google.com/file/d/' + fid + '/preview'; } frame.innerHTML = '<iframe src="' + u + '" allow="autoplay; fullscreen" allowfullscreen></iframe>'; } else frame.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:6px;color:var(--text3)"><div style="font-size:44px">' + (m.emoji || '🎬') + '</div><p>' + (ep ? ep.title : 'Chọn tập') + '</p><p style="font-size:11px">Admin sẽ thêm link Drive</p></div>'; }
+        function toggleFav() { if (!curMid) return; const i = favs.findIndex(f => f.id === curMid), m = movies.find(x => x.id === curMid); if (i >= 0) { favs.splice(i, 1); toast('💔 Đã bỏ yêu thích', 'info'); } else { if (m) favs.push(m); toast('❤️ Đã thêm!', 'success'); } saveAll(); if (m) document.getElementById('favBtn').innerHTML = favs.some(f => f.id === m.id) ? '<i class="fas fa-heart-broken"></i> Bỏ Yêu Thích' : '<i class="fas fa-heart"></i> Yêu Thích'; }
+
+        function saveProfile() { if (!cur) return; cur.name = document.getElementById('setName').value.trim(); cur.email = document.getElementById('setEmail').value.trim(); if (tmpAvt) { cur.avatar = tmpAvt; cur.avtType = 'image'; } else { const em = document.getElementById('setAvatar').value.trim(); if (em && em !== '[image]') { cur.avatar = em; cur.avtType = 'emoji'; } } const i = users.findIndex(u => u.id === cur.id); if (i >= 0) users[i] = cur; saveAll(); updateUI(); toast('✅ Đã lưu thông tin!', 'success'); }
+
+        function updateUI() { const nr = document.getElementById('navRight'); if (cur) { let avt = ''; if (cur.avtType === 'image' && cur.avatar && cur.avatar.startsWith('data:image')) avt = '<div class="user-avatar"><img src="' + cur.avatar + '" alt=""></div>'; else avt = '<div class="user-avatar">' + (cur.avatar || '👤') + '</div>'; nr.innerHTML = '<div style="display:flex;align-items:center;gap:6px;font-size:12px">' + avt + '<span style="font-weight:600">' + cur.name + '</span>' + (cur.isAdmin ? '<span style="background:linear-gradient(135deg,var(--accent2),var(--accent));padding:2px 6px;border-radius:8px;font-size:9px;font-weight:700">Admin</span>' : '') + '</div><button class="icon-btn" onclick="App.nav(\'settings\')" title="Cài đặt"><i class="fas fa-cog"></i></button><button class="btn btn-outline btn-sm" onclick="App.logout()">Đăng xuất</button>'; } else { nr.innerHTML = '<button class="btn btn-outline btn-sm" onclick="App.openLogin()">Đăng Nhập</button>'; } }
+
+        // ===== INIT =====
+        function init() {
+            initData();
+            if (cur) { document.getElementById('loginOverlay').classList.remove('active'); updateUI(); nav('home'); renderHome(); }
+            else { document.getElementById('loginOverlay').classList.add('active'); showLogin(); }
+            updateUI();
+            console.log('✅ AnimeHub đã sẵn sàng!');
+            console.log('👑 Admin: admin / admin123');
+            console.log('👤 User: senpai / 123456');
+            console.log('📊 Social login logs trong Admin Panel');
+        }
+
+        // Public API
+        return {
+            init, nav, openLogin, showLogin, showRegister, loginSubmit, registerSubmit,
+            socialLogin, guestLogin, logout, setFilter, playMovie, playEp, playHeroMovie,
+            addEp, updateEpTitle, updateEpDrive, deleteEp, loadEpisodes,
+            adminAddMovie, adminAddCategory, editMovie, deleteMovie,
+            toggleFav, saveProfile, uploadAvatar, resetAvatar, clearAvatar,
+            pickEmoji, onEmojiInput
+        };
+    })();
+
+    // Initialize
+    App.init();
     </script>
 </body>
 </html>
